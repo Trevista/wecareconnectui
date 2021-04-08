@@ -3,8 +3,8 @@
     <div class="header-top" *ngIf="headerTop">
         <div class="left-top ">
             <ul>
-                <li><i class="fas fa-map-marker-alt top-icon"></i>123, washington street, uk</li>
-                <li><i class="fas fa-phone-volume top-icon"></i>+19 123-456-7890</li>
+                <li><i class="fas fa-map-marker-alt top-icon"></i>123, abc street, Hyd,Ind</li>
+                <li><i class="fas fa-phone-volume top-icon"></i>+91 123-456-7890</li>
                 <li><i class="fas fa-envelope top-icon"></i>mail@yourdomain.com</li>
             </ul>
         </div>
@@ -33,13 +33,13 @@
                     </span>
                 </a>
                 <a (click)="home()" class="navbar-brand logo">
-                    <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                    <img src="assets/newimg/logo.jpg" width="80" height="80" class="img-fluid" alt="Logo">
                 </a>
             </div>
             <div class="main-menu-wrapper">
                 <div class="menu-header">
                     <a class="menu-logo">
-                        <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                        <img src="assets/newimg/logo.jpg" width="80" height="80" class="img-fluid" alt="Logo">
                     </a>
                     <a id="menu_close" class="menu-close" href="javascript:void(0);">
                         <i class="fas fa-times"></i>
@@ -47,8 +47,8 @@
                 </div>
                 <ul class="main-nav" >
                     <li [class.active]="base === 'home' || base === 'home-one' || base === 'home-two' || base === 'home-slider-one' || base === 'home-slider-two' " (click)="addStyle('home')" class="has-submenu" style="cursor: pointer;">
-                        <a href="javascript:void(0);">Home <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu" id="home">
+                        <a href="javascript:void(0);">Home <i class="fas fa-chevron-down" hidden></i></a>
+                        <ul class="submenu" id="home" hidden>
                             <li [class.active]="base === 'home'" ><a [routerLink]="'home'">Home</a></li>
                             <li [class.active]="base === 'home-one'" ><a [routerLink]="'home-one'">Home1</a></li>
                             <li [class.active]="base === 'home-two'" ><a [routerLink]="'home-two'">Home2</a></li>
@@ -105,10 +105,10 @@
                             <li [class.active]="base === 'pharmacy' && page === 'checkout'"><a [routerLink]="'pharmacy/checkout'">Product Checkout</a></li>
                             <li [class.active]="base === 'pharmacy' && page === 'success'"><a [routerLink]="'pharmacy/success'">Payment Success</a></li>
                         </ul>
-                    </li> 
+                    </li>
 
-                    <li [class.active]="base === 'voice-call' || base === 'video-call' || base === 'calender' || base === 'blank' || base === 'login-page' 
-                    || base === 'Register' || base === 'forgot-password' || (base === 'patients' && page === 'search-doctor') 
+                    <li [class.active]="base === 'voice-call' || base === 'video-call' || base === 'calender' || base === 'blank' || base === 'login-page'
+                    || base === 'Register' || base === 'forgot-password' || (base === 'patients' && page === 'search-doctor')
                     || (base === 'patients' && page === 'component') || (base === 'doctor' && page === 'invoice') || base === 'invoice-details'"class="has-submenu" pharmacy>
                         <a href="javascript:void(0)">Pages <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="pages">
@@ -129,12 +129,12 @@
                             <li [class.active]="base === 'Register'"><a [routerLink]="'Register'">Register</a></li>
                             <li [class.active]="base === 'forgot-password'"><a [routerLink]="'forgot-password'">Forgot Password</a></li>
                         </ul>
-                    </li> 
+                    </li>
                     <li class="has-submenu" (click)="addStyle('blog')"  [class.active]="base === 'blog' || base === 'blog-grid' || base === 'blog-details'">
                         <a href="javascript:void(0)">Blog <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="blog">
                             <li [class.active]="base === 'blog'"><a [routerLink]="'blog'">Blog List</a></li>
-                            <li [class.active]="base === 'blog-grid'"><a [routerLink]="'blog-grid'">Blog Grid</a></li> 
+                            <li [class.active]="base === 'blog-grid'"><a [routerLink]="'blog-grid'">Blog Grid</a></li>
                             <li [class.active]="base === 'blog-details'"><a [routerLink]="'blog-details'">Blog Details</a></li>
                         </ul>
                     </li>
@@ -142,7 +142,7 @@
                         <a href="javascript:void(0)">Admin <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="admin">
                             <li [class.active]="base === 'admin'"><a (click)="navigate('Admin')">Admin</a></li>
-                            <li [class.active]="base === 'pharmacy-admin'"><a (click)="navigate('Pharmacy Admin')">Pharmacy Admin</a></li> 
+                            <li [class.active]="base === 'pharmacy-admin'"><a (click)="navigate('Pharmacy Admin')">Pharmacy Admin</a></li>
                         </ul>
                     </li>
                     <li class="login-link">
@@ -157,7 +157,7 @@
                     </div>
                     <div class="header-contact-detail">
                         <p class="contact-header">Contact</p>
-                        <p class="contact-info-header"> +1 315 369 5943</p>
+                        <p class="contact-info-header"> +91 123 434 2343</p>
                     </div>
                 </li>
                 <li [class.active]="base === 'login-page'" class="nav-item" *ngIf="!auth">
@@ -189,8 +189,8 @@
                     </div>
                 </li>
                     <!-- /User Menu -->
-                        
+
             </ul>
-           
+
         </nav>
     </header>

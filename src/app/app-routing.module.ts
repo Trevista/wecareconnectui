@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home-slider-one', pathMatch: 'full' },
+  { path: '', redirectTo: 'wecare', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
@@ -18,7 +18,7 @@ const routes: Routes = [
       import('./home-two/home-two.module').then((m) => m.HomeTwoModule),
   },
   {
-    path: 'home-slider-one',
+    path: 'wecare',
     loadChildren: () =>
       import('./home-slider-one/home-slider-one.module').then(
         (m) => m.HomeSliderOneModule
