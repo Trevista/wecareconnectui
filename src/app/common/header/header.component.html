@@ -3,8 +3,8 @@
     <div class="header-top" *ngIf="headerTop">
         <div class="left-top ">
             <ul>
-                <li><i class="fas fa-map-marker-alt top-icon"></i>123, washington street, uk</li>
-                <li><i class="fas fa-phone-volume top-icon"></i>+19 123-456-7890</li>
+                <li><i class="fas fa-map-marker-alt top-icon"></i>#123, RBI Bank street, Hyderabad, IN</li>
+                <li><i class="fas fa-phone-volume top-icon"></i>+91 12345 67890</li>
                 <li><i class="fas fa-envelope top-icon"></i>mail@yourdomain.com</li>
             </ul>
         </div>
@@ -33,7 +33,7 @@
                     </span>
                 </a>
                 <a (click)="home()" class="navbar-brand logo">
-                    <img src="assets/img/logo.png" class="img-fluid" alt="Logo">
+                    <img src="assets/img/medicalconsultlogo.jpg" class="img-fluid" style="width: 46%;" alt="Logo">
                 </a>
             </div>
             <div class="main-menu-wrapper">
@@ -47,14 +47,14 @@
                 </div>
                 <ul class="main-nav" >
                     <li [class.active]="base === 'home' || base === 'home-one' || base === 'home-two' || base === 'home-slider-one' || base === 'home-slider-two' " (click)="addStyle('home')" class="has-submenu" style="cursor: pointer;">
-                        <a href="javascript:void(0);">Home <i class="fas fa-chevron-down"></i></a>
-                        <ul class="submenu" id="home">
-                            <li [class.active]="base === 'home'" ><a [routerLink]="'home'">Home</a></li>
-                            <li [class.active]="base === 'home-one'" ><a [routerLink]="'home-one'">Home1</a></li>
-                            <li [class.active]="base === 'home-two'" ><a [routerLink]="'home-two'">Home2</a></li>
-                            <li [class.active]="base === 'home-slider-one'" ><a [routerLink]="'home-slider-one'">Home Slider1</a></li>
-                            <li [class.active]="base === 'home-slider-two'" ><a [routerLink]="'home-slider-two'">Home Slider2</a></li>
-                        </ul>
+                        <a href="javascript:void(0);" [routerLink]="'home-slider-one'">Home</a>
+                        <!-- <ul class="submenu" id="home"> -->
+                            <!-- <li [class.active]="base === 'home'" ><a [routerLink]="'home'">Home</a></li> -->
+                            <!-- <li [class.active]="base === 'home-one'" ><a [routerLink]="'home-one'">Home1</a></li>
+                            <li [class.active]="base === 'home-two'" ><a [routerLink]="'home-two'">Home2</a></li> -->
+                            <!-- <li [class.active]="base === 'home-slider-one'" ><a [routerLink]="'home-slider-one'">Home slider 1</a></li> -->
+                            <!-- <li [class.active]="base === 'home-slider-two'" ><a [routerLink]="'home-slider-two'">Home Slider2</a></li> -->
+                        <!-- </ul> -->
                     </li>
                     <li [class.active]="base === 'doctor' || (base === 'patients' && page === 'patient-profile')" (click)="addStyle('doctor')" class="has-submenu"  style="cursor: pointer;" >
                         <a (click)="doctor('doctor')">Doctors <i class="fas fa-chevron-down"></i></a>
@@ -107,7 +107,7 @@
                         </ul>
                     </li> 
 
-                    <li [class.active]="base === 'voice-call' || base === 'video-call' || base === 'calender' || base === 'blank' || base === 'login-page' 
+                    <!-- <li [class.active]="base === 'voice-call' || base === 'video-call' || base === 'calender' || base === 'blank' || base === 'login-page' 
                     || base === 'Register' || base === 'forgot-password' || (base === 'patients' && page === 'search-doctor') 
                     || (base === 'patients' && page === 'component') || (base === 'doctor' && page === 'invoice') || base === 'invoice-details'"class="has-submenu" pharmacy>
                         <a href="javascript:void(0)">Pages <i class="fas fa-chevron-down"></i></a>
@@ -129,15 +129,15 @@
                             <li [class.active]="base === 'Register'"><a [routerLink]="'Register'">Register</a></li>
                             <li [class.active]="base === 'forgot-password'"><a [routerLink]="'forgot-password'">Forgot Password</a></li>
                         </ul>
-                    </li> 
-                    <li class="has-submenu" (click)="addStyle('blog')"  [class.active]="base === 'blog' || base === 'blog-grid' || base === 'blog-details'">
+                    </li>  -->
+                    <!-- <li class="has-submenu" (click)="addStyle('blog')"  [class.active]="base === 'blog' || base === 'blog-grid' || base === 'blog-details'">
                         <a href="javascript:void(0)">Blog <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="blog">
                             <li [class.active]="base === 'blog'"><a [routerLink]="'blog'">Blog List</a></li>
                             <li [class.active]="base === 'blog-grid'"><a [routerLink]="'blog-grid'">Blog Grid</a></li> 
                             <li [class.active]="base === 'blog-details'"><a [routerLink]="'blog-details'">Blog Details</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                     <li class="has-submenu" (click)="addStyle('admin')" [class.active]="base === 'admin' || base === 'pharmacy-admin'">
                         <a href="javascript:void(0)">Admin <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="admin">
@@ -153,11 +153,11 @@
             <ul class="nav header-navbar-rht">
                 <li class="nav-item contact-item">
                     <div class="header-contact-img">
-                        <i class="far fa-hospital"></i>
+                        <i class="fa fa-mobile-alt"></i>
                     </div>
                     <div class="header-contact-detail">
                         <p class="contact-header">Contact</p>
-                        <p class="contact-info-header"> +1 315 369 5943</p>
+                        <p class="contact-info-header">+91 12345 67890</p>
                     </div>
                 </li>
                 <li [class.active]="base === 'login-page'" class="nav-item" *ngIf="!auth">
