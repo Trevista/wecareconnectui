@@ -55,13 +55,14 @@ export class CommonServiceService {
   ];
 
   messages: '';
-  SERVER_URL: string = 'http://localhost:8080/api/';
+  SERVER_URL: string = 'http://praveenkumars219-001-site12.etempurl.com/api/';
   message: BehaviorSubject<String>;
   constructor(public http: HttpClient) {
     this.message = new BehaviorSubject(this.messages);
   }
 
   nextmessage(data) {
+    console.log("Inside common service nextmessage....")
     this.message.next(data);
   }
 

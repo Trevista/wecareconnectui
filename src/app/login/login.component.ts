@@ -39,6 +39,36 @@ export class LoginComponent implements OnInit {
   }
 
   login(name, password) {
+    console.log("Clicked login...", "NAME: ",name ," Password: ", password);
+    localStorage.setItem('auth', 'true');
+    localStorage.setItem('patient', this.isPatient.toString());
+    if (this.isPatient) {
+      console.log("checked patient...");
+      let filter = this.patients.filter(
+        (a) => a.name === this.username && a.password === this.password
+      );
+      if (filter.length !== 0) {
+        console.log("Filter length is not 0");
+        localStorage.setItem('id', filter[0]['id']);
+        this.toastr.success('', 'Login success!');
+        console.log("common nextmessage transfering...");
+        this.commonService.nextmessage('patientLogin');
+        console.log("Transferred to commonservice nextmessage..");
+        this.router.navigate(['/patients/dashboard']);
+        console.log("Navigated to  patients dashboard...");
+      } else {
+        this.toastr.error('', 'Login failed!');
+      }
+    } else {
+      console.log("Checked doctors...");
+      let filter = this.doctors.filter(
+        (a) => a.doctor_name === this.username && a.password === this.password
+      );
+      if (filter.length != 0) {
+        this.toastr.success('', 'Login success!');
+        this.commonService.nextmessage('doctorLogin');
+        localStorage.setItem('id', filter[0]['id']);
+        console.log("Naviagting to doctors dashboard...");
     const params = {
       email: name,
       password

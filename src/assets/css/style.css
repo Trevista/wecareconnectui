@@ -2255,7 +2255,7 @@ html.menu-opened body {
 	margin-right: 15px;
 }
 .footer .footer-bottom .copyright {
-	border-top: 1px solid #1663a6;
+	border-top: 1px solid white;
 	padding: 30px 0;
 }
 .footer .footer-bottom .copyright-text p {
@@ -2619,7 +2619,7 @@ html.menu-opened body {
     color: #09e5ab;
 }
 .search-box-3{
-    background: #1e5c92;
+    background: #4caf50;
     padding: 40px 20px;
     border-radius: 10px;
     margin-top: -50px;
@@ -2628,7 +2628,7 @@ html.menu-opened body {
 .btn-search{
 	    background: #fff;
 		border: 1px solid #fff;
-		color: #1e5c92;
+		color: #4caf50;
 }
 .search-box form {
 	display: -webkit-box;
@@ -3282,7 +3282,7 @@ html.menu-opened body {
 -----------------------*/
 
 .breadcrumb-bar {
-    background-color: #15558d;
+    background-color: #4caf50;
     padding: 15px 0;
 }
 .breadcrumb-bar .breadcrumb-title {
@@ -7511,7 +7511,7 @@ ul.benifits-col li i{
 		z-index: 1060;
 		transform: translateX(-260px);
 		transition: all 0.4s;
-		background-color: #15558d;
+		background-color: #4caf50;
 	}
 	.menu-header {
 		display: -webkit-box;

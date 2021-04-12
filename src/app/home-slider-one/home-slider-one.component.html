@@ -5,26 +5,28 @@
         <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel" data-interval="2500"> 
           <div class="carousel-inner">
             <div class="carousel-item active">
-              <img class="d-block w-100" src="assets/img/slider/slider-1.jpg" alt="First slide">
-              <div class="carousel-caption d-none d-md-block">
+              <img class="d-block w-100" src="assets/img/slider/doctor_patient.jpg" alt="First slide">
+              <div class="carousel-caption d-none d-md-block"  style="margin-left: 30%; margin-top: -5%;">
+                  <div>
                   <span>We Provide Solution</span>
-                  <h2>To stressless Life</h2>
-                  <p>People who are more perfectionist are most likely to be depressed,<br>Because they stress themselves out so much.</p>
+                  <h2 style="color: #4caf50;">To stressless Life</h2>
+                </div>
+                  <p style="margin-top: -2%;">People who are more perfectionist are most likely to be depressed,<br>Because they stress themselves out so much.</p>
                 </div>
             </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="assets/img/slider/slider-2.jpg" alt="Second slide">
+              <img class="d-block w-100" src="assets/img/slider/pharma.jpg" alt="Second slide">
               <div class="carousel-caption d-none d-md-block">
                   <span>We Provide Solution</span>
-                  <h2>Health Care Solution</h2>
-                  <p>Every day we bring hope to millions of children in the world's<br>  hardest places as a sign of God's unconditional love.</p>
+                  <h2 style="color: #4caf50;">Health Care Solution Pharmacy</h2>
+                  <p style="margin-top: -2%;">Every day we bring hope to millions of children in the world's<br>  hardest places as a sign of God's unconditional love.</p>
                 </div>
             </div>
             <div class="carousel-item">
-              <img class="d-block w-100" src="assets/img/slider/slider-3.jpg" alt="Third slide">
+              <img class="d-block w-100" src="assets/img/slider/ambulance.jpg" alt="Third slide">
               <div class="carousel-caption d-none d-md-block">
                   <span>We Provide total</span>
-                  <h2>Personalised care</h2>
+                  <h2 style="color: #4caf50;">Personalised care Ambulance</h2>
                   <p>People who are more perfectionist are most likely to be depressed,<br>Because they stress themselves out so much.</p>
                 </div>
             </div>
@@ -56,19 +58,22 @@
         </div>
         <!-- /Search -->
     </div>
-</section>
+</section>&nbsp;&nbsp;
 <!-- /Home Banner -->
+
+
+
 <!-- Clinic and Specialities -->
-<section class="section section-specialities">
+<!-- <section class="section section-specialities">
     <div class="container-fluid">
         <div class="section-header text-center">
             <h2>Clinic and Specialities</h2>
             <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
         </div>
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-md-9"> -->
                 <!-- Slider -->
-                <ngx-slick-carousel class="specialities-slider slider" #slickModal="slick-carousel" [config]="slideConfig3">
+                <!-- <ngx-slick-carousel class="specialities-slider slider" #slickModal="slick-carousel" [config]="slideConfig3">
                     <div ngxSlickItem *ngFor="let slide of slides" class="speicality-item text-center">
                             <div class="speicality-img">
                                 <img src="{{slide.img}}" class="img-fluid" alt="Speciality">
@@ -76,19 +81,24 @@
                             </div>
                             <p>{{slide.name}}</p>
                     </div>
-                </ngx-slick-carousel>
+                </ngx-slick-carousel> -->
                 <!-- /Slider -->
-            </div>
+            <!-- </div>
         </div>
     </div>
-</section>
+</section> -->
+
+
+
+
+
 <!-- Clinic and Specialities -->
 <!-- Category Section -->
 <section class="section section-category">
     <div class="container">
         <div class="section-header text-center">
             <h2>Browse by Specialities</h2>
-            <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+            <p class="sub-title">“Everything that irritates us about others can lead us to an understanding of ourselves.”</p>
         </div>
         <div class="row">
             <div class="col-lg-3">
@@ -285,20 +295,22 @@
     </div>
 </section>
 <!-- /Availabe Features -->
+
+
 <!-- Blog Section -->
-<section class="section section-blogs">
-    <div class="container-fluid">
+<!-- <section class="section section-blogs">
+    <div class="container-fluid"> -->
         <!-- Section Header -->
-        <div class="section-header text-center">
+        <!-- <div class="section-header text-center">
             <h2>Blogs and News</h2>
             <p class="sub-title">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-        </div>
+        </div> -->
         <!-- /Section Header -->
-        <div class="row blog-grid-row">
-            <div class="col-md-6 col-lg-3 col-sm-12" *ngFor="let blog of blogs;let i=index" [hidden]="i>3">
+        <!-- <div class="row blog-grid-row">
+            <div class="col-md-6 col-lg-3 col-sm-12" *ngFor="let blog of blogs;let i=index" [hidden]="i>3"> -->
 
                 <!-- Blog Post -->
-                <div class="blog grid-blog">
+                <!-- <div class="blog grid-blog">
                     <div class="blog-image">
                         <a [routerLink]="'/blog-details'" [queryParams]="{id: blog.id}"><img class="img-fluid"
                                 [src]="blog.img" alt="Post Image"></a>
@@ -317,13 +329,13 @@
                                 [queryParams]="{id: blog.id}">{{blog.title}}</a></h3>
                         <p class="mb-0 desc-ellipsis">{{blog.description}}</p>
                     </div>
-                </div>
+                </div> -->
                 <!-- /Blog Post -->
 
-            </div>
+            <!-- </div>
         </div>
         <div class="view-all text-center">	<a [routerLink]="'/blog'" class="btn btn-primary">View All</a>
         </div>
     </div>
-</section>
+</section> -->
 <!-- /Blog Section -->
