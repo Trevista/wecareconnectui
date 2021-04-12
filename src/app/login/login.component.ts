@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonServiceService } from '../common-service.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  isPatient: boolean = false;
+  isPatient = false;
   doctors: any = [];
   patients: any = [];
   username = '';
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
     public commonService: CommonServiceService,
+    private authService: AuthenticationService,
     private toastr: ToastrService
   ) {
     this.username = '';
@@ -37,33 +39,23 @@ export class LoginComponent implements OnInit {
   }
 
   login(name, password) {
+    const params = {
+      email: name,
+      password
+    };
+    this.authService.login(params).subscribe(x => {
+      this.toastr.success('', 'Login success!');
+      const roleMessage = x.role + 'Login';
+      this.commonService.nextmessage(roleMessage);
+      if (x.role === 'Doctor'){
+        this.router.navigate(['/doctor/dashboard']);
+      }
+      else if (x.role === 'User'){
+        this.router.navigate(['/patients/dashboard']);
+      }
+    }, (error) => this.toastr.error('', 'Login failed!'));
     localStorage.setItem('auth', 'true');
     localStorage.setItem('patient', this.isPatient.toString());
-    if (this.isPatient) {
-      let filter = this.patients.filter(
-        (a) => a.name === this.username && a.password === this.password
-      );
-      if (filter.length !== 0) {
-        localStorage.setItem('id', filter[0]['id']);
-        this.toastr.success('', 'Login success!');
-        this.commonService.nextmessage('patientLogin');
-        this.router.navigate(['/patients/dashboard']);
-      } else {
-        this.toastr.error('', 'Login failed!');
-      }
-    } else {
-      let filter = this.doctors.filter(
-        (a) => a.doctor_name === this.username && a.password === this.password
-      );
-      if (filter.length != 0) {
-        this.toastr.success('', 'Login success!');
-        this.commonService.nextmessage('doctorLogin');
-        localStorage.setItem('id', filter[0]['id']);
-        this.router.navigate(['/doctor/dashboard']);
-      } else {
-        this.toastr.error('', 'Login failed!');
-      }
-    }
   }
 
   getDoctors() {
