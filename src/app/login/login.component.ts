@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CommonServiceService } from '../common-service.service';
 
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  isPatient: boolean = false;
+  isPatient = false;
   doctors: any = [];
   patients: any = [];
   username = '';
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(
     public router: Router,
     public commonService: CommonServiceService,
+    private authService: AuthenticationService,
     private toastr: ToastrService
   ) {
     this.username = '';
@@ -67,11 +69,23 @@ export class LoginComponent implements OnInit {
         this.commonService.nextmessage('doctorLogin');
         localStorage.setItem('id', filter[0]['id']);
         console.log("Naviagting to doctors dashboard...");
+    const params = {
+      email: name,
+      password
+    };
+    this.authService.login(params).subscribe(x => {
+      this.toastr.success('', 'Login success!');
+      const roleMessage = x.role + 'Login';
+      this.commonService.nextmessage(roleMessage);
+      if (x.role === 'Doctor'){
         this.router.navigate(['/doctor/dashboard']);
-      } else {
-        this.toastr.error('', 'Login failed!');
       }
-    }
+      else if (x.role === 'User'){
+        this.router.navigate(['/patients/dashboard']);
+      }
+    }, (error) => this.toastr.error('', 'Login failed!'));
+    localStorage.setItem('auth', 'true');
+    localStorage.setItem('patient', this.isPatient.toString());
   }
 
   getDoctors() {
