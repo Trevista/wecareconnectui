@@ -23,7 +23,7 @@ export class AuthenticationService {
   }
 
   login(model){
-    return this.http.post(environment.apiUrl + 'api/accounts/login', model).pipe(map((userdata: any) => {
+    return this.http.post(environment.apiUrl + 'api/Accounts/authenticate', model).pipe(map((userdata: any) => {
       localStorage.setItem('user', JSON.stringify(userdata));
       this.userSubject.next(userdata);
       return userdata;

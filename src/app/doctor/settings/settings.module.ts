@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
+import { ReactiveFormsModule, FormsModule} from '@angular/forms';
 
 import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
@@ -12,8 +13,11 @@ import { AngularTagsInputModule } from '@iomechs/angular-tags-input';
   imports: [
     CommonModule,
     SettingsRoutingModule,
-	NgxDropzoneModule,
-	AngularTagsInputModule,
-  ]
+    NgxDropzoneModule,
+    AngularTagsInputModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [DatePipe]
 })
 export class SettingsModule { }

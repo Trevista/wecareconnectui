@@ -50,11 +50,11 @@ export class HeaderComponent implements OnInit {
     });
     this.url1 = this.router.url;
     this.commonService.message.subscribe((res) => {
-      if (res === 'patientLogin') {
+      if (res === 'PatientLogin') {
         this.auth = true;
         // this.isPatient = true;
       }
-      if (res === 'doctorLogin') {
+      if (res === 'DoctorLogin') {
         this.auth = true;
         // this.isPatient = false;
       }
@@ -114,42 +114,42 @@ export class HeaderComponent implements OnInit {
       }
     }
     if (val === 'doctor') {
-      if (document.getElementById('doctor').style.display == 'block') {
+      if (document.getElementById('doctor').style.display === 'block') {
         document.getElementById('doctor').style.display = 'none';
       } else {
         document.getElementById('doctor').style.display = 'block';
       }
     }
     if (val === 'patient') {
-      if (document.getElementById('patient').style.display == 'block') {
+      if (document.getElementById('patient').style.display === 'block') {
         document.getElementById('patient').style.display = 'none';
       } else {
         document.getElementById('patient').style.display = 'block';
       }
     }
     if (val === 'pharmacy') {
-      if (document.getElementById('pharmacy').style.display == 'block') {
+      if (document.getElementById('pharmacy').style.display === 'block') {
         document.getElementById('pharmacy').style.display = 'none';
       } else {
         document.getElementById('pharmacy').style.display = 'block';
       }
     }
     if (val === 'pages') {
-      if (document.getElementById('pages').style.display == 'block') {
+      if (document.getElementById('pages').style.display === 'block') {
         document.getElementById('pages').style.display = 'none';
       } else {
         document.getElementById('pages').style.display = 'block';
       }
     }
     if (val === 'blog') {
-      if (document.getElementById('blog').style.display == 'block') {
+      if (document.getElementById('blog').style.display === 'block') {
         document.getElementById('blog').style.display = 'none';
       } else {
         document.getElementById('blog').style.display = 'block';
       }
     }
     if (val === 'admin') {
-      if (document.getElementById('admin').style.display == 'block') {
+      if (document.getElementById('admin').style.display === 'block') {
         document.getElementById('admin').style.display = 'none';
       } else {
         document.getElementById('admin').style.display = 'block';

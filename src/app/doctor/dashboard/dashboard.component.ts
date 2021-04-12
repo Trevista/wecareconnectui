@@ -22,7 +22,7 @@ export class DashboardComponent implements OnInit {
   appointmentsLength;
   TotalPatientsLength ;
   activeTab = 'upcomming';
-  
+
   constructor(private toastr: ToastrService,public commonService:CommonServiceService,private modalService: BsModalService) { }
 
   ngOnInit(): void {
@@ -37,7 +37,7 @@ export class DashboardComponent implements OnInit {
   result(activeTab){
     this.activeTab = activeTab;
   }
-  
+
   btnColor() {
     document.getElementById('btn-yes').style.backgroundColor = "#09e5ab";
     document.getElementById('btn-yes').style.border = "1px solid #09e5ab";
@@ -57,11 +57,10 @@ export class DashboardComponent implements OnInit {
     document.getElementById('btn-yes').style.border = "1px solid #fff";
     document.getElementById('btn-yes').style.color = "#000";
   }
-  
+
   openModal(template: TemplateRef<any>,appointment) {
     this.appointmentId = appointment;
     this.modalRef = this.modalService.show(template,{class: 'modal-sm modal-dialog-centered'});
-    
   }
 
   confirm(value) {
@@ -78,7 +77,7 @@ export class DashboardComponent implements OnInit {
         this.getPatients();
         this.getAppointments();
       })
-   
+
   }
 
   decline() {
