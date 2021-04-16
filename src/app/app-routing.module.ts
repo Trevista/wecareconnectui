@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import {AuthguardService} from "src/app/guard/authguard.service";
 
 const routes: Routes = [
   { path: '', redirectTo: 'wecare', pathMatch: 'full' },
@@ -34,7 +35,8 @@ const routes: Routes = [
   {
     path: 'doctor',
     loadChildren: () =>
-      import('./doctor/doctor.module').then((m) => m.DoctorModule),
+      import('./doctor/doctor.module').then((m) => m.DoctorModule), 
+      canActivate: [AuthguardService]
   },
   {
     path: 'patients',

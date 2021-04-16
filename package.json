@@ -53,6 +53,7 @@
     "ngx-dropzone": "^2.2.2",
     "ngx-image-gallery": "^2.0.5",
     "ngx-slick-carousel": "^0.5.1",
+    "ngx-spinner": "^11.0.1",
     "ngx-tags-input": "^2.0.1",
     "ngx-toastr": "^12.0.1",
     "raphael": "^2.3.0",
@@ -60,6 +61,7 @@
     "select2": "^4.0.13",
     "slick-carousel": "^1.8.1",
     "snazzy-info-window": "^1.1.0",
+    "spinners-angular": "0.0.4",
     "theia-sticky-sidebar": "^1.7.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"

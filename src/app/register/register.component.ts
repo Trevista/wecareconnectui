@@ -7,6 +7,8 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
 import { Register } from '../models/register';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NgxSpinnerService } from "ngx-spinner";  
+
 
 @Component({
   selector: 'app-register',
@@ -27,7 +29,8 @@ export class RegisterComponent implements OnInit {
     public commonService: CommonServiceService,
     public authService: AuthenticationService,
     public router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private spinner: NgxSpinnerService
   ) {}
 
   ngOnInit(): void {
@@ -66,9 +69,11 @@ export class RegisterComponent implements OnInit {
       this.toastr.error('', 'Please enter mandatory field!');
     }
     else {
+      this.spinner.show();
       console.log("Reg form is valid , trasnfering data to service layer..." , this.registrationForm.value)
       let result = this.authService.register(this.registrationForm.value).subscribe((res) => {
         console.log("Account Result: ", result);
+        this.spinner.hide();
         this.toastr.success('', 'Register successfully!');
         this.router.navigate(['/login-page']);
       });

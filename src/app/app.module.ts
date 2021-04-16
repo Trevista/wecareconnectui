@@ -15,6 +15,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { Daterangepicker } from 'ng2-daterangepicker';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { SpinnersAngularModule } from 'spinners-angular';  
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent],
@@ -29,6 +31,8 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
     FormsModule,
     NgbModule,
     Daterangepicker,
+    NgxSpinnerModule,
+    SpinnersAngularModule
   ],
   providers: [],
   bootstrap: [AppComponent],

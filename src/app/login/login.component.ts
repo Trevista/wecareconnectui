@@ -5,6 +5,7 @@ import { CommonServiceService } from '../common-service.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
+import { NgxSpinnerService } from "ngx-spinner";  
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
     public router: Router,
     public commonService: CommonServiceService,
     private authService: AuthenticationService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
   ) {
     this.username = '';
     this.password = '';
@@ -39,11 +41,14 @@ export class LoginComponent implements OnInit {
   }
 
   login(name, password) {
+    console.log("In Login...");
     const params = {
       email: name,
       password
     };
+    this.spinner.show();
     this.authService.login(params).subscribe(x => {
+      this.spinner.hide();
       this.toastr.success('', 'Login success!');
       const roleMessage = x.role + 'Login';
       this.commonService.nextmessage(roleMessage);
@@ -53,7 +58,8 @@ export class LoginComponent implements OnInit {
       else if (x.role === 'User'){
         this.router.navigate(['/patients/dashboard']);
       }
-    }, (error) => this.toastr.error('', 'Login failed!'));
+    }, (error) => this.toastr.error('', 'Login failed!') && this.spinner.hide());
+    
     localStorage.setItem('auth', 'true');
     localStorage.setItem('patient', this.isPatient.toString());
   }

@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { LoginComponent } from './login.component';
   imports: [
     CommonModule,
     FormsModule,
-    LoginRoutingModule
+    LoginRoutingModule,
+    NgxSpinnerModule
   ]
 })
 export class LoginModule { }
