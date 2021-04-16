@@ -5,7 +5,7 @@
             <ul>
                 <li><i class="fas fa-map-marker-alt top-icon"></i>#123, RBI Bank street, Hyderabad, IN</li>
                 <li><i class="fas fa-phone-volume top-icon"></i>+91 12345 67890</li>
-                <li><i class="fas fa-envelope top-icon"></i>mail@yourdomain.com</li>
+                <li><i class="fas fa-envelope top-icon"></i>help@wecare.com</li>
             </ul>
         </div>
         <div class="right-top ">
@@ -47,7 +47,7 @@
                 </div>
                 <ul class="main-nav" >
                     <li [class.active]="base === 'home' || base === 'home-one' || base === 'home-two' || base === 'home-slider-one' || base === 'home-slider-two' " (click)="addStyle('home')" class="has-submenu" style="cursor: pointer;">
-                        <a href="javascript:void(0);">Home <i class="fas fa-chevron-down" hidden></i></a>
+                        <a href="javascript:void(0);" [routerLink]="'home'">Home <i class="fas fa-chevron-down" hidden></i></a>
                         <ul class="submenu" id="home" hidden>
                             <li [class.active]="base === 'home'" ><a [routerLink]="'home'">Home</a></li>
                             <li [class.active]="base === 'home-one'" ><a [routerLink]="'home-one'">Home1</a></li>
@@ -57,7 +57,7 @@
                         </ul>
                     </li>
                     <li [class.active]="base === 'doctor' || (base === 'patients' && page === 'patient-profile')" (click)="addStyle('doctor')" class="has-submenu"  style="cursor: pointer;" >
-                        <a (click)="doctor('doctor')">Doctors <i class="fas fa-chevron-down"></i></a>
+                        <a href="javascript:void(0);">Doctors <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="doctor">
                             <li [class.active]="base === 'doctor' && page === 'dashboard'"><a [routerLink]="'doctor/dashboard'">Dashboard</a></li>
                             <li [class.active]="base === 'doctor' && page === 'appointment'"><a [routerLink]="'doctor/appointment'">Appointments</a></li>
@@ -72,7 +72,7 @@
                         </ul>
                     </li>
                     <li  [class.active]="(base === 'map-grid') || (base === 'map-list') " class="has-submenu" (click)="addStyle('patient')" routerLinkActive="active">
-                        <a >Patients <i class="fas fa-chevron-down"></i></a>
+                        <a href="javascript:void(0);">Patients <i class="fas fa-chevron-down"></i></a>
                         <ul class="submenu" id="patient">
                             <li [class.active]="(base === 'map-grid') || (base === 'map-list')" class="has-submenu">
                                 <a href="javascript:void(0);">Doctors</a>

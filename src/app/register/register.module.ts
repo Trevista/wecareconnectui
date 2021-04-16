@@ -4,6 +4,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
+import { NgxSpinnerModule } from "ngx-spinner";
+
 
 
 @NgModule({
@@ -12,7 +14,8 @@ import { RegisterComponent } from './register.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RegisterRoutingModule
+    RegisterRoutingModule,
+    NgxSpinnerModule
   ]
 })
 export class RegisterModule { }

@@ -10,6 +10,8 @@ import { environment } from 'src/environments/environment';
 })
 export class AuthenticationService {
 
+  role;
+
   private userSubject: BehaviorSubject<any>;
   public user: Observable<any>;
 
@@ -23,6 +25,7 @@ export class AuthenticationService {
   }
 
   login(model){
+    console.log("In Login Service...");
     return this.http.post(environment.apiUrl + 'api/Accounts/authenticate', model).pipe(map((userdata: any) => {
       localStorage.setItem('user', JSON.stringify(userdata));
       this.userSubject.next(userdata);
@@ -55,6 +58,22 @@ export class AuthenticationService {
     this.router.navigate(['/login']);
   }
 
+  //GLOBAL TOKEN FOR SECURE LOGIN
+  //  token: boolean = false;
+  isAuthenticated(){
+    console.log("In isAuthenticated...")
+    let token = localStorage.getItem('user');
+ 
+    if(token){
+      console.log("Token is present?: ", token);
+      return true;
+    }
+    else{
+      console.log("NO Token is Present" , token)
+      return false;
+    }
+
+  }
 
 
 }

@@ -405,54 +405,54 @@ export class PharmacyIndexComponent implements OnInit {
   //// next step 2
   sliderContent = [
     {
-      img: 'assets/img/features/feature-01.jpg',
+      img: 'assets/img/features/patientward.jpg',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
       name: 'Patient Ward',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/feature-02.jpg',
+      img: 'assets/img/features/testroom.jpg',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
       name: 'Test Room',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/feature-03.jpg',
+      img: 'assets/img/features/icu.jpg',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
       name: 'ICU',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/feature-04.jpg',
+      img: 'assets/img/features/lab.jpg',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
       name: 'Laboratory',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/feature-05.jpg',
+      img: 'assets/img/features/operation.jpg',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
       name: 'Operation',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/feature-06.jpg',
+      img: 'assets/img/features/medicine.jpg',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
       name: 'Medical',
       position: 'CEO of VoidCoders',
     },
-    {
-      img: 'assets/img/features/feature-05.jpg',
-      msg:
-        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'Patient Ward',
-      position: 'CEO of VoidCoders',
-    },
+    // {
+    //   img: 'assets/img/features/feature-05.jpg',
+    //   msg:
+    //     '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+    //   name: 'Patient Ward',
+    //   position: 'CEO of VoidCoders',
+    // },
   ];
   slideConfigure = {
     dots: false,
