@@ -1530,11 +1530,11 @@ button.bg-danger:hover {
 }
 .user-menu .dropdown-menu .dropdown-item:hover {
 	color: #fff;
-    background: #00d0f1;
+    background: #ee910e;
 }
 .header .dropdown-menu > li > a:focus,
 .header .dropdown-menu > li > a:hover {
-	background-color: #00d0f1;
+	background-color: #ee910e;
 	color: #fff;
 }
 .header .dropdown-menu > li > a:focus i,
@@ -1545,13 +1545,13 @@ button.bg-danger:hover {
 	padding: 10px 18px;
 }
 .header .dropdown-menu > li > a i {
-	color: #00d0f1;
+	color: #ee910e;
 	margin-right: 10px;
 	text-align: center;
 	width: 18px;
 }
 .header .user-menu .dropdown-menu > li > a i {
-	color: #00d0f1;
+	color: #ee910e;
 	font-size: 16px;
 	margin-right: 10px;
 	min-width: 18px;
@@ -1740,18 +1740,18 @@ html.menu-opened body {
 	padding: 0 20px;
 }
 .sidebar-menu li a:hover {
-    color: #5ae8ff;
+    color: #ee910e;
 }
 .sidebar-menu > ul > li > a:hover {
-	background-color: #19c1dc;
+	background-color: #ee910e;
     color: #fff;
 }
 .sidebar-menu > ul > li.active > a:hover {
-    background-color: #19c1dc;
+    background-color: #ee910e;
     color: #fff;
 }
 .sidebar-menu li.active a {
-    background-color: #00d0f1;
+    background-color: #ee910e;
     color: #fff;
 }
 .menu-title {
@@ -1781,7 +1781,7 @@ html.menu-opened body {
     padding: 10px 15px;
 }
 .sidebar-menu ul ul a.active {
-	color: #20e3ff;
+	color: #ee910e;
 	text-decoration: underline;
 }
 .mobile_btn {
