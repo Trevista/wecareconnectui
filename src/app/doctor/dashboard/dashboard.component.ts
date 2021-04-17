@@ -22,12 +22,19 @@ export class DashboardComponent implements OnInit {
   appointmentsLength;
   TotalPatientsLength ;
   activeTab = 'upcomming';
+    totalPatientCount: any;
+    todayPatientCount: any;
+    todayAppointments: any;
+    currentDate: Date;
+    patientAppointments: any;
   
   constructor(private toastr: ToastrService,public commonService:CommonServiceService,private modalService: BsModalService) { }
 
   ngOnInit(): void {
     this.getPatients();
-      this.getAppointments();
+    this.getAppointments();
+    this.getTotalpatientcount();
+    //this.patientAppointments = [{ 'patients': { 'name': 'prasanth', 'key': '12345' }, 'appointment_time': '', 'type': 'New Patient', 'amount': '200'}]
   }
 
   search(activeTab){
@@ -60,10 +67,31 @@ export class DashboardComponent implements OnInit {
   
   openModal(template: TemplateRef<any>,appointment) {
     this.appointmentId = appointment;
+    console.log(this.appointmentId);
     this.modalRef = this.modalService.show(template,{class: 'modal-sm modal-dialog-centered'});
     
   }
 
+  Accept(value) {
+    delete this.appointmentId['patients']
+    let data = {
+      ...this.appointmentId
+    }
+    data['status'] = 'accept';
+    this.commonService.updateAppointment(data, data.id)
+      .subscribe(res => {
+        this.toastr.success('', 'Updated successfully!');
+        this.modalRef.hide();
+        this.appointments = this.appointments.filter(a => a.id != data.id);
+        this.getPatients();
+        this.getAppointments();
+      })
+
+  }
+  postpone() {
+    
+
+  }
   confirm(value) {
     delete this.appointmentId['patients']
     let data = {
@@ -96,7 +124,17 @@ export class DashboardComponent implements OnInit {
         this.getAppointments();
       })
   }
-
+  getTotalpatientcount() {
+    this.commonService.getDashboardlist()
+      .subscribe(res => {
+        console.log(res);
+        this.totalPatientCount = res['totalPatients'];
+        this.todayPatientCount = res['todayPatientsCount'];
+        this.todayAppointments = res['appoinmentsCount'];
+        this.patientAppointments = res['patientAppointments']
+      })
+    this.currentDate = new Date();
+  }
   getAppointments() {
     this.commonService.getAppointments()
       .subscribe(res=>{

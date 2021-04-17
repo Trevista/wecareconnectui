@@ -7,6 +7,7 @@ import {
 } from '@angular/router';
 
 import { CommonServiceService } from './../../common-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -18,9 +19,10 @@ export class SidemenuComponent implements OnInit {
   splitVal;
   base;
   page;
+    doctorName: string;
   constructor(
     private router: Router,
-    public commonService: CommonServiceService
+    public commonService: CommonServiceService, private auth: AuthenticationService
   ) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -33,7 +35,10 @@ export class SidemenuComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    //console.log(this.auth.userValue);
+    this.doctorName = this.auth.userValue.firstName + ' ' + this.auth.userValue.lastName;
+  }
 
   logout() {
     localStorage.clear();

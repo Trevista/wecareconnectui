@@ -161,6 +161,10 @@ export class CommonServiceService {
   getComments() {
     return this.http.get(this.SERVER_URL + 'comments');
   }
+  getDashboardlist() {
+    return this.http.get(this.SERVER_URL + 'Dashboards/Doctor');
+  }
+
 
   createComment(params) {
     return this.http.post(this.SERVER_URL + 'comments', params);

@@ -15,6 +15,7 @@ import {
 import { DOCUMENT } from '@angular/common';
 
 import { CommonServiceService } from './../../common-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-header',
@@ -29,12 +30,13 @@ export class HeaderComponent implements OnInit {
   headerTop: boolean = false;
   base;
   url1;
+    doctorname: string;
   constructor(
     @Inject(DOCUMENT) private document,
     private cdr: ChangeDetectorRef,
     public router: Router,
     private activeRoute: ActivatedRoute,
-    public commonService: CommonServiceService
+    public commonService: CommonServiceService, private authentication: AuthenticationService
   ) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -66,6 +68,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
     if (localStorage.getItem('auth') === 'true') {
       this.auth = true;
       this.isPatient =
@@ -164,9 +167,11 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     localStorage.clear();
-    this.auth = false;
-    this.isPatient = false;
-    this.router.navigate(['/login']);
+    this.commonService.nextmessage('logout');
+    this.router.navigate(['/home']);
+    //this.auth = false;
+    //this.isPatient = false;
+    //this.router.navigate(['/login']);
   }
 
   home() {
