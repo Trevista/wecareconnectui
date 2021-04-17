@@ -135,6 +135,7 @@
                   <table class="table table-hover table-center mb-0">
                     <thead>
                       <tr>
+                        <th>ID</th>
                         <th>Patient Name</th>
                         <th>Appt Date</th>
                         <th>Purpose</th>
@@ -145,6 +146,7 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let appointment of patientAppointments">
+                        <td>{{appointment.patients?.key}}</td>
                         <td>
                           <h2 class="table-avatar">
                             <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" [src]="appointment?.patients?.img" alt="User Image"></a>
@@ -157,7 +159,7 @@
                         <td class="text-center">{{appointment.amount}}</td>
                         <td class="text-right">
                           <div class="table-action">
-                            <a href="javascript:void(0);" class="btn btn-sm bg-info-light">
+                            <a href="javascript:void(0);" class="btn btn-sm bg-info-light" (click)="openModal(Viewtemplate,appointment)">
                               <i class="far fa-eye"></i> View
                             </a>
 
