@@ -17,9 +17,10 @@ import { Daterangepicker } from 'ng2-daterangepicker';
 import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SpinnersAngularModule } from 'spinners-angular';
+import { OnlineStatusComponent } from './online-status/online-status/online-status.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, FooterComponent],
+  declarations: [AppComponent, HeaderComponent, FooterComponent, OnlineStatusComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

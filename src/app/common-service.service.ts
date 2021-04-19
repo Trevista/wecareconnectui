@@ -103,6 +103,7 @@ export class CommonServiceService {
   }
 
   getAppointments() {
+    console.log("Service layer getting Patients appointments...");
     return this.http.get(this.SERVER_URL + 'appointments');
   }
 
