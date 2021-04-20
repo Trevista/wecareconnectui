@@ -43,9 +43,10 @@ export class AuthenticationService {
     return this.http.get<any>(environment.apiUrl + 'api/accounts/confirmemail', options);
   }
 
-  forgotpassword(email){
-    const options = email ? { params: new HttpParams().set('email', email)} : {};
-    return this.http.get<any>(environment.apiUrl + 'api/accounts/forgot-password', options);
+  forgotpassword(params){
+    console.log("Service layer forgot password of: ", params);
+    // const options = email ? { params: new HttpParams().set('email', email)} : {};
+    return this.http.post<any>(environment.apiUrl + 'api/Accounts/forgot-password', params);
   }
 
   resetpassword(resetmodel){

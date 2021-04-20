@@ -62,7 +62,7 @@ export class CommonServiceService {
   }
 
   nextmessage(data) {
-    console.log("Inside common service nextmessage....")
+    console.log("Inside common service nextmessage....", data);
     this.message.next(data);
   }
 
