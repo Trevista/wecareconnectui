@@ -52,7 +52,9 @@ export class ForgotPasswordComponent implements OnInit {
         title: 'Forget password',
         icon: 'success',
         text: "A Rest Password link has been sent to your registered email address.",
-        width: 400
+        width: 400,
+        confirmButtonColor: "#ee910e",
+
       })
       this.router.navigate(['/login-page']);
     }, (error) => this.toastr.error('Error Occured', 'Please try after sometime!') && this.spinner.hide());
