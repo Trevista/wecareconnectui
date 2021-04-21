@@ -62,7 +62,7 @@ export class CommonServiceService {
   }
 
   nextmessage(data) {
-    console.log("Inside common service nextmessage....")
+    console.log("Inside common service nextmessage....", data);
     this.message.next(data);
   }
 
@@ -103,6 +103,7 @@ export class CommonServiceService {
   }
 
   getAppointments() {
+    console.log("Service layer getting Patients appointments...");
     return this.http.get(this.SERVER_URL + 'appointments');
   }
 

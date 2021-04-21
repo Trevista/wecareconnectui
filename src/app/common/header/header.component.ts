@@ -4,6 +4,7 @@ import {
   ChangeDetectorRef,
   AfterViewInit,
   Inject,
+  OnDestroy,
 } from '@angular/core';
 import {
   Event,
@@ -16,13 +17,22 @@ import { DOCUMENT } from '@angular/common';
 
 import { CommonServiceService } from './../../common-service.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { fromEvent, Observable, Subscription } from 'rxjs';
+
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnInit, OnDestroy {
+  onlineEvent: Observable<Event> | any;
+  offlineEvent: Observable<Event> | any;
+  subscriptions: Subscription[] = [];
+
+  connectionStatusMessage: string;
+  connectionStatus: string;
+
   auth: boolean = false;
   isPatient: boolean = false;
   page;
@@ -68,6 +78,27 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    /**
+    * Get the online/offline status from browser window
+    */
+     this.onlineEvent = fromEvent(window, 'online');
+     this.offlineEvent = fromEvent(window, 'offline');
+ 
+     this.subscriptions.push(this.onlineEvent.subscribe(e => {
+       this.connectionStatusMessage = 'Back to online';
+       this.connectionStatus = 'online';
+       window.location.reload();
+       console.log('Online...');
+     }));
+ 
+     this.subscriptions.push(this.offlineEvent.subscribe(e => {
+       this.connectionStatusMessage = 'Connection lost! You are not connected to internet';
+       this.connectionStatus = 'offline';
+       console.log('Offline...');
+     }));
+
+
     this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
     if (localStorage.getItem('auth') === 'true') {
       this.auth = true;
@@ -191,4 +222,12 @@ export class HeaderComponent implements OnInit {
       this.commonService.nextmessage('pharmacy-admin');
     }
   }
+
+  ngOnDestroy(): void {
+    /**
+    * Unsubscribe all subscriptions to avoid memory leak
+    */
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
+  }
+
 }

@@ -83,6 +83,7 @@ export class AppointmentsComponent implements OnInit {
   }
 
   getAppointments() {
+    console.log("IN Appointments..");
     this.commonService.getAppointments()
       .subscribe(res=>{
         this.appointments = res;
@@ -93,11 +94,18 @@ export class AppointmentsComponent implements OnInit {
             index['patients'] = filter[0];
           }
         })
-        this.appointments = this.appointments.filter(a=>a.status === 'active');
+       let result =  this.appointments = this.appointments.filter(a=>a.status === 'active');
+       if(result){
+         console.log("Appoinment Result: " , result);
+       }
+       else{
+         console.log("NO Appointments FOUND ON SERVER");
+       }
       })
   }
 
   getPatients() {
+    console.log("IN Patients...");
     this.commonService.getpatients()
     .subscribe(res=>{
       this.patients = res;
