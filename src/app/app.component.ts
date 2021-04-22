@@ -91,4 +91,5 @@ export class AppComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked() {
     this.changeDetector.detectChanges();
   }
+
 }

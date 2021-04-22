@@ -48,14 +48,15 @@ export class ForgotPasswordComponent implements OnInit {
       //   'success',
         
       // )
-      Swal.fire({
-        title: 'Forget password',
-        icon: 'success',
-        text: "A Rest Password link has been sent to your registered email address.",
-        width: 400,
-        confirmButtonColor: "#ee910e",
+      // Swal.fire({
+      //   title: 'Forget password',
+      //   icon: 'success',
+      //   text: "A Rest Password link has been sent to your registered email address.",
+      //   width: 400,
+      //   confirmButtonColor: "#ee910e",
 
-      })
+      // })
+      this.toastr.success('A Rest Password link has been sent to your registered email address.', 'Forgot Password')
       this.router.navigate(['/login-page']);
     }, (error) => this.toastr.error('Error Occured', 'Please try after sometime!') && this.spinner.hide());
     }

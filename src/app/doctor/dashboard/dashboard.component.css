@@ -22,3 +22,22 @@ h4.modal-title.pull-left {
     width: 90px !important;
     height: 90px !important;
 }
+
+
+
+
+  h3 {
+    margin: 0 0 10px;
+  }
+  
+  pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+  }
+  .btn:hover{
+    background-color: #4caf50;
+  }
+
+  .btn-primary-month{
+    border: 0.1px solid black;
+  }
