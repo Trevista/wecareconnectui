@@ -18,6 +18,9 @@ import { SlickCarouselModule } from 'ngx-slick-carousel';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SpinnersAngularModule } from 'spinners-angular';
 import { OnlineStatusComponent } from './online-status/online-status/online-status.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // the main connector. must go first
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, OnlineStatusComponent],
@@ -33,7 +36,10 @@ import { OnlineStatusComponent } from './online-status/online-status/online-stat
     NgbModule,
     Daterangepicker,
     NgxSpinnerModule,
-    SpinnersAngularModule
+    SpinnersAngularModule,
+    FullCalendarModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    
   ],
   providers: [],
   bootstrap: [AppComponent],
