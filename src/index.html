@@ -5,13 +5,16 @@
   <title>WeCare</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="assets/img/medicalconsultlogo.jpg">
+  <link rel="icon" type="image/x-icon" href="assets/img/wecareup.jpg">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZDy3Ml0qEUVGtDJkxD78C4Cy9wuYPcPo"></script>
 </head>
 <body class="mat-typography">
   <app-root>
     <div style="text-align: center; margin-top: 20%;">
-      <b>Loading... please wait...</b> 
+      <b>Loading... please wait...</b><br><br/> 
+      <div class="progress">
+        <div class="progress-value"></div>
+      </div>
      </div>
   </app-root>
 
@@ -25,6 +28,34 @@
 	.ng-autocomplete {
 		padding-top: 0 !important;
 	}
+
+  .progress {
+    background: #f1cb96;
+    justify-content: flex-start;
+    border-radius: 100px;
+    align-items: center;
+    position: fixed;
+    padding: 0 5px;
+    display: flex;
+    height: 40px;
+    width: 180px;
+    margin-left: 43%;
+  }
+  
+  .progress-value {
+    animation: load 3s normal forwards;
+    box-shadow: 0 10px 40px -10px rgb(116, 219, 31);
+    border-radius: 100px;
+    background: #4caf50;
+    height: 30px;
+    width: 0;
+  }
+  
+  @keyframes load {
+    /* 500% { width: 100%; } */
+  10% { width: 180%; }
+  }
+  
   </style>
 
 
