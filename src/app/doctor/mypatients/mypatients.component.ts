@@ -14,6 +14,8 @@ export class MypatientsComponent implements OnInit {
   constructor(public commonService:CommonServiceService) { }
 
   ngOnInit(): void {
+    this.patients = [{ name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }, { name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }]
+
     this.getPatients();
     this.getAppointments();
 

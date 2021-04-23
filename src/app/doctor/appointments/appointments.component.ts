@@ -18,7 +18,7 @@ export class AppointmentsComponent implements OnInit {
   constructor(public commonService:CommonServiceService,private modalService: BsModalService) { }
 
   ngOnInit(): void {
-      
+    this.patients = [{ name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }, { name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }]
       this.getPatients();
       this.getAppointments();
 		  this.list = this.commonService.getJSON();
@@ -108,7 +108,7 @@ export class AppointmentsComponent implements OnInit {
     console.log("IN Patients...");
     this.commonService.getpatients()
     .subscribe(res=>{
-      this.patients = res;
+      //this.patients = res;
     })
   }
 
