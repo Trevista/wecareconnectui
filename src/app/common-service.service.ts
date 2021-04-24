@@ -253,4 +253,7 @@ export class CommonServiceService {
   deletePharmacy(id) {
     return this.http.delete(`${this.SERVER_URL + 'pharmacy'}/${id}`);
   }
+  getAppointmentsbyDoctorid(id) {
+    return this.http.get(this.SERVER_URL + 'Appointments/GetByDoctorId?id='+id);
+  }
 }

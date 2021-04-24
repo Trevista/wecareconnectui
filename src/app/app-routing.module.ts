@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import {AuthguardService} from "src/app/guard/authguard.service";
-
 const routes: Routes = [
   { path: '', redirectTo: 'wecare', pathMatch: 'full' },
+  {
+    path: 'accounts/verify-email', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),

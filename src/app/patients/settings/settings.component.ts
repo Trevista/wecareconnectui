@@ -18,22 +18,136 @@ export class SettingsComponent implements OnInit {
   files: File[] = [];
   ngOnInit(): void {
     this.patientprofileForm = this.fb.group({
-      id: [0, Validators.required],     
+      id: [0, Validators.required],
+      userName: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
+      userId: [this.auth.userValue.id, [Validators.required]],
       email: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
       firstName: [this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
-      phoneNumber: ['', [Validators.required]],     
+      phoneNumber: ['', [Validators.required]],
+      gender: [null],
       dateOfBirth: ['', [Validators.required]],
-      bloodGroup: ['', [Validators.required]],
-      address: ['', [Validators.required]],
+      profileDescription: [null],
+      clinicInfo: this.getClinic(),
+      contactInfo: this.getContactInfo(),
+      services: [null],
+      specializations: [null],
+      feePerVisit: [0],
+      educationBackground: this.fb.array([
+        this.getEducationBg()
+      ]),
+      experience: this.fb.array([
+        this.getExperience()
+      ]),
+      awards: this.fb.array([
+        this.getAwards()
+      ]),
+      memberShips: this.fb.array([
+        this.getMemberships()
+      ]),
+      registrations: this.fb.array([
+        this.getRegistrations()
+      ]),
+     
+    });
+    this.getProfile();
+  }
+  getContactInfo(): FormGroup {
+    return this.fb.group({
+      addressId: 0,
+      address1: ['', [Validators.required]],
+      address2: [null],
       city: ['', [Validators.required]],
       state: ['', [Validators.required]],
-      zipCode: ['', [Validators.required]],
       country: ['', [Validators.required]],
-     
+      zip: ['', [Validators.required]],
+    });
+  }
+
+  getEducationBg(): FormGroup {
+    return this.fb.group({
+      id: 0,
+      degree: null,
+      institute: null,
+      completionYear: null
+    })
+  }
+
+  getExperience(): FormGroup {
+    return this.fb.group({
+      id: 0,
+      institutionName: null,
+      from: null,
+      to: null,
+      designation: null
+    });
+  }
+
+  getAwards(): FormGroup {
+    return this.fb.group({
+      id: 0,
+      name: null,
+      year: null
+    });
+  }
+
+  getRegistrations(): FormGroup {
+    return this.fb.group({
+      id: 0,
+      name: null,
+      year: null
+    });
+  }
+
+  getMemberships(): FormGroup {
+    return this.fb.group({
+      name: null
+    });
+  }
+
+  getClinic(): FormGroup {
+    return this.fb.group({
+      id: 0,
+      name: null,
+      address: null
+    });
+  }
+  getProfile() {
+    this.userService.getProfile(this.auth.userValue.id).subscribe(x => {
+      if (x.id !== null) {
+        this.patientprofileForm.patchValue({
+          ...x,
+          dateOfBirth: this.date.transform(x.dateOfBirth, 'yyyy-MM-dd'),
+         
+        });
+
+       
+
+       
+      }
     });
   }
   onSubmit() {
-    console.log(this.patientprofileForm);
+    console.log(this.patientprofileForm.value);
+    if (this.patientprofileForm.valid) {
+      const profileValue = {
+        ...this.patientprofileForm.value
+        
+      };
+      if (profileValue.id > 0) {
+        this.userService.updateProfile(profileValue).subscribe(x => {
+          this.toastr.success('', 'Profile Updated Succesfully');
+        }, (error) => this.toastr.error(error.title, 'Error Occured while updating Profile'));
+      } else {
+        this.userService.saveProfile(profileValue).subscribe(x => {
+          this.toastr.success('', 'Profile Updated Succesfully');
+        }, (error) => console.log(error));
+      }
+
+    }
+    else {
+      this.toastr.error(this.patientprofileForm.errors.toString(), 'Please Provide required details');
+    }
+
   }
 }

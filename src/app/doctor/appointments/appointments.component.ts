@@ -2,6 +2,7 @@ import { Component, OnInit,TemplateRef  } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import {CommonServiceService  } from './../../common-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-appointments',
@@ -15,10 +16,10 @@ export class AppointmentsComponent implements OnInit {
   appointments : any = [];
   patients :  any = [];
   appointmentId;
-  constructor(public commonService:CommonServiceService,private modalService: BsModalService) { }
+  constructor(public commonService: CommonServiceService, private modalService: BsModalService, private auth: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.patients = [{ name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }, { name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }]
+    //this.patients = [{ name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }, { name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }]
       this.getPatients();
       this.getAppointments();
 		  this.list = this.commonService.getJSON();
@@ -105,10 +106,12 @@ export class AppointmentsComponent implements OnInit {
   }
 
   getPatients() {
-    console.log("IN Patients...");
-    this.commonService.getpatients()
-    .subscribe(res=>{
-      //this.patients = res;
+    //console.log("IN Patients...");
+    let id = this.auth.userValue.id;
+    this.commonService.getAppointmentsbyDoctorid(id)
+      .subscribe(res => {
+        console.log(res);
+        this.patients = res['patientAppointments'];
     })
   }
 
