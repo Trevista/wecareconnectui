@@ -4,6 +4,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
 import { DatePipe } from '@angular/common';
+import { FileloaderService } from 'src/app/services/fileloader.service';
+import { DomSanitizer } from '@angular/platform-browser';
 declare var $: any;
 
 @Component({
@@ -15,7 +17,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private auth: AuthenticationService, private toastr: ToastrService,
-              private userService: UserService, private date: DatePipe) {}
+              private userService: UserService, private date: DatePipe,
+              private fileService: FileloaderService, private domsanitizer: DomSanitizer) {}
 
   profileForm: FormGroup;
   educations: FormArray;
@@ -25,12 +28,14 @@ export class SettingsComponent implements OnInit {
   memberships: FormArray;
   customPrice = false;
   files: File[] = [];
+  profilePic: any = 'assets/img/doctors/doctor-thumb-02.jpg';
 
   ngOnInit(): void {
     // Pricing Options Show
 
     this.profileForm = this.fb.group({
       id: [0, Validators.required],
+      profilePic: [''],
       userName: [{value: this.auth.userValue.email, disabled: true}, [Validators.required]],
       userId: [this.auth.userValue.id, [Validators.required]],
       email: [{value: this.auth.userValue.email, disabled: true} , [Validators.required]],
@@ -81,6 +86,9 @@ export class SettingsComponent implements OnInit {
             value: z.name
           }))
         });
+
+        this.profilePic = x.profilePic;
+        console.log(x.profilePic);
 
         for (let i = 1; i < x.registrations.length; i++) {
           const register = <FormArray>this.profileForm.get('registrations');
@@ -289,6 +297,20 @@ export class SettingsComponent implements OnInit {
       this.toastr.error(this.profileForm.errors.toString(), 'Please Provide required details');
     }
 
+  }
+
+  onProfileSelect(event){
+    let fileToUpload: File = event.target.files[0];
+    console.log(fileToUpload.name);
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+
+    const filepath = this.fileService.uploadFile(formData, this.auth.userValue.id)
+      .subscribe(e => {
+        const path = e.filePath.split('?');
+        this.profilePic = path[0] + `?raw=1`;
+        this.profileForm.get('profilePic').patchValue(this.profilePic);
+      });
   }
 
 }
