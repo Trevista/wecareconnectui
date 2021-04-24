@@ -2426,13 +2426,13 @@ html.menu-opened body {
 	15. Home
 -----------------------*/
 
-.section-search { 
-	background: #f9f9f9 url(/assets/img/search-bg.png) no-repeat bottom center;
-    min-height: 450px;
-    background-size: 100% auto;
-    position: relative;
-    background-blend-mode: Darken;
-    padding: 80px 0;
+.section-search {
+  /*background: #f9f9f9 url(/assets/img/correctiondoctor1.jpg) no-repeat bottom center;*/
+  min-height: 450px;
+  background-size: 100% auto;
+  position: relative;
+  background-blend-mode: Darken;
+  padding: 80px 0;
 }
 .section-search-1 { 
 	background: #f9f9f9 url(/assets/img/slider-bg.jpg) no-repeat bottom center;
@@ -3179,13 +3179,13 @@ html.menu-opened body {
     color: #757575;
     font-size: 13px;
 }
-.section-search1 { 
-	background: #f9f9f9 url(/assets/img/search-bg.png) no-repeat bottom center;
-    min-height: 580px;
-    background-size: 100% auto;
-    position: relative;
-    background-blend-mode: Darken;
-    padding: 80px 0;
+.section-search1 {
+  background: #f9f9f9 url(/assets/img/correctiondoctor1.jpg) no-repeat bottom center;
+  min-height: 580px;
+  background-size: 100% auto;
+  position: relative;
+  background-blend-mode: Darken;
+  padding: 80px 0;
 }
 .banner-wrapper2 {
     margin: 0 auto;
