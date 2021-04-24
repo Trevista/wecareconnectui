@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommonServiceService } from './../../common-service.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -10,12 +11,15 @@ import { CommonServiceService } from './../../common-service.service';
 })
 export class SidemenuComponent implements OnInit {
   name;
+    patientname: string;
   constructor(
     private router: Router,
-    public commonService: CommonServiceService
+    public commonService: CommonServiceService, private auth: AuthenticationService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.patientname = this.auth.userValue.firstName + ' ' + this.auth.userValue.lastName;
+      }
 
   logout() {
     localStorage.clear();
