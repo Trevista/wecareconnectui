@@ -2,11 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 import {AuthguardService} from "src/app/guard/authguard.service";
 const routes: Routes = [
-  { path: '', redirectTo: 'wecare', pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'accounts/verify-email', redirectTo: 'home', pathMatch: 'full' },
   {
-    path: 'home',
+    path: 'home-1',
     loadChildren: () => import('./home/home.module').then((m) => m.HomeModule),
   },
   {
@@ -20,7 +20,7 @@ const routes: Routes = [
       import('./home-two/home-two.module').then((m) => m.HomeTwoModule),
   },
   {
-    path: 'wecare',
+    path: 'home',
     loadChildren: () =>
       import('./home-slider-one/home-slider-one.module').then(
         (m) => m.HomeSliderOneModule
@@ -36,7 +36,7 @@ const routes: Routes = [
   {
     path: 'doctor',
     loadChildren: () =>
-      import('./doctor/doctor.module').then((m) => m.DoctorModule), 
+      import('./doctor/doctor.module').then((m) => m.DoctorModule),
       canActivate: [AuthguardService]
   },
   {
