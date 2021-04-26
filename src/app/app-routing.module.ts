@@ -96,6 +96,11 @@ const routes: Routes = [
       import('./login/login.module').then((m) => m.LoginModule),
   },
   {
+    path: 'l0gin',
+    loadChildren: () =>
+      import('./login/login.module').then((m) => m.LoginModule),
+  },
+  {
     path: 'change-password',
     loadChildren: () =>
       import('./change-password/change-password.module').then(

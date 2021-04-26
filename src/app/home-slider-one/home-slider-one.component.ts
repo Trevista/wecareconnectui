@@ -370,54 +370,103 @@ export class HomeSliderOneComponent implements OnInit {
   //// next step 2
   sliderContent = [
     {
-      img: 'assets/img/features/patientward.jpg',
+      img: 'assets/img/features/1neurologist.png',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'Patient Ward',
+      name: 'Neurology',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/testroom.jpg',
+      img: 'assets/img/features/2cardialogy.png',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'Test Room',
+      name: 'Cardiology',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/icu.jpg',
+      img: 'assets/img/features/3dentist.png',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'ICU',
+      name: 'Dentist',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/lab.jpg',
+      img: 'assets/img/features/4dermotology.png',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'Laboratory',
+      name: 'Dermotology',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/operation.jpg',
+      img: 'assets/img/features/5ent.png',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'Operation',
+      name: 'E N T',
       position: 'CEO of VoidCoders',
     },
     {
-      img: 'assets/img/features/medicine.jpg',
+      img: 'assets/img/features/6gastroenterology.png',
       msg:
         '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-      name: 'Medical',
+      name: 'Gastroenterology',
       position: 'CEO of VoidCoders',
     },
-    // {
-    //   img: 'assets/img/features/feature-05.jpg',
-    //   msg:
-    //     '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
-    //   name: 'Patient Ward',
-    //   position: 'CEO of VoidCoders',
-    // },
+    {
+      img: 'assets/img/features/7gaynaecology.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Gaynaecology',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/8generalmedicine.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'General Medicine',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/9opthomology.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Opthomology',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/10orthopedic.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Orthopedic',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/11pediatrcian.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Pediatric',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/12psychology.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Psychology',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/13pulmonology.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Pulmonology',
+      position: 'CEO of VoidCoders',
+    },
+    {
+      img: 'assets/img/features/14urlogy.png',
+      msg:
+        '"Lorem Ipsum is simply dummy text of the printing and typesetting industry."',
+      name: 'Urology',
+      position: 'CEO of VoidCoders',
+    },
   ];
   slideConfigure = {
     dots: false,

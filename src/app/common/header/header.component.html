@@ -62,7 +62,7 @@
                     </ul>
                 </li>
                 <li [class.active]="base === 'doctor' || (base === 'patients' && page === 'patient-profile')"
-                    (click)="addStyle('doctor')" class="has-submenu" style="cursor: pointer;">
+                    (click)="addStyle('doctor')" routerLinkActive="active" class="has-submenu" style="cursor: pointer;">
                     <a href="javascript:void(0);"  [routerLink]="'login-page'">Doctors <!--<i class="fas fa-chevron-down"></i--></a>
                     <ul class="submenu" id="doctor">
                         <!--<li [class.active]="base === 'doctor' && page === 'dashboard'"><a
@@ -88,7 +88,7 @@
                 </li>
                 <li [class.active]="(base === 'map-grid') || (base === 'map-list') " class="has-submenu"
                     (click)="addStyle('patient')" routerLinkActive="active">
-                  <a href="javascript:void(0);"  [routerLink]="'login-page'">Patients<!--<i class="fas fa-chevron-down"></i>--></a>
+                  <a href="javascript:void(0);"  [routerLink]="'l0gin'">Patients<!--<i class="fas fa-chevron-down"></i>--></a>
                     <ul class="submenu" id="patient">
                         <!--<li [class.active]="(base === 'map-grid') || (base === 'map-list')" class="has-submenu">
                             <a href="javascript:void(0);">Doctors</a>

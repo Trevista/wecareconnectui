@@ -2622,10 +2622,11 @@ html.menu-opened body {
     color: #ee910e;
 }
 .search-box-3{
-    background: #4caf50;
-    padding: 40px 20px;
+    /* background: #4caf50; */
+	background: #9ADE9A;
+    padding: 15px 10px;
     border-radius: 10px;
-    margin-top: -50px;
+    margin-top: -40px;
     position: absolute
 }
 .btn-search{
