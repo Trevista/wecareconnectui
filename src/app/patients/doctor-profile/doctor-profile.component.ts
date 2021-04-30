@@ -10,7 +10,13 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class DoctorProfileComponent implements OnInit {
   id;
-  doctorDetails;
+  //doctorDetails:any;
+    Education: any;
+    Experience: any;
+    Awards: any;
+    Specializations: any;
+  doctorDetails: any = [];
+    Address: any;
   constructor(
     public commonService: CommonServiceService,
     private route: ActivatedRoute,
@@ -40,8 +46,15 @@ export class DoctorProfileComponent implements OnInit {
     if (!this.id) {
       this.id = 1;
     }
-    this.commonService.getDoctorDetails(this.id).subscribe((res) => {
+    this.commonService.getdoctorprofile(this.id).subscribe((res) => {
+      console.log(res);
       this.doctorDetails = res;
+      this.Education = res['educationBackground'];
+      this.Experience = res['experience'];
+      this.Awards = res['awards'];
+      this.Specializations = res['specializations'];
+      this.Address = res['contactInfo'];
+      console.log(this.Education);
     });
   }
 

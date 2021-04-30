@@ -88,16 +88,16 @@
                 </li>
                 <li [class.active]="(base === 'map-grid') || (base === 'map-list') " class="has-submenu"
                     (click)="addStyle('patient')" routerLinkActive="active">
-                  <a href="javascript:void(0);"  [routerLink]="'l0gin'">Patients<!--<i class="fas fa-chevron-down"></i>--></a>
+                  <a href="javascript:void(0);"  [routerLink]="'l0gin'">Patients<i class="fas fa-chevron-down"></i></a>
                     <ul class="submenu" id="patient">
-                        <!--<li [class.active]="(base === 'map-grid') || (base === 'map-list')" class="has-submenu">
+                        <li [class.active]="(base === 'map-grid') || (base === 'map-list')" class="has-submenu">
                             <a href="javascript:void(0);">Doctors</a>
                             <ul class="submenu">
                                 <li [class.active]="base === 'map-grid'"><a (click)="mapGrid()">Map Grid</a></li>
                                 <li [class.active]="base === 'map-list'"><a (click)="mapList()">Map List</a></li>
                             </ul>
-                        </li>-->
-                        <!--<li [class.active]="base === 'patients' && page === 'search-doctor'"><a
+                        </li>
+                        <li [class.active]="base === 'patients' && page === 'search-doctor'"><a
                                 [routerLink]="'patients/search-doctor'">Search Doctor</a></li>
                         <li [class.active]="base === 'patients' && page === 'doctor-profile'"><a
                                 [routerLink]="'patients/doctor-profile'">Doctor Profile</a></li>
@@ -112,11 +112,11 @@
                         <li [class.active]="base === 'patients' && page === 'favourites'"><a
                                 [routerLink]="'patients/favourites'">Favourites</a></li>
                         <li [class.active]="base === 'patients' && page === 'message'"><a
-                                [routerLink]="'patients/message'">Chat</a></li>-->
-                        <!--<li [class.active]="base === 'patients' && page === 'settings'"><a
-                                [routerLink]="'patients/settings'">Profile Settings</a></li>-->
-                        <!--<li [class.active]="base === 'change-password'"><a [routerLink]="'change-password'">Change
-                                Password</a></li>-->
+                                [routerLink]="'patients/message'">Chat</a></li>
+                        <li [class.active]="base === 'patients' && page === 'settings'"><a
+                                [routerLink]="'patients/settings'">Profile Settings</a></li>
+                        <li [class.active]="base === 'change-password'"><a [routerLink]="'change-password'">Change
+                                Password</a></li>
                     </ul>
                 </li>
                 <!--<li [class.active]="base === 'pharmacy'" class="has-submenu" (click)="addStyle('pharmacy')">

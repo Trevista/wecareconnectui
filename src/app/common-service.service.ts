@@ -256,4 +256,7 @@ export class CommonServiceService {
   getAppointmentsbyDoctorid(id) {
     return this.http.get(this.SERVER_URL + 'Appointments/GetByDoctorId?id='+id);
   }
+  getdoctorprofile(id) {
+    return this.http.get(`${this.SERVER_URL + 'Profiles'}/${id}`);
+  }
 }
