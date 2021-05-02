@@ -28,6 +28,7 @@ export class AppointmentsComponent implements OnInit {
 
   openModal(template: TemplateRef<any>,appointment) {
     this.appointmentId = appointment;
+    console.log(appointment);
     this.modalRef = this.modalService.show(template,{class: 'modal-sm modal-dialog-centered'});
     
   }
@@ -37,9 +38,11 @@ export class AppointmentsComponent implements OnInit {
     let data = {
       ...this.appointmentId
     }
-    data['status'] = 'accept';
+    console.log(data);
+    data['appointmentStatus'] = 'accept';
     this.commonService.updateAppointment(data,data.id)
-      .subscribe(res=>{
+      .subscribe(res => {
+        console.log(res);
         this.modalRef.hide();
         this.appointments = this.appointments.filter(a=>a.id != data.id);
         this.getPatients();
@@ -88,20 +91,22 @@ export class AppointmentsComponent implements OnInit {
     this.commonService.getAppointments()
       .subscribe(res=>{
         this.appointments = res;
-        let scope = this;
-        this.appointments.forEach(index=>{
-          let filter = scope.patients.filter(a=>a.key === index.patient_key);
-          if(filter.length != 0) {
-            index['patients'] = filter[0];
-          }
-        })
-       let result =  this.appointments = this.appointments.filter(a=>a.status === 'active');
-       if(result){
-         console.log("Appoinment Result: " , result);
-       }
-       else{
-         console.log("NO Appointments FOUND ON SERVER");
-       }
+        console.log(this.appointments);
+        this.appointments = this.appointments.filter(x => x.doctorId == this.auth.userValue.id);
+       // let scope = this;
+       // this.appointments.forEach(index=>{
+       //   let filter = scope.patients.filter(a=>a.key === index.patient_key);
+       //   if(filter.length != 0) {
+       //     index['patients'] = filter[0];
+       //   }
+       // })
+       //let result =  this.appointments = this.appointments.filter(a=>a.status === 'active');
+       //if(result){
+       //  console.log("Appoinment Result: " , result);
+       //}
+       //else{
+       //  console.log("NO Appointments FOUND ON SERVER");
+       //}
       })
   }
 
