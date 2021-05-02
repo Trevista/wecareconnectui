@@ -108,6 +108,7 @@ export class CommonServiceService {
   }
 
   updateAppointment(data, id) {
+    console.log(id);
     return this.http.put(`${this.SERVER_URL + 'appointments'}/${id}`, data);
   }
 
@@ -259,4 +260,5 @@ export class CommonServiceService {
   getdoctorprofile(id) {
     return this.http.get(`${this.SERVER_URL + 'Profiles'}/${id}`);
   }
+
 }
