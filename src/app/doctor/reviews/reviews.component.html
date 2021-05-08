@@ -1,15 +1,15 @@
-<div class="doc-review review-listing" style="display:none">
+<div class="doc-review review-listing">
                             
                         <!-- Review Listing -->
                         <ul class="comments-list">
                         
                             <!-- Comment List -->
                             <li>
-                                <div class="comment">
+                                <div class="comment" *ngFor="let item of review">
                                     <img class="avatar rounded-circle" alt="User Image" src="assets/img/patients/patient.jpg">
                                     <div class="comment-body">
                                         <div class="meta-data">
-                                            <span class="comment-author">Anand Mishra</span>
+                                          <span class="comment-author">{{item.reviewerFirstName}} {{item.reviewerLastName}}</span>
                                             <span class="comment-date">Reviewed 2 Days ago</span>
                                             <div class="review-count rating">
                                                 <i class="fas fa-star filled"></i>
@@ -21,7 +21,7 @@
                                         </div>
                                         <p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
                                         <p class="comment-content">
-                                            Good Doctor, Receomended For best physician in Hyderabad City.
+                                            {{item.reviewText}}
                                         </p>
                                         <div class="comment-reply">
                                             <a class="comment-btn" href="javascript:void(0)">
@@ -70,7 +70,7 @@
                                 
                             </li>
                             
-                            <li>
+                            <!-- <li>
                                 <div class="comment">
                                     <img class="avatar rounded-circle" alt="User Image" src="assets/img/patients/patient2.jpg">
                                     <div class="comment-body">
@@ -104,9 +104,9 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                             
-                            <li>
+                            <!-- <li>
                                 <div class="comment">
                                     <img class="avatar rounded-circle" alt="User Image" src="assets/img/patients/patient3.jpg">
                                     <div class="comment-body">
@@ -140,7 +140,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </li>
+                            </li> -->
                            
                            
                            

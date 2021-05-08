@@ -106,6 +106,10 @@ export class CommonServiceService {
     console.log("Service layer getting Patients appointments...");
     return this.http.get(this.SERVER_URL + 'appointments');
   }
+  getAppointmentsbypatientid(id) {
+   
+    return this.http.get(this.SERVER_URL + 'Appointments/GetByPatientId?id=' + id);
+  }
 
   updateAppointment(data, id) {
     console.log(id);

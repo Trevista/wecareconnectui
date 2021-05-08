@@ -6,6 +6,7 @@ import { RegisterRoutingModule } from './register-routing.module';
 import { RegisterComponent } from './register.component';
 import { NgxSpinnerModule } from "ngx-spinner";
 
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -15,7 +16,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
     FormsModule,
     ReactiveFormsModule,
     RegisterRoutingModule,
-    NgxSpinnerModule
+    NgxSpinnerModule, ModalModule.forRoot()
   ]
 })
 export class RegisterModule { }

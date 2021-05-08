@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { CommonServiceService } from './../../common-service.service';
 import { ToastrService } from 'ngx-toastr';
+import { ReviewsService } from 'src/app//services/reviews.service';
 
 @Component({
   selector: 'app-doctor-profile',
@@ -20,7 +21,8 @@ export class DoctorProfileComponent implements OnInit {
   constructor(
     public commonService: CommonServiceService,
     private route: ActivatedRoute,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    public review: ReviewsService
   ) {}
   images = [
     {
@@ -40,6 +42,7 @@ export class DoctorProfileComponent implements OnInit {
     window.scrollTo(0, 0);
     this.id = this.route.snapshot.queryParams['id'];
     this.getDoctorsDetails();
+    this.getReviews();
   }
 
   getDoctorsDetails() {
@@ -64,5 +67,14 @@ export class DoctorProfileComponent implements OnInit {
       document.getElementById('fav-btn').style.background = '#fb1612';
       document.getElementById('fav-btn').style.color = '#fff';
     });
+  }
+
+  reviews:any;
+  getReviews(){
+    this.review.get_reviews().subscribe((data: any[]) => {
+      
+      this.reviews = data['reviewList'];
+      console.log('review data',this.reviews['childReviews']);
+    })  
   }
 }
