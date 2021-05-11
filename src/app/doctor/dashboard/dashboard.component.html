@@ -58,15 +58,14 @@
     <div class="col-md-12">
       <h4 class="mb-4">Patient Appointments</h4>
       <div class="appointment-tab">
-
         <!-- Appointment Tab -->
         <ul class="nav nav-tabs nav-tabs-solid nav-tabs-rounded">
           <li class="nav-item">
-            <a class="nav-link active" href="#upcoming" [ngClass]="{ 'active':activeTab==='upcomming'}"
-              (click)="search('upcomming')" data-toggle="tab">Upcoming</a>
+            <a class="nav-link active" #navbtn
+              (click)="search('upcoming')" data-toggle="tab" href=#upcoming>Upcoming</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#today" [ngClass]="{ 'active':activeTab==='today'}" (click)="result('today')"
+            <a class="nav-link" href="#today" (click)="result('today')"
               data-toggle="tab">Today</a>
           </li>
         </ul>
@@ -75,7 +74,7 @@
         <div class="tab-content">
 
           <!-- Upcoming Appointment Tab -->
-          <div class="tab-pane" id="upcoming" [ngClass]="{ 'active':activeTab==='upcomming'}">
+          <div class="tab-pane active" id="upcoming">
             <div class="card card-table mb-0">
               <div class="card-body">
                 <div class="table-responsive">
@@ -92,19 +91,18 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let appointment of patientAppointments">
-                        <td>{{appointment.patients?.key}}</td>
+                      <tr *ngFor="let appointment of (appointments | appointmentdate : 'upcoming'); let i =index">
+                        <td>{{i+1}}</td>
                         <td>
                           <h2 class="table-avatar">
-                            <!--<a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" [src]="appointment?.patients?.img" alt="User Image"></a>-->
-                            <a>{{appointment?.patients?.name}}<span></span></a>
+                            <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" [src]="appointment?.patientImageUrl" alt="User Image"></a>
+                            <a>{{appointment?.patientName}}<span></span></a>
                           </h2>
                         </td>
-                        <td>{{appointment.appointment_time | date : 'dd MMM yyyy'}}<span class="d-block text-info">10.00
-                            AM</span></td>
+                        <td>{{appointment?.appointmentDate | date : 'dd MMM yyyy'}}<span class="d-block text-info">{{appointment.appointmentDate | date : 'shortTime'}}</span></td>
                         <td>General</td>
                         <td>{{appointment.type}}</td>
-                        <td class="text-center">{{appointment.amount}}</td>
+                        <td class="text-center">{{appointment.amountPaid | currency : 'INR'}}</td>
                         <td class="text-right">
                           <div class="table-action">
                             <a href="javascript:void(0);" class="btn btn-sm bg-info-light"
@@ -121,10 +119,9 @@
                           </div>
                         </td>
                       </tr>
-                      <tr *ngIf="patientAppointments?.length==0">
+                      <tr *ngIf="appointments?.length==0">
                         <td colspan="5"> No Records Found</td>
                       </tr>
-
                     </tbody>
                   </table>
                 </div>
@@ -133,7 +130,7 @@
           </div>
           <!-- /Upcoming Appointment Tab -->
           <!-- Today Appointment Tab -->
-          <div class="tab-pane" id="today" [ngClass]="{ 'active':activeTab==='today'}">
+          <div class="tab-pane" id="today">
             <div class="card card-table mb-0">
               <div class="card-body">
                 <div class="table-responsive">
@@ -150,20 +147,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let appointment of patientAppointments">
-                        <td>{{appointment.patients?.key}}</td>
+                      <tr *ngFor="let appointment of (appointments | appointmentdate : 'today'); let i =index">
+                        <td>{{i+1}}</td>
                         <td>
                           <h2 class="table-avatar">
                             <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                [src]="appointment?.patients?.img" alt="User Image"></a>
-                            <a>{{appointment?.patients?.name}}<span>{{appointment?.patients?.key}}</span></a>
+                                [src]="appointment?.patientImageUrl" alt="User Image"></a>
+                            <a>{{appointment?.patientName}}</a>
                           </h2>
                         </td>
-                        <td>{{appointment.appointment_time | date : 'dd MMM yyyy'}}<span class="d-block text-info">10.00
-                            AM</span></td>
+                        <td>{{appointment.appointmentDate | date : 'dd MMM yyyy'}}<span class="d-block text-info">{{appointment.appointmentDate | date : 'shortTime'}}</span></td>
                         <td>General</td>
                         <td>{{appointment.type}}</td>
-                        <td class="text-center">{{appointment.amount}}</td>
+                        <td class="text-center">{{appointment.amountPaid | currency : 'INR'}}</td>
                         <td class="text-right">
                           <div class="table-action">
                             <a href="javascript:void(0);" class="btn btn-sm bg-info-light"
@@ -181,7 +177,7 @@
                           </div>
                         </td>
                       </tr>
-                      <tr *ngIf="patientAppointments?.length==0">
+                      <tr *ngIf="appointments?.length==0">
                         <td colspan="5"> No Records Found</td>
                       </tr>
                     </tbody>
@@ -332,7 +328,7 @@
           <pre>21-April-2021, 08:45 PM</pre>
         </div>
       </div>
-      
+
       <div>
         Description:
        
@@ -347,5 +343,4 @@
 
   </ng-template>
 
-
-</div>-->
+</div>

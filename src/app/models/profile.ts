@@ -67,10 +67,3 @@ export interface Specialization {
   id: number;
   name: string;
 }
-export interface Timeslot {
-  id: number,
-  weekDay: number,
-  doctorId: number,
-  startTime: string,
-  endTime: string
-}

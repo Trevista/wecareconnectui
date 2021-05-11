@@ -6,6 +6,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
 import { SettingsComponent } from './settings.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularTagsInputModule } from '@iomechs/angular-tags-input';
+import { NgSelect2Module } from 'ng-select2';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { AngularTagsInputModule } from '@iomechs/angular-tags-input';
     NgxDropzoneModule,
     AngularTagsInputModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgSelect2Module
   ],
   providers: [DatePipe]
 })

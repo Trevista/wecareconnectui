@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { DatePipe } from '@angular/common';
 import { FileloaderService } from 'src/app/services/fileloader.service';
 import { DomSanitizer } from '@angular/platform-browser';
+import { CountriesResponse } from 'src/app/models/countriesresponse';
 declare var $: any;
 
 @Component({
@@ -29,6 +30,7 @@ export class SettingsComponent implements OnInit {
   customPrice = false;
   files: File[] = [];
   profilePic: any = 'assets/img/doctors/doctor-thumb-02.jpg';
+  countries: CountriesResponse;
 
   ngOnInit(): void {
     // Pricing Options Show
@@ -67,7 +69,17 @@ export class SettingsComponent implements OnInit {
       ]),
     });
 
-    this.getProfile();
+    this.getCountries();
+  }
+
+  getCountries(){
+    this.userService.getCountriesResponse().subscribe(
+      x => {
+        this.countries = x;
+        this.getProfile();
+      }, (error) => {
+      }
+    );
   }
 
 
@@ -88,7 +100,6 @@ export class SettingsComponent implements OnInit {
         });
 
         this.profilePic = x.profilePic;
-        console.log(x.profilePic);
 
         for (let i = 1; i < x.registrations.length; i++) {
           const register = <FormArray>this.profileForm.get('registrations');
@@ -296,6 +307,9 @@ export class SettingsComponent implements OnInit {
     else{
       this.toastr.error(this.profileForm.errors.toString(), 'Please Provide required details');
     }
+  }
+
+  countryChange(event){
 
   }
 

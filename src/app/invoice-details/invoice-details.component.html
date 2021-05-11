@@ -15,7 +15,7 @@
 				</div>
 			</div>
 			<!-- /Breadcrumb -->
-			
+
 			<!-- Page Content -->
 			<div class="content">
 				<div class="container-fluid">
@@ -32,13 +32,13 @@
 										</div>
 										<div class="col-md-6">
 											<p class="invoice-details">
-												<strong>Order:</strong> #00124 <br>
-												<strong>Issued:</strong> 20/07/2019
+												<strong>Order:</strong> #{{appointment?.id}} <br>
+												<strong>Issued:</strong> {{today | date}}
 											</p>
 										</div>
 									</div>
 								</div>
-								
+
 								<!-- Invoice Item -->
 								<div class="invoice-item">
 									<div class="row">
@@ -46,9 +46,9 @@
 											<div class="invoice-info">
 												<strong class="customer-text">Invoice From</strong>
 												<p class="invoice-details invoice-details-two">
-													Dr. Darren Elder <br>
-													806  Twin Willow Lane, Old Forge,<br>
-													Newyork, USA <br>
+													Dr. {{appointment?.doctor?.lastName}} {{appointment?.doctor?.firstName}} <br>
+													{{patient?.contactInfo?.address1}},  {{patient?.contactInfo?.address2}}<br>
+													{{patient?.contactInfo?.city}}, {{patient?.contactInfo?.zip}}, {{patient?.contactInfo?.state}} <br>
 												</p>
 											</div>
 										</div>
@@ -56,33 +56,38 @@
 											<div class="invoice-info invoice-info2">
 												<strong class="customer-text">Invoice To</strong>
 												<p class="invoice-details">
-													Walter Roberson <br>
-													299 Star Trek Drive, Panama City, <br>
-													Florida, 32405, USA <br>
+													{{appointment?.patient?.lastName}} {{appointment?.patient?.firstName}} <br>
+                          {{patient?.contactInfo?.address1}},  {{patient?.contactInfo?.address2}} <br>
+													{{patient?.contactInfo?.city}}, {{patient?.contactInfo?.zip}}, {{patient?.contactInfo?.state}}  <br>
 												</p>
 											</div>
 										</div>
 									</div>
 								</div>
 								<!-- /Invoice Item -->
-								
+
 								<!-- Invoice Item -->
 								<div class="invoice-item">
 									<div class="row">
 										<div class="col-md-12">
 											<div class="invoice-info">
 												<strong class="customer-text">Payment Method</strong>
-												<p class="invoice-details invoice-details-two">
+												<!-- <p class="invoice-details invoice-details-two">
 													Debit Card <br>
 													XXXXXXXXXXXX-2541 <br>
 													HDFC Bank<br>
+												</p> -->
+                        <p class="invoice-details invoice-details-two">
+													Coupon <br>
+													<!-- XXXXXXXXXXXX-2541 <br>
+													HDFC Bank<br> -->
 												</p>
 											</div>
 										</div>
 									</div>
 								</div>
 								<!-- /Invoice Item -->
-								
+
 								<!-- Invoice Item -->
 								<div class="invoice-item invoice-table-wrap">
 									<div class="row">
@@ -92,19 +97,19 @@
 													<thead>
 														<tr>
 															<th>Description</th>
-															<th class="text-center">Quantity</th>
-															<th class="text-center">VAT</th>
+															<th class="text-center">Consultaion Fee</th>
+															<th class="text-center">Booking Fee</th>
 															<th class="text-right">Total</th>
 														</tr>
 													</thead>
 													<tbody>
-														<tr>
-															<td>General Consultation</td>
-															<td class="text-center">1</td>
-															<td class="text-center">$0</td>
-															<td class="text-right">$100</td>
+														<tr *ngIf="!isVideo">
+															<td>{{appointment?.appointment.visitReason}}</td>
+															<td class="text-center">{{appointment?.payAmount | currency:'INR'}}</td>
+															<td class="text-center">{{appointment?.serviceFee | currency:'INR'}}</td>
+															<td class="text-right">{{appointment?.payAmount + appointment?.serviceFee | currency:'INR'}}</td>
 														</tr>
-														<tr>
+														<tr *ngIf="isVideo">
 															<td>Video Call Booking</td>
 															<td class="text-center">1</td>
 															<td class="text-center">$0</td>
@@ -120,15 +125,15 @@
 													<tbody>
 													<tr>
 														<th>Subtotal:</th>
-														<td><span>$350</span></td>
+														<td><span>{{appointment?.payAmount + appointment?.serviceFee | currency:'INR'}}</span></td>
 													</tr>
 													<tr>
 														<th>Discount:</th>
-														<td><span>-10%</span></td>
+														<td><span>{{appointment?.discount | currency:'INR'}}</span></td>
 													</tr>
 													<tr>
 														<th>Total Amount:</th>
-														<td><span>$315</span></td>
+														<td><span>{{appointment?.totalAmount | currency:'INR'}}</span></td>
 													</tr>
 													</tbody>
 												</table>
@@ -137,19 +142,19 @@
 									</div>
 								</div>
 								<!-- /Invoice Item -->
-								
+
 								<!-- Invoice Information -->
 								<div class="other-info">
 									<h4>Other information</h4>
 									<p class="text-muted mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus sed dictum ligula, cursus blandit risus. Maecenas eget metus non tellus dignissim aliquam ut a ex. Maecenas sed vehicula dui, ac suscipit lacus. Sed finibus leo vitae lorem interdum, eu scelerisque tellus fermentum. Curabitur sit amet lacinia lorem. Nullam finibus pellentesque libero.</p>
 								</div>
 								<!-- /Invoice Information -->
-								
+
 							</div>
 						</div>
 					</div>
 
 				</div>
 
-			</div>		
+			</div>
 			<!-- /Page Content -->

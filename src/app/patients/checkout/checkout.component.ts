@@ -1,8 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserService } from 'src/app/services/user.service';
 import { CommonServiceService } from './../../common-service.service';
+import { Appointment } from 'src/app/models/appointment';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-checkout',
@@ -18,27 +23,103 @@ export class CheckoutComponent implements OnInit {
   phone;
   appointments: any = [];
   patients: any = [];
+  userValue;
+  userProfile;
+  appointmentDate;
+  public appointmentForm: FormGroup;
+  public submitted = false;
+  discount = 0;
+  bookingFee = 0;
+  checkbox;
+  couponCode;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     public commonService: CommonServiceService,
-    private toastr: ToastrService
+    public auth: AuthenticationService,
+    public userService: UserService,
+    private toastr: ToastrService,
+    private formBuilder: FormBuilder,
+    public appointmentService: AppointmentService
   ) {}
 
   ngOnInit(): void {
-    this.doctorId = this.route.snapshot.queryParams['id'];
+    this.doctorId = this.route.snapshot.queryParams.id;
+    this.appointmentDate = this.route.snapshot.queryParams.date;
+    this.appointmentForm = this.formBuilder.group({
+      id : ['', Validators.required],
+      appointmentDate : ['', Validators.required],
+      visitReason : ['', Validators.required],
+      doctorId : ['', Validators.required],
+      patientId : [null],
+      firstName : ['', Validators.required],
+      lastName : ['', Validators.required],
+      email : ['', Validators.required],
+      phone : ['', Validators.required],
+      invoiceNumber : ['', Validators.required],
+      status : [1, Validators.required],
+      });
     this.getDoctorsDetails();
     this.allPatients();
     this.getAppointments();
+    this.getPatientProfile();
+  }
+
+  get f(){
+    return this.appointmentForm.controls;
+  }
+
+  get data(): any {
+    return this.appointmentService.appointmentData;
+  }
+
+  set data(value: any) {
+    this.appointmentService.appointmentData = value;
+  }
+
+  get total(){
+    return this.doctorDetails?.feePerVisit + this.bookingFee - this.discount;
+  }
+
+  getPatientProfile() {
+    this.userValue = this.auth.userValue;
+    if (this.userValue?.id){
+      const userDetails: Appointment = {
+        id: 0,
+        firstName:  this.userValue.firstName,
+        lastName: this.userValue.lastName,
+        email: this.userValue.email,
+        appointmentDate: this.appointmentDate,
+        visitReason: '',
+        doctorId: parseInt(this.doctorId, 10),
+        phone: '',
+        invoiceNumber: ''
+      };
+      this.appointmentForm.patchValue(userDetails);
+      this.userService.getProfile(this.userValue.id).subscribe(x => {
+        this.userProfile = x;
+        this.appointmentForm.get('patientId').patchValue(x.userId);
+        this.appointmentForm.get('phone').patchValue(x.phoneNumber);
+      });
+    }
   }
 
   getDoctorsDetails() {
     if (!this.doctorId) {
       this.doctorId = 1;
     }
-    this.commonService.getDoctorDetails(this.doctorId).subscribe((res) => {
+    this.userService.getProfile(this.doctorId).subscribe((res) => {
       this.doctorDetails = res;
+    });
+  }
+
+  applyDiscount(){
+    this.userService.getCouponByCode(this.couponCode).subscribe(x => {
+      this.discount = this.total * (x.discountPercent / 100);
+      this.toastr.success('Coupon Applied', 'Success');
+    }, (error) => {
+      this.toastr.error('Invalid Coupon Code', 'Error');
     });
   }
 
@@ -49,7 +130,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   patientDetails() {
-    let userId = localStorage.getItem('id');
+    const userId = localStorage.getItem('id');
     this.commonService.getPatientDetails(Number(userId)).subscribe((res) => {
       this.patients = res;
     });
@@ -62,34 +143,32 @@ export class CheckoutComponent implements OnInit {
   }
 
   booking() {
-    let value = this.patients.reverse();
-    let key = value[0]['key'] + '1';
-    let params = {
-      id: this.appointments.length + 1,
-      doctorName: this.doctorDetails.doctor_name,
-      type: 'New patient',
-      speciality: this.doctorDetails.speciality,
-      patient_key: key,
-      Patient_Name: this.firstName + this.lastName,
-      appointment_time: new Date(),
-      status: 'active',
-      amount: this.doctorDetails.Price,
+    const params = {
+      appointment: this.appointmentForm.value,
+      invoice: {
+        patientFirstName: this.appointmentForm.get('firstName').value,
+        patientLastName:  this.appointmentForm.get('lastName').value,
+        patientEmail: this.appointmentForm.get('email').value,
+        payAmount: this.doctorDetails?.feePerVisit,
+        totalAmount: this.total,
+        discount: this.discount,
+        serviceFee: this.bookingFee,
+        paymentDate:  new Date(),
+        patientId: this.appointmentForm.get('patientId').value,
+        doctorId: this.appointmentForm.get('doctorId').value,
+        appoinmentId: 0,
+
+      },
+      doctor: this.doctorDetails
     };
-    this.commonService.createAppointment(params).subscribe((res) => {
-      let patients = {
-        id: this.patients.length + 1,
-        key: key,
-        name: this.firstName + this.lastName,
-        phone: this.phone,
-        email: this.email,
-        paid: this.doctorDetails.Price,
-      };
-      this.commonService.createPatient(patients).subscribe((patients) => {
-        this.allPatients();
-        this.getAppointments();
-        this.toastr.success('', 'Appointment booked successfully!');
-        this.router.navigate(['/patients/success']);
-      });
+
+    this.data = params;
+    this.appointmentService.createAppointment(params).subscribe(x => {
+      this.toastr.success('', 'Appointment booked successfully!');
+      this.data.appointment.appointmentId = x;
+      this.router.navigate(['/patients/success']);
+    }, (error) => {
+      this.toastr.error('', 'Appointment booking failed!');
     });
   }
 }

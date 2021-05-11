@@ -8,16 +8,17 @@ import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { AppointmentdatePipe } from 'src/app/pipes/appointments/appointmentdate.pipe';
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
   dayGridPlugin
-  
+
 ]);
 
 
 
 @NgModule({
-  declarations: [DashboardComponent],
+  declarations: [DashboardComponent, AppointmentdatePipe],
   imports: [
     CommonModule,
     DashboardRoutingModule,
@@ -26,6 +27,6 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
-  ]
+  ],
 })
 export class DashboardModule { }
