@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import {CommonServiceService  } from './../../common-service.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -19,7 +18,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.user = this.authService.userValue;
     this.getPatients();
-    this.getAppointmentsbypatientid();
+    this.getAppointments();
   }
 
   getStatus(status){
@@ -50,7 +49,6 @@ export class DashboardComponent implements OnInit {
     this.appointmentService.getAppointmentsByPatientEmail(this.user.email).subscribe(
       x => {
         this.appointments = x.appointments;
-        console.log(x);
       },
       error => {
 
