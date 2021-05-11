@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { CommonServiceService } from './../../common-service.service'
 import { FormsModule } from '@angular/forms';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class SearchDoctorComponent implements OnInit {
   specialist = "";
   speciality;
   selDate;
-  constructor(public commonService: CommonServiceService, public router: Router) { }
+  constructor(public commonService: CommonServiceService, public router: Router, private userService: UserService) { }
   images = [
     {
       path: 'assets/img/features/feature-01.jpg',
@@ -38,14 +39,15 @@ export class SearchDoctorComponent implements OnInit {
   }
 
   getDoctors() {
-    this.commonService.getDoctors().subscribe(res => {
-      this.doctors = res;
+    this.userService.getDoctors().subscribe(res => {
+      this.doctors = res.doctors;
+      console.log(res);
     })
   }
 
   getspeciality() {
-    this.commonService.getSpeciality().subscribe(res => {
-      this.specialityList = res;
+    this.commonService.getSpecialities().subscribe(res => {
+      this.specialityList = res.specialities;
     })
   }
 

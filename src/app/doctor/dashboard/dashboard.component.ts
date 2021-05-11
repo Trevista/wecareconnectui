@@ -1,5 +1,6 @@
-import { Component, OnInit,TemplateRef, ViewEncapsulation ,  ChangeDetectionStrategy,
-  ViewChild} from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewEncapsulation ,  ChangeDetectionStrategy,
+  ViewChild,
+  AfterViewInit} from '@angular/core';
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -26,6 +27,8 @@ import {
   CalendarView,
 } from 'angular-calendar';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 const colors: any = {
   red: {
@@ -46,9 +49,16 @@ const colors: any = {
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
+
+  constructor(private toastr: ToastrService,
+              public commonService: CommonServiceService,
+              private modalService: BsModalService,
+              private modal: NgbModal,
+              public appointmentService: AppointmentService,
+              public authService: AuthenticationService) { }
 
   calendarOptions: CalendarOptions = {
     initialView: 'dayGridMonth',
@@ -60,14 +70,6 @@ export class DashboardComponent implements OnInit {
       { title: 'event 3', date: '2021-04-23' }
     ]
   };
-
-  handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
-  }
-
-  toggleWeekends() {
-    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
-  }
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
 
@@ -145,6 +147,29 @@ export class DashboardComponent implements OnInit {
 
   activeDayIsOpen: boolean = true;
 
+  list: any = []
+  modalRef: BsModalRef;
+  appointmentId;
+  appointments: any = [];
+  patients: any = [];
+  patientsLength ;
+  appointmentsLength;
+  TotalPatientsLength ;
+  activeTab = 'upcoming';
+    totalPatientCount: any;
+    todayPatientCount: any;
+    todayAppointments: any;
+    currentDate: Date;
+    patientAppointments: any;
+
+  handleDateClick(arg) {
+    alert('date click! ' + arg.dateStr)
+  }
+
+  toggleWeekends() {
+    this.calendarOptions.weekends = !this.calendarOptions.weekends // toggle the boolean!
+  }
+
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
       if (
@@ -195,28 +220,15 @@ export class DashboardComponent implements OnInit {
     this.activeDayIsOpen = false;
   }
 
-  list : any = []
-  modalRef: BsModalRef;
-  appointmentId;
-  appointments :any = [];
-  patients:any = [];
-  patientsLength ;
-  appointmentsLength;
-  TotalPatientsLength ;
-  activeTab = 'upcomming';
-    totalPatientCount: any;
-    todayPatientCount: any;
-    todayAppointments: any;
-    currentDate: Date;
-    patientAppointments: any;
-  
-  constructor(private toastr: ToastrService,public commonService:CommonServiceService,private modalService: BsModalService, private modal: NgbModal) { }
-
   ngOnInit(): void {
-    this.getPatients();
     this.getAppointments();
+    this.getPatients();
     this.getTotalpatientcount();
     //this.patientAppointments = [{ 'patients': { 'name': 'prasanth', 'key': '12345' }, 'appointment_time': '', 'type': 'New Patient', 'amount': '200'}]
+  }
+
+  ngAfterViewInit(): void {
+    this.getAppointments();
   }
 
   search(activeTab){
@@ -226,7 +238,7 @@ export class DashboardComponent implements OnInit {
   result(activeTab){
     this.activeTab = activeTab;
   }
-  
+
   btnColor() {
     document.getElementById('btn-yes').style.backgroundColor = "#09e5ab";
     document.getElementById('btn-yes').style.border = "1px solid #09e5ab";
@@ -246,12 +258,12 @@ export class DashboardComponent implements OnInit {
     document.getElementById('btn-yes').style.border = "1px solid #fff";
     document.getElementById('btn-yes').style.color = "#000";
   }
-  
+
   openModal(template: TemplateRef<any>,appointment) {
     this.appointmentId = appointment;
     console.log(this.appointmentId);
     this.modalRef = this.modalService.show(template,{class: 'modal-sm modal-dialog-centered'});
-    
+
   }
 
   Accept(value) {
@@ -271,7 +283,7 @@ export class DashboardComponent implements OnInit {
 
   }
   postpone() {
-    
+
 
   }
   confirm(value) {
@@ -288,7 +300,7 @@ export class DashboardComponent implements OnInit {
         this.getPatients();
         this.getAppointments();
       })
-   
+
   }
 
   decline() {
@@ -310,6 +322,7 @@ export class DashboardComponent implements OnInit {
     this.commonService.getDashboardlist()
       .subscribe(res => {
         console.log(res);
+        console.log('here');
         this.totalPatientCount = res['totalPatients'];
         this.todayPatientCount = res['todayPatientsCount'];
         this.todayAppointments = res['appoinmentsCount'];
@@ -318,26 +331,20 @@ export class DashboardComponent implements OnInit {
     this.currentDate = new Date();
   }
   getAppointments() {
-    this.commonService.getAppointments()
-      .subscribe(res=>{
-        this.appointments = res;
-        let scope = this;
-        this.appointments.forEach(index=>{
-          let filter = scope.patients.filter(a=>a.key === index.patient_key);
-          if(filter.length != 0) {
-            index['patients'] = filter[0];
-          }
-        })
-        this.appointments = this.appointments.filter(a=>a.status === 'active');
-        this.appointmentsLength = this.appointments.length;
-      })
+    this.appointmentService.getAppointmentsByDoctorId(this.authService.userValue.id)
+    .subscribe(x => {
+      this.appointments = x.patientAppointments;
+      console.log(this.appointments);
+      this.appointmentsLength = this.appointments?.length;
+
+    });
   }
 
   getPatients() {
-    this.commonService.getpatients()
-    .subscribe(res=>{
-      this.patients = res;
-      this.TotalPatientsLength = this.patients.length;
+    this.appointmentService.getPatientsUnderDoctor(this.authService.userValue.id)
+    .subscribe(res => {
+      this.patients = res.patients;
+      this.TotalPatientsLength = this.patients?.length;
     })
   }
 
@@ -347,7 +354,7 @@ export class DashboardComponent implements OnInit {
 
   // calendarPlugins = [dayGridPlugin];
 
-  
+
 
 
 }

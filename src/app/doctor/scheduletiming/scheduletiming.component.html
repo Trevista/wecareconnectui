@@ -8,18 +8,10 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group">
-                  <label>Week Day</label>
-                  <ng-select2 width="100%" (valueChanged)="selectchange($event)">
-
-                    <option value=1>Monday</option>
-                    <option value=2>Tuesday</option>
-                    <option value=3>Wednesday</option>
-                    <option value=4>Thursday</option>
-                    <option value=5>Friday</option>
-                    <option value=6>Saturday</option>
-                    <option value=7>Sunday</option>
+                  <label for="weekdaySelect">Week Day</label>
+                  <ng-select2 width="100%" id="weekdaySelect" (valueChanged)="selectchange($event)">
+                    <option *ngFor="let day of weekDay" [value]="day.id">{{day.name}}</option>
                   </ng-select2>
-                 
                 </div>
               </div>
               <div class="col-lg-4">
@@ -32,20 +24,21 @@
         <option>45 mins</option>
         <option>1 Hour</option>
       </ng-select2>-->
-                  <input [ngxTimepicker]="starttimepicker" formControlName="startTime" class="form-control">
+                  <label for="startTime">Start Time</label>
+                  <input [ngxTimepicker]="starttimepicker" formControlName="startTime" id="startTime" class="form-control">
                   <ngx-material-timepicker #starttimepicker></ngx-material-timepicker>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="form-group">
-
+                  <label for="endTime">End Time</label>
                   <input [ngxTimepicker]="endtimepicker" formControlName="endTime" class="form-control">
                   <ngx-material-timepicker #endtimepicker></ngx-material-timepicker>
                 </div>
 
               </div>
-              <div class="submit-section submit-btn-bottom">
-                <button type="submit" class="btn btn-primary submit-btn">Save</button>
+              <div class="submit-section submit-btn-bottom ml-auto">
+                <button type="submit" [disabled]="!scheduletimingForm.valid" class="btn btn-primary submit-btn">Save</button>
               </div>
             </div>
             <div class="row">
@@ -101,22 +94,22 @@
                     <div  class="tab-pane fade show active">
                       <h4 class="card-title d-flex justify-content-between">
                         <span>Time Slots</span>
-                        <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a>
+                        <label>{{weekName}}</label>
+                        <!-- <a class="edit-link" data-toggle="modal" href="#edit_time_slot"><i class="fa fa-edit mr-1"></i>Edit</a> -->
                       </h4>
-                      <span *ngFor="let appointmentslot of weekdayappointmentSlots">
+                      <span *ngFor="let appointmentslot of weekdaysappointmentSlots | slotweekday: weekvalue">
                         <div class="doc-times" style="display:inline-flex">
                           <div class="doc-slot-list" >
                             {{appointmentslot.startTime}}-{{appointmentslot.endTime}}
-                            <!--8:00 pm - 11:30 pm-->
-                            <a href="javascript:void(0)" class="delete_schedule">
+                            <a (click)="deleteSchedule(appointmentslot)" class="delete_schedule">
                               <i class="fa fa-times"></i>
                             </a>
                           </div>
-                         
+
                         </div>
                       </span>
                       <!-- Slot List -->
-                     
+
                       <!-- /Slot List -->
 
                     </div>

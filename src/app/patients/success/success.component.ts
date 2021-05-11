@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppointmentService } from 'src/app/services/appointment.service';
 
 @Component({
   selector: 'app-success',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SuccessComponent implements OnInit {
 
-  constructor() { }
+  constructor(public appointmentService: AppointmentService) { }
+
+  data: any;
 
   ngOnInit(): void {
+    this.data = this.appointmentService.appointmentData;
   }
 
 }

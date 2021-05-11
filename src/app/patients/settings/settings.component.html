@@ -1,6 +1,6 @@
 <div class="card">
 			<div class="card-body">
-				
+
 				<!-- Profile Settings Form -->
         <form [formGroup]="patientprofileForm" (submit)="onSubmit()">
           <div class="row form-row">
@@ -8,12 +8,12 @@
               <div class="form-group">
                 <div class="change-avatar">
                   <div class="profile-img">
-                    <img src="assets/img/patients/patient.jpg" alt="User Image">
+                    <img [src]="profilePic" alt="User Image">
                   </div>
                   <div class="upload-img">
                     <div class="change-photo-btn">
                       <span><i class="fa fa-upload"></i> Upload Photo</span>
-                      <input type="file" class="upload">
+                      <input type="file" class="upload" (change)="onProfileSelect($event)">
                     </div>
                     <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
                   </div>
@@ -82,8 +82,10 @@
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-group">
-                  <label>State</label>
-                  <input type="text" class="form-control" formControlName="state">
+                  <label for="stateSelect">State</label>
+                  <ng-select2 width="100%" id="stateSelect" formControlName="state">
+                    <option *ngFor="let state of states" [value]="state.stateCode">{{state.stateName}}</option>
+                  </ng-select2>
                 </div>
               </div>
               <div class="col-12 col-md-6">
@@ -94,18 +96,20 @@
               </div>
               <div class="col-12 col-md-6">
                 <div class="form-group">
-                  <label>Country</label>
-                  <input type="text" class="form-control" formControlName="country">
+                  <label for="countrySelect">Country</label>
+                  <ng-select2 width="100%" id="countrySelect" formControlName="country" (valueChanged)="countryChange($event)">
+                    <option  *ngFor="let country of countries.countries" [value]="country.countryCode">{{country.countryName}}</option>
+                  </ng-select2>
                 </div>
               </div>
             </div>
           </div>
-         
+
           <div class="submit-section">
             <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
           </div>
         </form>
 				<!-- /Profile Settings Form -->
-				
+
 			</div>
 		</div>

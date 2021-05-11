@@ -2,7 +2,7 @@
 	<div class="widget-profile pro-widget-content">
 		<div class="profile-info-widget">
 			<a href="javascript:void(0)" class="booking-doc-img">
-				<img src="assets/img/patients/patient.jpg" alt="User Image">
+				<img [src]="profilePic" alt="User Image">
 			</a>
 			<div class="profile-det-info">
 				<h3>{{patientname}}</h3>
@@ -22,19 +22,26 @@
 						<span>Dashboard</span>
 					</a>
 				</li>
+        <li [class.active]="name === 'search-doctor'">
+					<a (click)="navigate('search-doctor')" [routerLink]="'search-doctor'">
+						<i class="fas fa-search"></i>
+						<span>Doctors</span>
+					</a>
+				</li>
 				<li [class.active]="name === 'Favourites'">
 					<a (click)="navigate('Favourites')" [routerLink]="'favourites'">
 						<i class="fas fa-bookmark"></i>
 						<span>Favorites</span>
 					</a>
 				</li>
-				<!--<li [class.active]="name === 'message'">
+				<!-- <li [class.active]="name === 'message'">
 					<a [routerLink]="'message'">
 						<i class="fas fa-comments"></i>
 						<span>Message</span>
 						<small class="unread-msg">23</small>
 					</a>
-				</li>-->
+				</li> -->
+
 				<li [class.active]="name === 'Profile Settings'">
 					<a (click)="navigate('Profile Settings')" [routerLink]="'settings'">
 						<i class="fas fa-user-cog"></i>

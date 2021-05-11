@@ -5,7 +5,6 @@
 export const environment = {
   production: false,
   apiUrl: `http://praveenkumars219-001-site12.etempurl.com/`
-
 };
 
 /*
