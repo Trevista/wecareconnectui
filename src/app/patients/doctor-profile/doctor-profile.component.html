@@ -446,12 +446,12 @@
 										<ul class="comments-list">
 										
 											<!-- Comment List -->
-											<li>
-												<div class="comment">
+											<li>  
+												<div class="comment" *ngFor="let item of reviews">
 													<img class="avatar avatar-sm rounded-circle" alt="User Image" src="assets/img/patients/patient.jpg">
 													<div class="comment-body">
 														<div class="meta-data">
-															<span class="comment-author">Richard Wilson</span>
+															<span class="comment-author">{{item.reviewerFirstName}} {{item.reviewerLastName}}</span>
 															<span class="comment-date">Reviewed 2 Days ago</span>
 															<div class="review-count rating">
 																<i class="fas fa-star filled"></i>
@@ -463,10 +463,7 @@
 														</div>
 														<p class="recommended"><i class="far fa-thumbs-up"></i> I recommend the doctor</p>
 														<p class="comment-content">
-															Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-															sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-															Ut enim ad minim veniam, quis nostrud exercitation.
-															Curabitur non nulla sit amet nisl tempus
+															{{item.reviewText}}
 														</p>
 														<div class="comment-reply">
 															<a class="comment-btn" href="javascript:void(0)">

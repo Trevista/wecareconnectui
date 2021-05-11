@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommonServiceService } from '../common-service.service';
@@ -9,6 +9,7 @@ import { Register } from '../models/register';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";  
 
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-register',
@@ -18,8 +19,8 @@ import { NgxSpinnerService } from "ngx-spinner";
 export class RegisterComponent implements OnInit {
   public registrationForm: FormGroup;
   public submitted = false;
-
-  isPatient = true;
+  modalRef: BsModalRef;
+  isPatient = false;
   doctors: any = [];
   patients: any = [];
   reg_type = 'Patient Register';
@@ -30,10 +31,11 @@ export class RegisterComponent implements OnInit {
     public authService: AuthenticationService,
     public router: Router,
     private formBuilder: FormBuilder,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService, private modalService: BsModalService
   ) {}
 
   ngOnInit(): void {
+    this.isPatient = false;
     this.registrationForm = this.formBuilder.group({
       title : [''],
       firstName : ['', Validators.required],
@@ -47,6 +49,14 @@ export class RegisterComponent implements OnInit {
       });
     this.getpatients();
     this.getDoctors();
+  }
+  checkType(event) {
+    this.isPatient = event.target.checked ? true : false;
+  }
+  openModal(template: TemplateRef<any>) {
+   
+    this.modalRef = this.modalService.show(template, { class: 'modal-xl modal-dialog-centered' });
+
   }
 
   changeRegType() {
