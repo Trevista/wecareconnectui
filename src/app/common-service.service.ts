@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { SpecialitiesResponse } from './models/specialitiesresponse';
 
 @Injectable({
   providedIn: 'root',
@@ -264,6 +265,10 @@ export class CommonServiceService {
   }
   getdoctorprofile(id) {
     return this.http.get(`${this.SERVER_URL + 'Profiles'}/${id}`);
+  }
+
+  getSpecialities(){
+    return this.http.get<SpecialitiesResponse>(`${this.SERVER_URL + 'Profiles/GetSpecialities'}`);
   }
 
 }

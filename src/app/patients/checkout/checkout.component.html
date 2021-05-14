@@ -15,7 +15,7 @@
 				</div>
 			</div> -->
 			<!-- /Breadcrumb -->
-			
+
 			<!-- Page Content -->
 			<div class="content">
 				<div class="container">
@@ -24,10 +24,10 @@
 						<div class="col-md-7 col-lg-8">
 							<div class="card">
 								<div class="card-body">
-								
+
 									<!-- Checkout Form -->
-									<form>
-									
+									<form [formGroup]="appointmentForm">
+
 										<!-- Personal Information -->
 										<div class="info-widget">
 											<h4 class="card-title">Personal Information</h4>
@@ -35,43 +35,49 @@
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
 														<label>First Name<span class="required">*</span></label>
-														<input class="form-control" type="text" name="firstname" [(ngModel)]="firstName">
+														<input class="form-control" type="text" name="firstname" formControlName="firstName">
 													</div>
 												</div>
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
 														<label>Last Name<span class="required">*</span></label>
-														<input class="form-control" type="text" name="lastname" [(ngModel)]="lastName">
+														<input class="form-control" type="text" name="lastname" formControlName="lastName">
 													</div>
 												</div>
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
 														<label>Email<span class="required">*</span></label>
-														<input class="form-control" type="email" name="email" [(ngModel)]="email">
+														<input class="form-control" type="email" name="email" formControlName="email">
 													</div>
 												</div>
 												<div class="col-md-6 col-sm-12">
 													<div class="form-group card-label">
 														<label>Phone<span class="required">*</span></label>
-														<input class="form-control" type="text" name="phone" [(ngModel)]="phone">
+														<input class="form-control" type="text" name="phone" formControlName="phone">
+													</div>
+												</div>
+                        <div class="col-md-6 col-sm-12">
+													<div class="form-group card-label">
+														<label>Visit Reason<span class="required">*</span></label>
+														<textarea class="form-control" type="text" name="visitreason" formControlName="visitReason"></textarea>
 													</div>
 												</div>
 											</div>
-											<div class="exist-customer">Existing Customer? <a [routerLink]="'/login'">Click here to login</a></div>
+											<div class="exist-customer" *ngIf="!this.userValue">Existing Customer? <a [routerLink]="'/login'">Click here to login</a></div>
 										</div>
 										<!-- /Personal Information -->
-										
+
 										<div class="payment-widget">
 											<h4 class="card-title">Payment Method</h4>
-											
+
 											<!-- Credit Card Payment -->
 											<div class="payment-list">
 												<label class="payment-radio credit-card-option">
-													<!-- <input type="radio" name="radio" checked> -->
+													<input type="radio" name="radio" value="credit" [(ngModel)]="checkbox" [ngModelOptions]="{standalone: true}"  >
 													<span class="checkmark"></span>
 													Credit card
 												</label>
-												<div class="row">
+												<div class="row" *ngIf="checkbox === 'credit'">
 													<div class="col-md-6">
 														<div class="form-group card-label">
 															<label for="card_name">Name on Card<span class="required">*</span></label>
@@ -105,7 +111,28 @@
 												</div>
 											</div>
 											<!-- /Credit Card Payment -->
-											
+
+                      <div class="payment-list">
+                        <label class="payment-radio credit-card-option">
+													<input type="radio" name="radio" value="discount"  [(ngModel)]="checkbox" [ngModelOptions]="{standalone: true}" >
+													<span class="checkmark"></span>
+													Coupon
+												</label>
+                        <div class="row" *ngIf="checkbox === 'discount'">
+													<div class="col-md-6">
+														<div class="form-group card-label">
+															<label for="card_name">Coupon Code<span class="required">*</span></label>
+															<input class="form-control" id="coupon_id" type="text" [(ngModel)]="couponCode" [ngModelOptions]="{standalone: true}">
+														</div>
+													</div>
+                          <div class="col-md-6 text-center">
+                            <div class="mt-4">
+                              <button class="btn btn-primary submit-btn" (click)="applyDiscount()">Apply</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
 											<!-- Paypal Payment -->
 											<!-- <div class="payment-list">
 												<label class="payment-radio paypal-option">
@@ -115,7 +142,7 @@
 												</label>
 											</div> -->
 											<!-- /Paypal Payment -->
-											
+
 											<!-- Terms Accept -->
 											<div class="terms-accept">
 												<div class="custom-checkbox">
@@ -124,38 +151,38 @@
 												</div>
 											</div>
 											<!-- /Terms Accept -->
-											
+
 											<!-- Submit Section -->
 											<div class="submit-section mt-4">
 												<a   type="submit" (click)="booking()" class="btn btn-primary submit-btn">Confirm and Pay</a>
 											</div>
 											<!-- /Submit Section -->
-											
+
 										</div>
 									</form>
 									<!-- /Checkout Form -->
-									
+
 								</div>
 							</div>
-							
+
 						</div>
-						
+
 						<div class="col-md-5 col-lg-4">
-							
+
 							<!-- Booking Summary -->
 							<div class="card booking-card">
 								<div class="card-header">
 									<h4 class="card-title">Booking Summary</h4>
 								</div>
 								<div class="card-body">
-								
+
 									<!-- Booking Doctor Info -->
 									<div class="booking-doc-info">
-										<a [routerLink]="'/patients/doctor-profile'" [queryParams]="{id: doctorDetails?.id}" class="booking-doc-img">
-											<img *ngIf="doctorDetails?.profile" [src]="doctorDetails?.profile" alt="User Image">
+										<a [routerLink]="'/patients/doctor-profile'" [queryParams]="{id: doctorDetails?.userId}" class="booking-doc-img">
+											<img *ngIf="doctorDetails?.profilePic" [src]="doctorDetails?.profilePic" alt="User Image">
 										</a>
 										<div class="booking-info">
-											<h4><a [routerLink]="'/patients/doctor-profile'" [queryParams]="{id: doctorDetails?.id}">{{doctorDetails?.doctor_name}}</a></h4>
+											<h4><a [routerLink]="'/patients/doctor-profile'" [queryParams]="{id: doctorDetails?.userId}">{{doctorDetails?.lastName + ' '+ doctorDetails?.firstName}}</a></h4>
 											<div class="rating">
 												<i class="fas fa-star filled"></i>
 												<i class="fas fa-star filled"></i>
@@ -170,23 +197,23 @@
 										</div>
 									</div>
 									<!-- Booking Doctor Info -->
-									
+
 									<div class="booking-summary">
 										<div class="booking-item-wrap">
 											<ul class="booking-date">
-												<li>Date <span>16 Nov 2019</span></li>
-												<li>Time <span>{{doctorDetails?.availableTime}}</span></li>
+												<li>Date <span>{{f.appointmentDate.value | date}}</span></li>
+												<li>Time <span>{{f.appointmentDate.value | date: 'shortTime'}}</span></li>
 											</ul>
 											<ul class="booking-fee">
-												<li>Consulting Fee <span>{{doctorDetails?.consulting_fees}}</span></li>
-												<li>Booking Fee <span>{{doctorDetails?.booking_fees}}</span></li>
-												<li>Video Call <span>{{doctorDetails?.video_call}}</span></li>
+												<li>Consulting Fee <span>{{doctorDetails?.feePerVisit | currency: 'INR'}}</span></li>
+												<li>Booking Fee <span>{{bookingFee | currency:'INR'}}</span></li>
+												<li>Discount <span>{{discount | currency: 'INR'}}</span></li>
 											</ul>
 											<div class="booking-total">
 												<ul class="booking-total-list">
 													<li>
 														<span>Total</span>
-														<span class="total-cost">{{doctorDetails?.Price}}</span>
+														<span class="total-cost">{{total || 0 | currency: 'INR'}}</span>
 													</li>
 												</ul>
 											</div>
@@ -195,11 +222,11 @@
 								</div>
 							</div>
 							<!-- /Booking Summary -->
-							
+
 						</div>
 					</div>
 
 				</div>
 
-			</div>		
+			</div>
 			<!-- /Page Content -->

@@ -8,6 +8,7 @@ import {
 
 import { CommonServiceService } from './../../common-service.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-sidemenu',
@@ -19,10 +20,13 @@ export class SidemenuComponent implements OnInit {
   splitVal;
   base;
   page;
+  profile;
     doctorName: string;
   constructor(
     private router: Router,
-    public commonService: CommonServiceService, private auth: AuthenticationService
+    public commonService: CommonServiceService,
+    private auth: AuthenticationService,
+    private userService: UserService
   ) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -36,8 +40,10 @@ export class SidemenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //console.log(this.auth.userValue);
     this.doctorName = this.auth.userValue.firstName + ' ' + this.auth.userValue.lastName;
+    this.userService.getProfile(this.auth.userValue.id).subscribe(x => {
+      this.profile = x;
+    });
   }
 
   logout() {

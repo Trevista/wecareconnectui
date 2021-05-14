@@ -160,6 +160,9 @@
           <div class="form-group">
             <label class="control-label">Country</label>
             <input type="text" class="form-control" formControlName="country">
+            <ng-select2 width="100%" id="weekdaySelect" (valueChanged)="countryChange($event)">
+              <option *ngFor="let country of countries.countries" [value]="country.countryCode">{{country.countryName}}</option>
+            </ng-select2>
           </div>
         </div>
         <div class="col-md-6">

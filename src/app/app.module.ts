@@ -20,7 +20,10 @@ import { SpinnersAngularModule } from 'spinners-angular';
 import { OnlineStatusComponent } from './online-status/online-status/online-status.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
 import { CalendarModule, DateAdapter } from 'angular-calendar';
-import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // the main connector. must go first
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import { SlotweekdayPipe } from './pipes/slotweekday.pipe';
+import { StatePipe } from './pipes/states/state.pipe';
+import { AppointmentdatePipe } from './pipes/appointments/appointmentdate.pipe'; // the main connector. must go first
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, FooterComponent, OnlineStatusComponent],
@@ -39,7 +42,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns'; // the
     SpinnersAngularModule,
     FullCalendarModule,
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
-    
+
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -18,6 +18,7 @@ import { DOCUMENT } from '@angular/common';
 import { CommonServiceService } from './../../common-service.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { fromEvent, Observable, Subscription } from 'rxjs';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -29,15 +30,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
   onlineEvent: Observable<Event> | any;
   offlineEvent: Observable<Event> | any;
   subscriptions: Subscription[] = [];
+  profile;
 
   connectionStatusMessage: string;
   connectionStatus: string;
 
-  auth: boolean = false;
-  isPatient: boolean = false;
+  auth = false;
+  isPatient = false;
   page;
   splitVal;
-  headerTop: boolean = false;
+  headerTop = false;
   base;
   url1;
     doctorname: string;
@@ -46,14 +48,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public router: Router,
     private activeRoute: ActivatedRoute,
-    public commonService: CommonServiceService, private authentication: AuthenticationService
+    public commonService: CommonServiceService,
+    private authentication: AuthenticationService,
+    private userService: UserService
   ) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
-        var res = event.url.split('/');
+        let res = event.url.split('/');
         this.base = res[1];
         this.page = res[2];
-        if (event.url == '/home-slider-one') {
+        if (event.url === '/home-slider-one') {
           this.headerTop = true;
         } else {
           this.headerTop = false;
@@ -80,19 +84,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
 
-    /**
-    * Get the online/offline status from browser window
-    */
      this.onlineEvent = fromEvent(window, 'online');
      this.offlineEvent = fromEvent(window, 'offline');
- 
+
      this.subscriptions.push(this.onlineEvent.subscribe(e => {
        this.connectionStatusMessage = 'Back to online';
        this.connectionStatus = 'online';
        window.location.reload();
        console.log('Online...');
      }));
- 
+
      this.subscriptions.push(this.offlineEvent.subscribe(e => {
        this.connectionStatusMessage = 'Connection lost! You are not connected to internet';
        this.connectionStatus = 'offline';
@@ -100,14 +101,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
      }));
 
 
-    this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
-    if (localStorage.getItem('auth') === 'true') {
+     this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
+     if (localStorage.getItem('auth') === 'true') {
       this.auth = true;
-      console.log(localStorage.getItem('patient'));
       this.isPatient =
         localStorage.getItem('patient') === 'true' ? true : false;
     }
-    this.router.events.subscribe((event: Event) => {
+     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         $('html').removeClass('menu-opened');
         $('.sidebar-overlay').removeClass('opened');
@@ -121,7 +121,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.loadDynmicallyScript('assets/js/script.js');
   }
   loadDynmicallyScript(js) {
-    var script = document.createElement('script');
+    let script = document.createElement('script');
     script.src = js;
     script.async = false;
     document.head.appendChild(script);
@@ -143,49 +143,49 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   addStyle(val) {
     if (val === 'home') {
-      if (document.getElementById('home').style.display == 'block') {
+      if (document.getElementById('home').style.display === 'block') {
         document.getElementById('home').style.display = 'none';
       } else {
         document.getElementById('home').style.display = 'block';
       }
     }
     if (val === 'doctor') {
-      if (document.getElementById('doctor').style.display == 'block') {
+      if (document.getElementById('doctor').style.display === 'block') {
         document.getElementById('doctor').style.display = 'none';
       } else {
         document.getElementById('doctor').style.display = 'block';
       }
     }
     if (val === 'patient') {
-      if (document.getElementById('patient').style.display == 'block') {
+      if (document.getElementById('patient').style.display === 'block') {
         document.getElementById('patient').style.display = 'none';
       } else {
         document.getElementById('patient').style.display = 'block';
       }
     }
     if (val === 'pharmacy') {
-      if (document.getElementById('pharmacy').style.display == 'block') {
+      if (document.getElementById('pharmacy').style.display === 'block') {
         document.getElementById('pharmacy').style.display = 'none';
       } else {
         document.getElementById('pharmacy').style.display = 'block';
       }
     }
     if (val === 'pages') {
-      if (document.getElementById('pages').style.display == 'block') {
+      if (document.getElementById('pages').style.display === 'block') {
         document.getElementById('pages').style.display = 'none';
       } else {
         document.getElementById('pages').style.display = 'block';
       }
     }
     if (val === 'blog') {
-      if (document.getElementById('blog').style.display == 'block') {
+      if (document.getElementById('blog').style.display === 'block') {
         document.getElementById('blog').style.display = 'none';
       } else {
         document.getElementById('blog').style.display = 'block';
       }
     }
     if (val === 'admin') {
-      if (document.getElementById('admin').style.display == 'block') {
+      if (document.getElementById('admin').style.display === 'block') {
         document.getElementById('admin').style.display = 'none';
       } else {
         document.getElementById('admin').style.display = 'block';
@@ -202,9 +202,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
     localStorage.clear();
     this.commonService.nextmessage('logout');
     this.router.navigate(['/home']);
-    //this.auth = false;
-    //this.isPatient = false;
-    //this.router.navigate(['/login']);
   }
 
   home() {
