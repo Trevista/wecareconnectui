@@ -62,7 +62,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.url1 = this.router.url;
     this.commonService.message.subscribe((res) => {
-      if (res === 'PatientLogin') {
+      console.log(res);
+      if (res === 'UserLogin') {
         this.auth = true;
         // this.isPatient = true;
       }
@@ -102,6 +103,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
     if (localStorage.getItem('auth') === 'true') {
       this.auth = true;
+      console.log(localStorage.getItem('patient'));
       this.isPatient =
         localStorage.getItem('patient') === 'true' ? true : false;
     }

@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";  
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { window } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -58,7 +59,12 @@ export class RegisterComponent implements OnInit {
     this.modalRef = this.modalService.show(template, { class: 'modal-xl modal-dialog-centered' });
 
   }
-
+  openpdfviewer(doc) {
+   
+    this.commonService.doc = doc;
+    console.log(doc);
+      
+  }
   changeRegType() {
     if (this.reg_type === 'Doctor Register') {
       this.reg_type = 'Patient Register';

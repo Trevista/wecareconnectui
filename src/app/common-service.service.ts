@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class CommonServiceService {
+  public doc: any;
   public patients: any = [
     {
       patientName: 'Richard Wilson',
