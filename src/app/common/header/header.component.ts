@@ -49,7 +49,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     public router: Router,
     private activeRoute: ActivatedRoute,
     public commonService: CommonServiceService,
-    private authentication: AuthenticationService,
+    public authentication: AuthenticationService,
     private userService: UserService
   ) {
     router.events.subscribe((event: Event) => {
@@ -66,7 +66,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.url1 = this.router.url;
     this.commonService.message.subscribe((res) => {
-      console.log(res);
+      
       if (res === 'UserLogin') {
         this.auth = true;
         // this.isPatient = true;

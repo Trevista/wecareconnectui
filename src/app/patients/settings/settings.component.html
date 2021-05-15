@@ -98,7 +98,7 @@
                 <div class="form-group">
                   <label for="countrySelect">Country</label>
                   <ng-select2 width="100%" id="countrySelect" formControlName="country" (valueChanged)="countryChange($event)">
-                    <option  *ngFor="let country of countries.countries" [value]="country.countryCode">{{country.countryName}}</option>
+                    <option  *ngFor="let country of countries?.countries" [value]="country.countryCode">{{country.countryName}}</option>
                   </ng-select2>
                 </div>
               </div>

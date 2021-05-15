@@ -1,38 +1,46 @@
 <div class="row row-grid">
+  <div class="col-md-6 offset-md-4" *ngIf="patients.length === 0">
+    <div class="card">
+      <div class="card-body">
+        <h4>There are no Patients...</h4>
+      </div>
+      <img class="card-img-bottom" src="assets/img/features/onlinedoctor.jpg" alt="Image" />
+    </div>
+  </div>
     <div class="col-md-6 col-lg-4 col-xl-3" *ngFor="let patient of patients" [hidden]="patients.length === 0">
         <div class="card widget-profile pat-widget-profile">
             <div class="card-body">
                 <div class="pro-widget-content">
                     <div class="profile-info-widget">
                         <a class="booking-doc-img">
-                            <img [src]="patient.img" alt="User Image">
+                            <img [src]="patient.patientImageUrl" alt="User Image">
                         </a>
                         <div class="profile-det-info">
-                            <h3><a >{{patient.name}}</a></h3>
-                            
+                            <h3><a >{{patient.patientName}}</a></h3>
+
                             <div class="patient-details">
-                                <h5><b>Patient ID :</b> {{patient.key}}</h5>
-                                <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{patient.address}}</h5>
+                                <h5><b>Patient ID :</b> {{patient.patientId}}</h5>
+                                <h5 class="mb-0"><i class="fas fa-map-marker-alt"></i> {{patient.location}}</h5>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="patient-info">
                     <ul>
-                        <li>Phone <span>+{{patient.phone}}</span></li>
-                        <li>Age <span>{{patient.age}} Years, {{patient.patients?.type}}</span></li>
-                        <li>Blood Group <span>{{patient.bloodgroup}}</span></li>
-                       
+                        <li>Phone <span>+{{patient.mobile}}</span></li>
+                        <li>Age <span>{{patient.age}} Years, {{patient.gender}}</span></li>
+                        <li>Blood Group <span>{{patient.bloodGroup || 'Unknown'}}</span></li>
+
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    
- 
+
+
             <!--  <h4 *ngIf="appointments.length === 0" style="text-align:center;margin-top:1em;">No patients</h4 -->
-          
-    
-   
-    
+
+
+
+
 </div>
