@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AppointmentService } from 'src/app/services/appointment.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import {CommonServiceService  } from './../../common-service.service';
 
 @Component({
@@ -7,11 +9,12 @@ import {CommonServiceService  } from './../../common-service.service';
   styleUrls: ['./mypatients.component.css']
 })
 export class MypatientsComponent implements OnInit {
-  
-  appointments : any = [];
-  patients :  any = [];
-  
-  constructor(public commonService:CommonServiceService) { }
+
+  appointments: any = [];
+  patients: any = [];
+
+  constructor(public commonService: CommonServiceService,
+              public appointmentService: AppointmentService, public auth: AuthenticationService) { }
 
   ngOnInit(): void {
     this.patients = [];
@@ -23,24 +26,25 @@ export class MypatientsComponent implements OnInit {
 
   getAppointments() {
     this.commonService.getAppointments()
-      .subscribe(res=>{
+      .subscribe(res => {
         this.appointments = res;
-        let scope = this;
-        this.appointments.forEach(index=>{
-          let filter = scope.patients.filter(a=>a.key === index.patient_key);
-          if(filter.length != 0) {
-            index['patients'] = filter[0];
+        const scope = this;
+        this.appointments.forEach(index => {
+          const filter = scope.patients.filter(a => a.key === index.patient_key);
+          if (filter.length != 0) {
+            index.patients = filter[0];
           }
-        })
-        this.appointments = this.appointments.filter(a=>a.status === 'accept');
-      })
+        });
+        this.appointments = this.appointments.filter(a => a.status === 'accept');
+      });
   }
 
   getPatients() {
-    this.commonService.getpatients()
-    .subscribe(res=>{
-      this.patients = res;
-    })
+    this.appointmentService.getPatientsUnderDoctor(this.auth.userValue.id)
+    .subscribe(res => {
+      console.log(res);
+      this.patients = res.patients;
+    });
   }
 
 }

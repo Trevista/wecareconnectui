@@ -29,6 +29,7 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import * as moment from 'moment';
 
 const colors: any = {
   red: {
@@ -156,14 +157,15 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   appointmentsLength;
   TotalPatientsLength ;
   activeTab = 'upcoming';
+  selectedAppointment;
     totalPatientCount: any;
     todayPatientCount: any;
-    todayAppointments: any;
+    todayAppointments: any = [];
     currentDate: Date;
     patientAppointments: any;
 
   handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
+    alert('date click! ' + arg.dateStr);
   }
 
   toggleWeekends() {
@@ -223,7 +225,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getAppointments();
     this.getPatients();
-    this.getTotalpatientcount();
+    //this.getTotalpatientcount();
     //this.patientAppointments = [{ 'patients': { 'name': 'prasanth', 'key': '12345' }, 'appointment_time': '', 'type': 'New Patient', 'amount': '200'}]
   }
 
@@ -259,70 +261,86 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     document.getElementById('btn-yes').style.color = "#000";
   }
 
-  openModal(template: TemplateRef<any>,appointment) {
+  openModal(template: TemplateRef<any>, appointment) {
     this.appointmentId = appointment;
-    console.log(this.appointmentId);
-    this.modalRef = this.modalService.show(template,{class: 'modal-sm modal-dialog-centered'});
-
+    this.selectedAppointment = appointment;
+    console.log(this.selectedAppointment);
+    this.modalRef = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
   }
 
   Accept(value) {
-    delete this.appointmentId['patients']
-    let data = {
-      ...this.appointmentId
-    }
-    data['status'] = 'accept';
-    this.commonService.updateAppointment(data, data.id)
-      .subscribe(res => {
+      this.appointmentService.updateAppointmentStatus(this.selectedAppointment.id, 2, null)
+      .subscribe(x => {
         this.toastr.success('', 'Updated successfully!');
         this.modalRef.hide();
-        this.appointments = this.appointments.filter(a => a.id != data.id);
-        this.getPatients();
         this.getAppointments();
-      })
-
+        this.getPatients();
+      });
   }
+
+  getStatus(status){
+    let statusDetail = '#N/A';
+    switch (status) {
+      case 0:
+        statusDetail = 'Not Created';
+        break;
+      case 1:
+        statusDetail = 'Pending';
+        break;
+      case 2:
+        statusDetail = 'Confirmed';
+        break;
+      case 3:
+        statusDetail = 'Cancelled';
+        break;
+      case 4:
+        statusDetail = 'Rescheduled';
+        break;
+      default:
+        break;
+    }
+    return statusDetail;
+  }
+
+  getAppointmentMode(mode){
+    switch (mode) {
+      case 0:
+        return 'Office';
+      case 1:
+        return 'Video';
+      case 2:
+        return 'Voice';
+      default:
+        return '';
+    }
+  }
+
   postpone() {
-
-
+    // this.appointmentService.updateAppointmentStatus(this.selectedAppointment.id, 3, null)
+    // .subscribe(x => {
+    //   this.toastr.success('', 'Cancelled successfully!');
+    //   this.modalRef.hide();
+    //   this.getAppointments();
+    // });
   }
-  confirm(value) {
-    delete this.appointmentId['patients']
-    let data = {
-      ...this.appointmentId
-    }
-    data['status'] = 'accept';
-    this.commonService.updateAppointment(data,data.id)
-      .subscribe(res=>{
-        this.toastr.success('', 'Updated successfully!');
-        this.modalRef.hide();
-        this.appointments = this.appointments.filter(a=>a.id != data.id);
-        this.getPatients();
-        this.getAppointments();
-      })
 
+  confirm(value) {
+    this.appointmentService.updateAppointmentStatus(this.selectedAppointment.id, 3, null)
+    .subscribe(x => {
+      this.toastr.success('', 'Cancelled successfully!');
+      this.modalRef.hide();
+      this.getAppointments();
+      this.getPatients();
+    });
   }
 
   decline() {
-    delete this.appointmentId['patients']
-    let data = {
-      ...this.appointmentId
-    }
-    data['status'] = 'decline';
-    this.commonService.updateAppointment(data,data.id)
-      .subscribe(res=>{
-        this.toastr.success('', 'Decline successfully!');
-        this.modalRef.hide();
-        this.appointments = this.appointments.filter(a=>a.id != data.id);
-        this.getPatients();
-        this.getAppointments();
-      })
   }
+
+
   getTotalpatientcount() {
     this.commonService.getDashboardlist()
       .subscribe(res => {
-        console.log(res);
-        console.log('here');
         this.totalPatientCount = res['totalPatients'];
         this.todayPatientCount = res['todayPatientsCount'];
         this.todayAppointments = res['appoinmentsCount'];
@@ -334,9 +352,11 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.appointmentService.getAppointmentsByDoctorId(this.authService.userValue.id)
     .subscribe(x => {
       this.appointments = x.patientAppointments;
-      console.log(this.appointments);
       this.appointmentsLength = this.appointments?.length;
-
+      const date = new Date();
+      const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+      this.todayAppointments = this.appointments.filter(y =>  moment(y.appointmentDate).isBetween(moment(today),
+      moment(new Date()).add(1, 'day')));
     });
   }
 
@@ -345,7 +365,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     .subscribe(res => {
       this.patients = res.patients;
       this.TotalPatientsLength = this.patients?.length;
-    })
+    });
   }
 
   cancel() {

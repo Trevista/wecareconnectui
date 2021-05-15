@@ -1,10 +1,10 @@
 <div class="appointments">
-							
+
     <!-- Appointment List -->
   <div class="appointment-list" *ngFor="let patient of appointments">
     <div class="profile-info-widget">
       <a class="booking-doc-img">
-        <img [src]="patient.img" alt="User Image">
+        <img [src]="patient.patientImageUrl || 'assets/img/patients/patient.jpg'" alt="User Image">
       </a>
       <div class="profile-det-info">
         <h3><a>{{patient?.patientName}}</a></h3>
@@ -18,10 +18,10 @@
     </div>
 
     <div class="appointment-action">
-      <a href="javascript:void(0)" class="btn btn-sm bg-info-light" data-toggle="modal" data-target="#appt_details">
+      <a (click)="openModal(Viewtemplate,patient)" class="btn btn-sm bg-info-light">
         <i class="far fa-eye"></i> View
       </a>
-      <a (click)="openModal(template,patient)" class="btn btn-sm bg-success-light">
+      <a *ngIf="getAcceptCheck(patient)" (click)="openModal(template,patient)" class="btn btn-sm bg-success-light">
         <i class="fas fa-check"></i> Accept
       </a>
       <a (click)="openModal(Declinetemplate,patient)" class="btn btn-sm bg-danger-light">
@@ -62,5 +62,46 @@
         <button type="button" class="btn btn-default" id="btn-yes" (mouseover)="btnColor()" (click)="modalRef.hide()" >Yes</button>
         <button type="button" class="btn btn-primary" id="btn-no" (mouseover)="btnColorNo()" (click)="modalRef.hide()" >No</button>
      </div>
+    </div>
+  </ng-template>
+
+  <ng-template #Viewtemplate>
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">Patient Details</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="patient-info">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Patient Name</h5>
+          </div>
+          <p class="mb-1">{{selectedAppointment.patientName}}</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Age</h5>
+          </div>
+          <p class="mb-1">{{selectedAppointment.age}} - {{selectedAppointment.gender}}</p>
+        </a>
+        <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Phone Number</h5>
+          </div>
+          <p class="mb-1">{{selectedAppointment.mobile}}</p>
+        </a>
+        <a href class="list-group-item list-group-item-action flex-column align-items-start disabled">
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1">Purpose Of Visit</h5>
+          </div>
+          <p class="mb-1">{{selectedAppointment.purpose}}</p>
+        </a>
+      </div>
+      <div class="modal-footer" style="margin-top:25px">
+        <button *ngIf="selectedAppointment.appointmentStatus === 1" type="button" class="btn btn-primary" (click)="confirm('accept')">Accept</button>
+        <!-- <button type="button" class="btn btn-default" (click)="postpone()">Postpone</button> -->
+      </div>
     </div>
   </ng-template>

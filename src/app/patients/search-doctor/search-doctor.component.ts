@@ -13,11 +13,16 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class SearchDoctorComponent implements OnInit {
   doctors: any = [];
+  filteredDoctors: any = [];
   specialityList: any = [];
   type;
   specialist = "";
   speciality;
   selDate;
+  filter = {
+    speciality : [],
+    gender: ''
+  };
   constructor(public commonService: CommonServiceService, public router: Router, private userService: UserService) { }
   images = [
     {
@@ -41,49 +46,69 @@ export class SearchDoctorComponent implements OnInit {
   getDoctors() {
     this.userService.getDoctors().subscribe(res => {
       this.doctors = res.doctors;
+      this.filteredDoctors = res.doctors;
       console.log(res);
-    })
+    });
   }
 
   getspeciality() {
     this.commonService.getSpecialities().subscribe(res => {
       this.specialityList = res.specialities;
+      this.specialityList.forEach(element => {
+        element.checked = false;
+      });
     })
   }
 
   checkType(event) {
     if (event.target.checked) {
       this.type = event.target.value;
+       this.filter.gender = event.target.value;
     } else {
       this.type = "";
+       this.filter.gender = "";
     }
+   
   }
 
   search() {
-    if (this.type && this.speciality) {
-      this.doctors = this.doctors.filter(a => a.type === this.type && a.speciality === this.speciality)
+    if (this.filter.gender.length > 0 || this.filter.speciality.length > 0) {
+      this.filteredDoctors = [];
+     this.doctors.forEach(element => {
+       const specs = element.specalization?.split(',');
+       if(this.filter.speciality.length > 0){
+         this.filter.speciality.forEach(x => {
+         if(specs.includes(x) && !this.filteredDoctors.includes(element)){
+           console.log(this.filter.gender.length + element.gender);
+           if(this.filter.gender.length === 0 || this.filter.gender === element.gender){
+             console.log("I am here");
+             this.filteredDoctors.push(element);
+           }              
+         }
+       });
+       }
+       else{
+         if(this.filter.gender === element.gender){
+             this.filteredDoctors.push(element);
+           }
+       }
+     });
     } else {
-      this.getDoctors();
+      this.filteredDoctors = this.doctors;
     }
 
   }
 
-  checkSpeciality(event) {
+  checkSpeciality(event, specialit) {
     if (event.target.checked) {
       this.speciality = event.target.value;
     } else {
       this.speciality = "";
     }
+    specialit.checked = event.target.checked;
 
-    var filter = this.specialityList.filter(a => a.speciality === event.target.value);
-    if (filter.length != 0) {
-      filter[0]['checked'] = true;
-    }
-    this.specialityList.forEach(index => {
-      if (index.speciality != event.target.value) {
-        index['checked'] = false;
-      }
-    })
+    const filtered = this.specialityList.filter(a => a.checked);
+    this.filter.speciality = filtered.map(x => x.name);
   }
 
   bookAppointment(id) {

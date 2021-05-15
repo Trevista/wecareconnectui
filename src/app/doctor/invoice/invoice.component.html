@@ -1,6 +1,6 @@
 <div class="card card-table">
     <div class="card-body">
-    
+
         <!-- Invoice Table -->
                                     <div class="table-responsive">
                                         <table class="table table-hover table-center mb-0">
@@ -16,21 +16,21 @@
                                             <tbody>
                                                 <tr *ngFor="let invoice of invoices">
                                                     <td>
-                                                        <a [routerLink]="'/invoice-details'">{{invoice.invoiceNumber}}</a>
+                                                        <a [routerLink]="['/invoice-details']" [queryParams]="{ id: invoice.appoinmentId}">#INV-{{invoice.id}}</a>
                                                     </td>
                                                     <td>
                                                         <h2 class="table-avatar">
                                                             <a  class="avatar avatar-sm mr-2">
-                                                                <img class="avatar-img rounded-circle" [src]="invoice.profile" alt="User Image">
+                                                                <img class="avatar-img rounded-circle" [src]="invoice.profilePic" alt="User Image">
                                                             </a>
-                                                            <a [routerLink]="'/patient-profile'">{{invoice.patient_name}}<span>{{invoice.patient_id}}</span></a>
+                                                            <a [routerLink]="'/patient-profile'">{{invoice.patientLastName}} {{invoice.patientFirstName}}<span>#P{{invoice.patientId}}</span></a>
                                                         </h2>
                                                     </td>
-                                                    <td>{{invoice.total_amount}}</td>
-                                                    <td>14 Nov 2019</td>
+                                                    <td>{{invoice.totalAmount | currency: 'INR'}}</td>
+                                                    <td>{{invoice.paymentDate | date}}</td>
                                                     <td class="text-right">
                                                         <div class="table-action">
-                                                            <a [routerLink]="'/invoice-details'" class="btn btn-sm bg-info-light">
+                                                            <a [routerLink]="['/invoice-details']" [queryParams]="{ id: invoice.appoinmentId}" class="btn btn-sm bg-info-light">
                                                                 <i class="far fa-eye"></i> View
                                                             </a>
                                                             <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
@@ -39,11 +39,11 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                
+
                                             </tbody>
                                         </table>
                                     </div>
                                     <!-- /Invoice Table -->
-                                    
+
     </div>
 </div>

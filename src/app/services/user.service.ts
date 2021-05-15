@@ -51,4 +51,8 @@ export class UserService {
     return this.http.get<any>(environment.apiUrl + `api/Coupons/GetByCode`, options);
   }
 
+  getSpecialities(){
+    return this.http.get<any>(environment.apiUrl + `api/Profiles/GetSpecialities`);
+  }
+
 }

@@ -53,6 +53,10 @@ export class AuthenticationService {
     return this.http.post<any>(environment.apiUrl + 'api/accounts/reset-password', resetmodel);
   }
 
+  changePassword(changepasswordmodel){
+    return this.http.post<any>(environment.apiUrl + 'api/Accounts/change-password', changepasswordmodel);
+  }
+
   logout(){
     localStorage.removeItem('user');
     this.userSubject.next(null);
@@ -64,7 +68,7 @@ export class AuthenticationService {
   isAuthenticated(){
     console.log("In isAuthenticated...")
     let token = localStorage.getItem('user');
- 
+
     if(token){
       console.log("Token is present?: ", token);
       return true;
