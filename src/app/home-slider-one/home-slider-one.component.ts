@@ -6,6 +6,8 @@ import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { SlickCarouselComponent } from 'ngx-slick-carousel';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthenticationService } from '../services/authentication.service';
 declare const $: any;
 
 export interface Doctors {
@@ -22,10 +24,14 @@ export interface Doctors {
   styleUrls: ['./home-slider-one.component.css']
 })
 export class HomeSliderOneComponent implements OnInit {
+  public searchForm: FormGroup;
   @ViewChild('slickModal1') slickModal1: SlickCarouselComponent;
   @ViewChild('slickModal2') slickModal2: SlickCarouselComponent;
   @ViewChild('slickModal3') slickModal3: SlickCarouselComponent;
   specialityList: any = [];
+  auth = false;
+  isPatient = false;
+  searchText;
   doctors: any = [];
   slidepage: any;
   employeeCtrl = new FormControl();
@@ -84,9 +90,10 @@ export class HomeSliderOneComponent implements OnInit {
       name: 'Switzerland',
     },
   ];
+    search: any;
   constructor(
     public router: Router,
-    public commonService: CommonServiceService
+    public commonService: CommonServiceService, private formBuilder: FormBuilder, private authService: AuthenticationService,
   ) {
     this.filteredEmployee = this.employeeCtrl.valueChanges.pipe(
       startWith(''),
@@ -95,8 +102,12 @@ export class HomeSliderOneComponent implements OnInit {
       )
     );
   }
-
+  
   ngOnInit() {
+    this.searchForm = this.formBuilder.group({
+      searchtext: [''],
+      
+    });
     window.scrollTo(0, 0);
     this.getspeciality();
     this.getDoctors();
@@ -152,6 +163,30 @@ export class HomeSliderOneComponent implements OnInit {
         ],
       });
     });
+  }
+  searchdoctors() {
+    console.log(this.authService.userValue);
+    if (localStorage.getItem('auth') === 'true') {
+      this.auth = true;
+      this.isPatient = this.authService.userValue.role === 'User' ? true : false;
+      console.log(this.isPatient);
+      //this.commonService.message.subscribe((res) => {
+      //  console.log(res);
+      //  if (res === 'UserLogin') {
+      //    this.router.navigateByUrl('/patients/search-doctor')
+      //  }
+        
+      //});
+      if (this.isPatient) {
+        this.router.navigateByUrl('/patients/search-doctor')
+      }
+     
+    }
+    else {
+      this.router.navigateByUrl('/login-page')
+    }
+   
+    console.log(this.searchForm.controls['searchtext'].value);//here you will get input value through ng-model
   }
   private _filterEmployees(value: string): Doctors[] {
     const filterValue = value.toLowerCase();

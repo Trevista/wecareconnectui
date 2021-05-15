@@ -43,7 +43,7 @@ export class SettingsComponent implements OnInit {
       email: [{value: this.auth.userValue.email, disabled: true} , [Validators.required]],
       firstName: [ this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: ['', [Validators.required, Validators.pattern("[0-9]{0-10}")]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
       profileDescription: ['', [Validators.required, Validators.minLength(5)]],
@@ -304,8 +304,9 @@ export class SettingsComponent implements OnInit {
       }
 
     }
-    else{
-      this.toastr.error(this.profileForm.errors.toString(), 'Please Provide required details');
+    else {
+      console.log(this.profileForm.errors);
+      //this.toastr.error(this.profileForm.errors.toString(), 'Please Provide required details');
     }
   }
 

@@ -58,12 +58,14 @@ export class LoginComponent implements OnInit {
       else if (x.role === 'User'){
         this.router.navigate(['/patients/dashboard']);
       }
-    }, (error) => this.toastr.error('', 'Login failed!') && this.spinner.hide());
+    }, (error) => this.toastr.error('', 'Login failed!') && this.spinner.hide() && this.clearpassword());
     
     localStorage.setItem('auth', 'true');
     localStorage.setItem('patient', this.isPatient.toString());
   }
-
+  clearpassword() {
+    this.password = '';
+  }
   getDoctors() {
     this.commonService.getDoctors().subscribe((res) => {
       this.doctors = res;

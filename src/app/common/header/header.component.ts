@@ -43,6 +43,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   base;
   url1;
     doctorname: string;
+    doctormodule: boolean=true;
+    patientmodule: boolean=true;
   constructor(
     @Inject(DOCUMENT) private document,
     private cdr: ChangeDetectorRef,
@@ -69,10 +71,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
       console.log(res);
       if (res === 'UserLogin') {
         this.auth = true;
+        this.patientmodule = true;
+        this.doctormodule = false;
         // this.isPatient = true;
       }
       if (res === 'DoctorLogin') {
         this.auth = true;
+        this.doctormodule = true;
+        this.patientmodule = false;
+       
         // this.isPatient = false;
       }
       if (res === 'logout') {
@@ -83,7 +90,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-
+    console.log(this.authentication);
      this.onlineEvent = fromEvent(window, 'online');
      this.offlineEvent = fromEvent(window, 'offline');
 
@@ -101,7 +108,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
      }));
 
 
-     this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
+    this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
+    if (this.authentication.userValue.role == 'Doctor') {
+      this.doctormodule = true;
+      this.patientmodule = false;
+
+    }
+    else if (this.authentication.userValue.role == 'User') {
+      this.doctormodule = false;
+      this.patientmodule = true;
+    }
      if (localStorage.getItem('auth') === 'true') {
       this.auth = true;
       this.isPatient =
@@ -114,6 +130,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         $('.main-wrapper').removeClass('slide-nav');
       }
     });
+
   }
 
   ngAfterViewInit() {
