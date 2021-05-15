@@ -38,7 +38,7 @@ export class PatientsComponent implements OnInit {
           this.patientSidebar = false;
         }
       }
-    });    
+    });
   }
 
   ngOnInit(): void {
@@ -46,7 +46,7 @@ export class PatientsComponent implements OnInit {
       if (event instanceof NavigationStart) {
         this.splitVal = event.url.split('/');
         this.base = this.splitVal[1];
-        this.page = this.splitVal[2];
+        this.page = this.splitVal[2].split('?')[0];
       }
     });
   }

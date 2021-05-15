@@ -153,15 +153,16 @@
         <div class="col-md-6">
           <div class="form-group">
             <label class="control-label">State</label>
-            <input type="text" class="form-control" formControlName="state">
+            <ng-select2 width="100%" id="stateSelect" formControlName="state">
+              <option *ngFor="let state of states" [value]="state.stateCode">{{state.stateName}}</option>
+            </ng-select2>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label class="control-label">Country</label>
-            <!--<input type="text" class="form-control" formControlName="country">-->
-            <ng-select2 width="100%" id="weekdaySelect" (valueChanged)="countryChange($event)" formControlName="country">
-              <option *ngFor="let country of countries.countries" [value]="country.countryCode">{{country.countryName}}</option>
+            <ng-select2 width="100%" id="weekdaySelect" (valueChanged)="countryChange($event)">
+              <option *ngFor="let country of countries?.countries" [value]="country.countryCode">{{country.countryName}}</option>
             </ng-select2>
           </div>
         </div>
@@ -221,9 +222,12 @@
       </div>
       <div class="form-group mb-0">
         <label>Specialization </label>
-        <ti-angular-tags-input class="an-tag" Placeholder="Enter Specilization" formControlName="specializations">
+        <ng-select2 width="100%" id="specializations" [options]="selectOptions" formControlName="specializations">
+          <option  *ngFor="let speciality of specialities" [value]="speciality.name">{{speciality.name}}</option>
+        </ng-select2>
+        <!-- <ti-angular-tags-input class="an-tag" Placeholder="Enter Specilization" formControlName="specializations">
         </ti-angular-tags-input>
-        <small class="form-text text-muted">Note : Type & Press enter to add new specialization</small>
+        <small class="form-text text-muted">Note : Type & Press enter to add new specialization</small> -->
       </div>
     </div>
   </div>

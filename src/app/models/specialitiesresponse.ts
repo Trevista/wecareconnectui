@@ -9,5 +9,5 @@ export interface Speciality{
   name: string;
   description: string;
   image: string;
-  checked: boolean | null;
+  checked?: boolean;
 }

@@ -44,7 +44,7 @@
 									<h4 class="card-title mb-0">Search Filter</h4>
 								</div>
 								<div class="card-body">
-								<div class="filter-widget">
+								<div class="filter-widget d-none">
 									<div class="cal-icon">
 										<input type="text" class="form-control" name="dp"  ngbDatepicker #d="ngbDatepicker">
 									</div>
@@ -68,7 +68,7 @@
 									<h4>Select Specialist</h4>
 									<div *ngFor="let specialit of specialityList">
 										<label class="custom_check">
-											<input type="checkbox" (click)="checkSpeciality($event)" name="select_specialist" [value]="specialit.name" [checked]="specialit.checked">
+											<input type="checkbox" (click)="checkSpeciality($event, specialit)" name="select_specialist" [value]="specialit.name" [checked]="specialit.checked">
 											<span class="checkmark"></span> {{specialit.name}}
 										</label>
 									</div>
@@ -86,7 +86,7 @@
 						<div class="col-md-12 col-lg-8 col-xl-9">
 
 							<!-- Doctor Widget -->
-							<div class="card" *ngFor="let doctor of doctors" [hidden]="doctors.length === 0">
+							<div class="card" *ngFor="let doctor of filteredDoctors" [hidden]="filteredDoctors.length === 0">
 
 								<div class="card-body">
 									<div class="doctor-widget">
@@ -144,7 +144,7 @@
 								</div>
 							</div>
 
-							<div class="load-more text-center" *ngIf="doctors.length !== 0">
+							<div class="load-more text-center" *ngIf="filteredDoctors.length !== 0">
 								<a class="btn btn-primary btn-sm" href="javascript:void(0);">Load More</a>
 							</div>
 						</div>

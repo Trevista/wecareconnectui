@@ -31,6 +31,10 @@ export class SettingsComponent implements OnInit {
   files: File[] = [];
   profilePic: any = 'assets/img/doctors/doctor-thumb-02.jpg';
   countries: CountriesResponse;
+  specialities = [];
+  states = [];
+  profileSpecializations;
+  public selectOptions;
 
   ngOnInit(): void {
     // Pricing Options Show
@@ -69,10 +73,21 @@ export class SettingsComponent implements OnInit {
       ]),
     });
 
+    this.getSpecialities();
     this.getCountries();
+    this.selectOptions = {
+      multiple: true,
+      closeOnSelect: false,
+    };
   }
 
-  getCountries(){
+getSpecialities() {
+    this.userService.getSpecialities().subscribe(x => {
+      this.specialities = x?.specialities;
+    });
+  }
+
+getCountries(){
     this.userService.getCountriesResponse().subscribe(
       x => {
         this.countries = x;
@@ -82,10 +97,11 @@ export class SettingsComponent implements OnInit {
     );
   }
 
-
-  getProfile() {
+getProfile() {
     this.userService.getProfile(this.auth.userValue.id).subscribe(x => {
       if (x.id !== null){
+        this.states =  this.countries.countries.find(a => a.countryCode === x.contactInfo.country)?.states || this.countries.states;
+        this.profileSpecializations = x.specializations;
         this.profileForm.patchValue({
           ...x,
           dateOfBirth: this.date.transform(x.dateOfBirth, 'yyyy-MM-dd'),
@@ -93,10 +109,7 @@ export class SettingsComponent implements OnInit {
             id : a,
             value: a
           })),
-          specializations: x.specializations.map(z => ({
-            id: z.id,
-            value: z.name
-          }))
+          specializations: x.specializations.map(z => z.name)
         });
 
         this.profilePic = x.profilePic;
@@ -115,8 +128,7 @@ export class SettingsComponent implements OnInit {
           const edubg = x.educationBackground[i];
           edbg.controls.push(
             this.fb.group({
-              ...edubg
-          }));
+              ...edubg          }));
         }
 
         for (let i = 1; i < x.experience.length; i++) {
@@ -153,7 +165,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getContactInfo(): FormGroup {
+getContactInfo(): FormGroup {
     return this.fb.group({
       addressId: 0,
       address1: ['', [Validators.required]],
@@ -165,7 +177,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getEducationBg(): FormGroup{
+getEducationBg(): FormGroup{
     return this.fb.group({
       id: 0,
       degree: '',
@@ -174,7 +186,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getExperience(): FormGroup{
+getExperience(): FormGroup{
     return this.fb.group({
       id: 0,
       institutionName: '',
@@ -184,7 +196,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getAwards(): FormGroup{
+getAwards(): FormGroup{
     return this.fb.group({
       id: 0,
       name: '',
@@ -192,7 +204,7 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getRegistrations(): FormGroup{
+getRegistrations(): FormGroup{
     return this.fb.group({
       id: 0,
       name: '',
@@ -200,28 +212,28 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getMemberships(): FormGroup{
+getMemberships(): FormGroup{
     return this.fb.group({
       name: ''
     });
   }
 
-  getClinic(): FormGroup{
+getClinic(): FormGroup{
     return this.fb.group({
       id: 0,
       name: '',
       address: ''
     });
   }
-  onSelect(event) {
+onSelect(event) {
     this.files.push(...event.addedFiles);
   }
 
-  onRemove(event) {
+onRemove(event) {
     this.files.splice(this.files.indexOf(event), 1);
   }
 
-  onNewAdd(item){
+onNewAdd(item){
     switch (item) {
       case 'education':
         this.educations =  this.profileForm.get('educationBackground') as FormArray;
@@ -248,7 +260,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  onRowDelete(i, row){
+onRowDelete(i, row){
     switch (row) {
       case 'education':
        this.educations =  this.profileForm.get('educationBackground') as FormArray;
@@ -275,7 +287,7 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  priceChange(event){
+priceChange(event){
     if (event.target.value === 'custom_price' && event.target.checked){
       this.customPrice = true;
     }
@@ -285,13 +297,13 @@ export class SettingsComponent implements OnInit {
     console.log(event);
   }
 
-  onSubmit(){
+onSubmit(){
     console.log(this.profileForm.value);
     if (this.profileForm.valid){
       const profileValue = {
         ...this.profileForm.value,
         services: this.profileForm.get('services').value.map(x => x.value).toString(),
-        specializations: this.profileForm.get('specializations').value.map(x => ({ name: x.value, id: isNaN(x.id) ? 0 : x.id  }))
+        specializations: this.profileForm.get('specializations').value.map(x => ({ name: x, id: 0  }))
       };
       if (profileValue.id > 0){
         this.userService.updateProfile(profileValue).subscribe(x => {
@@ -310,11 +322,11 @@ export class SettingsComponent implements OnInit {
     }
   }
 
-  countryChange(event){
-
+countryChange(event){
+  this.states =  this.countries.countries.find(x => x.countryCode === event).states;
   }
 
-  onProfileSelect(event){
+onProfileSelect(event){
     let fileToUpload: File = event.target.files[0];
     console.log(fileToUpload.name);
     const formData = new FormData();

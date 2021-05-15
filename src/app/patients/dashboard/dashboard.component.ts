@@ -11,6 +11,9 @@ export class DashboardComponent implements OnInit {
   appointments;
   patients;
   user;
+  invoices = [];
+  prescriptions = [];
+  medicalRecords = [];
 
   constructor(public commonService: CommonServiceService,
               public appointmentService: AppointmentService, public authService: AuthenticationService) { }
@@ -19,6 +22,15 @@ export class DashboardComponent implements OnInit {
     this.user = this.authService.userValue;
     this.getPatients();
     this.getAppointments();
+    this.getInvoices();
+  }
+
+
+  getInvoices() {
+    this.appointmentService.getInvoicesByPatientEmail(this.authService.userValue.email).subscribe(x => {
+      this.invoices = x.invoiceList;
+      console.log(this.invoices);
+    });
   }
 
   getStatus(status){
