@@ -9,6 +9,7 @@ import { SpecialitiesResponse } from './models/specialitiesresponse';
   providedIn: 'root',
 })
 export class CommonServiceService {
+  public doc: any;
   public patients: any = [
     {
       patientName: 'Richard Wilson',

@@ -120,6 +120,11 @@ const routes: Routes = [
       import('./register/register.module').then((m) => m.RegisterModule),
   },
   {
+    path: 'terms/:id',
+    loadChildren: () =>
+      import('./registerterms/registerterms.module').then((m) => m.RegistertermsModule),
+  },
+  {
     path: 'video-call',
     loadChildren: () =>
       import('./videocall/videocall.module').then((m) => m.VideocallModule),

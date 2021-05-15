@@ -2,22 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { RegisterRoutingModule } from './register-routing.module';
-import { RegisterComponent } from './register.component';
+
 import { NgxSpinnerModule } from "ngx-spinner";
 
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+import { RegistertermsComponent } from './registerterms';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { RegistertermsRoutingModule } from './registerterms-routing.module';
 
 @NgModule({
-  declarations: [RegisterComponent],
+  declarations: [RegistertermsComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    RegisterRoutingModule,
+    RegistertermsRoutingModule,
     NgxSpinnerModule, ModalModule.forRoot(), PdfViewerModule
   ]
 })
-export class RegisterModule { }
+export class RegistertermsModule { }

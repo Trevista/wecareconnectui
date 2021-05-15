@@ -228,19 +228,23 @@
                     <img src="assets/img/features/onlinedoctor.jpg" class="img-fluid" alt="Feature">
                 </div>
                 <div class="col-md-7">
-                    <div class="section-header">
-                        <h2 class="mt-2">Available Features in Our Clinic</h2>
-                        <p>It is a long established fact that a reader will be distracted by the readable content of a
-                            page when looking at its layout. </p>
-                    </div>
+                  <div class="section-header">
+                    <h2 class="mt-2">Available Features in Our Clinic</h2>
+                    <a href="javascript:void(0);" [routerLink]="'login-page'">Doctors <!--<i class="fas fa-chevron-down"></i--></a>
+
+                    <p>
+                      It is a long established fact that a reader will be distracted by the readable content of a
+                      page when looking at its layout.
+                    </p>
+                  </div>
                     <div class="features-slider slider">
                         
                             <ngx-slick-carousel class="carousel" #slickModal="slick-carousel" [config]="slideConfig2">
                                 <div ngxSlickItem *ngFor="let slide of sliderContent">
-                                    <div class="feature-item text-center">
+                                    <a class="feature-item text-center" [routerLink]="'login-page'"> 
                                     <img src="{{slide.img}}" class="img-fluid" alt="Feature">
                                         <p>{{slide.name}}</p>
-                                    </div>
+                                    </a>
                                 </div>
                             </ngx-slick-carousel>
                             <!-- <div class="text-center client-navbtn">
