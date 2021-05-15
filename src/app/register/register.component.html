@@ -37,7 +37,7 @@
                 </div>
 
                 <div class="form-group form-focus">
-                  <input type="number" name="mobile" class="form-control floating"
+                  <input type="text" name="mobile" class="form-control floating"
                          formControlName="phoneNumber" maxlength="10">
                   <label class="focus-label">Mobile Number<span class="required">*</span></label>
                 </div>
@@ -64,7 +64,7 @@
                 <div>
                   <input type="checkbox" name="gender_type" [(ngModel)]="isPatient" (click)="checkType($event)" [ngModelOptions]="{standalone: true}">
                   <span class="checkmark"></span> 
- By signing up, I agree to <a (click)="openModal(template)" style="cursor:pointer;color: #14bef0;" href="/terms/terms" target="_blank">
+ By signing up, I agree to <a  style="cursor:pointer;color: #14bef0;" href="/terms/terms" target="_blank">
   terms and Conditions <span class="required">*</span>
 </a>
 

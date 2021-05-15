@@ -9,7 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthguardService implements CanActivate {
+export class PatientAuthguardService implements CanActivate {
 
   constructor(private authService: AuthenticationService,
               private router: Router,
@@ -20,16 +20,13 @@ export class AuthguardService implements CanActivate {
     if(this.authService.isAuthenticated()){
       let token = localStorage.getItem('user');
       let serverRecord = JSON.parse(token);
-      if(serverRecord.role === 'Doctor'){
-        console.log("Authenticated Role: " , serverRecord.role);
-        return true;
-      }
-      else if (serverRecord.role === 'User') {
+      console.log(serverRecord);
+      if (serverRecord.role === 'User') {
         console.log("Authenticated Role: ", serverRecord.role);
         return true;
       }
-      this.toastr.warning("Permission Denied! You Are not a Doctor.");
-      console.log("Un-Authenticated. You are Not Doctor");
+      this.toastr.warning("Permission Denied! You Are not a Patient.");
+      //console.log("Un-Authenticated. You are Not Doctor");
       return false;
     }
     else{

@@ -106,6 +106,7 @@ export class HomeSliderOneComponent implements OnInit {
   ngOnInit() {
     this.searchForm = this.formBuilder.group({
       searchtext: [''],
+      location:['']
       
     });
     window.scrollTo(0, 0);

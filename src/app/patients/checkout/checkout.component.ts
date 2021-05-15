@@ -32,7 +32,7 @@ export class CheckoutComponent implements OnInit {
   bookingFee = 0;
   checkbox;
   couponCode;
-
+  isPatient = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -65,7 +65,9 @@ export class CheckoutComponent implements OnInit {
     this.getAppointments();
     this.getPatientProfile();
   }
-
+  checkType(event) {
+    this.isPatient = event.target.checked ? true : false;
+  }
   get f(){
     return this.appointmentForm.controls;
   }

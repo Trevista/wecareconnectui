@@ -45,8 +45,8 @@
         <div class="banner-wrapper">
             <div class="search-box search-box-3">
                 <form [formGroup]="searchForm" (ngSubmit)="searchdoctors()">
-                    <div class="form-group search-location" style="display:none">
-                        <input type="text" class="form-control" placeholder="Search Location">
+                    <div class="form-group search-location" >
+                        <input type="text" class="form-control" placeholder="Search Location"  formControlName="location">
                     </div>
                     <div class="form-group search-info">
                         <input type="text"  class="form-control" placeholder="Search Doctors, Clinics, Hospitals, Diseases Etc" formControlName="searchtext">

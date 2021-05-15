@@ -146,7 +146,7 @@
 											<!-- Terms Accept -->
 											<div class="terms-accept">
 												<div class="custom-checkbox">
-												   <input type="checkbox" id="terms_accept">
+												   <input type="checkbox" id="terms_accept" [(ngModel)]="isPatient" (click)="checkType($event)" [ngModelOptions]="{standalone: true}">
 												   <label for="terms_accept">&nbsp;I have read and accept <a href="javascript:void(0)">Terms &amp; Conditions</a></label>
 												</div>
 											</div>
@@ -154,7 +154,7 @@
 
 											<!-- Submit Section -->
 											<div class="submit-section mt-4">
-												<a   type="submit" (click)="booking()" class="btn btn-primary submit-btn">Confirm and Pay</a>
+												<button type="submit" (click)="booking()" class="btn btn-primary submit-btn" [disabled]="!isPatient">Confirm and Pay</button>
 											</div>
 											<!-- /Submit Section -->
 

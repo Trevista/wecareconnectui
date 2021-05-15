@@ -29,6 +29,12 @@ export class RegistertermsComponent implements OnInit {
     currentRoute: any;
     generalterms: boolean=false;
     subscriberterms: boolean=false;
+  consultterms: boolean = false;
+  bookpoliciesterms: boolean = false;
+  onlineappointmentterms: boolean = false;
+;
+  informationterms: boolean = false;;
+  diagnosticsterms: boolean = false;;
   constructor(
     private toastr: ToastrService,
     public commonService: CommonServiceService,
@@ -51,6 +57,26 @@ export class RegistertermsComponent implements OnInit {
     }
     else if (this.currentRoute == "subscriberterms") {
       this.subscriberterms = true;
+
+    }
+    else if (this.currentRoute == "consultterms") {
+      this.consultterms = true;
+
+    }
+    else if (this.currentRoute == "informationterms") {
+      this.informationterms = true;
+
+    }
+    else if (this.currentRoute == "diagnosticsterms") {
+      this.diagnosticsterms = true;
+
+    }
+    else if (this.currentRoute == "bookpoliciesterms") {
+      this.bookpoliciesterms = true;
+
+    }
+    else if (this.currentRoute == "onlineappointmentterms") {
+      this.onlineappointmentterms = true;
 
     }
    
