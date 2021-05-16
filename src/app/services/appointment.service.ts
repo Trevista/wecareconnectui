@@ -35,6 +35,10 @@ export class AppointmentService {
     return this.http.get<any>(environment.apiUrl + `api/Appointments/GetByDoctorId`, options);
   }
 
+  getAppointmentById(id) {
+    return this.http.get<any>(environment.apiUrl + `api/Appointments/` + id);
+  }
+
   getPatientsUnderDoctor(doctorId) {
     const options = doctorId ? { params: new HttpParams().set('id', doctorId)} : {};
     return this.http.get<any>(environment.apiUrl + `api/Doctors/GetPatientsunderDoctor`, options);
@@ -56,6 +60,37 @@ export class AppointmentService {
   getInvoicesByPatientEmail(email){
     const options = email ? { params: new HttpParams().set('email', email)} : {};
     return this.http.get<any>(environment.apiUrl + `api/Invoices/GetInvoicesByPatientEmail`, options);
+  }
+
+  addAppointmentNote(appointment){
+    return this.http.post<any>(environment.apiUrl + `api/AppointmentNotes`, appointment);
+  }
+
+  updateAppointmentNotes(appointment){
+    return this.http.put<any>(environment.apiUrl + `api/AppointmentNotes`, appointment);
+  }
+
+  addAppointmentPrescriptions(appointment){
+    return this.http.post<any>(environment.apiUrl + `api/AppointmentPrescriptions`, appointment);
+  }
+
+  updateAppointmentPrescriptions(appointment){
+    return this.http.put<any>(environment.apiUrl + `api/AppointmentPrescriptions`, appointment);
+  }
+
+  getAppointmentNotes(appointmentId){
+    const options = appointmentId ? { params: new HttpParams().set('id', appointmentId)} : {};
+    return this.http.get<any>(environment.apiUrl + `api/AppointmentNotes/GetByAppointmentId`, options);
+  }
+
+  getAppointmentPrescriptions(appointmentId){
+    const options = appointmentId ? { params: new HttpParams().set('id', appointmentId)} : {};
+    return this.http.get<any>(environment.apiUrl + `api/AppointmentPrescriptions/GetByAppointmentId`, options);
+  }
+
+  getAppointmentPrescriptionByPatientId(userId){
+    const options = userId ? { params: new HttpParams().set('id', userId)} : {};
+    return this.http.get<any>(environment.apiUrl + `api/AppointmentPrescriptions/GetByPatientId`, options);
   }
 
 }
