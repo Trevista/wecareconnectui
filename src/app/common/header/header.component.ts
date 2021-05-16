@@ -68,7 +68,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
     this.url1 = this.router.url;
     this.commonService.message.subscribe((res) => {
-      
+
       if (res === 'UserLogin') {
         this.auth = true;
         this.patientmodule = true;
@@ -122,6 +122,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.auth = true;
       this.isPatient =
         localStorage.getItem('patient') === 'true' ? true : false;
+      this.userService.getProfile(this.authentication.userValue.id).subscribe(x => this.profile = x);
     }
      this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {

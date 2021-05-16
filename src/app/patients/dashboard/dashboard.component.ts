@@ -20,16 +20,25 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.authService.userValue;
-    this.getPatients();
+    //this.getPatients();
     this.getAppointments();
     this.getInvoices();
+    this.getPrescriptions();
+  }
+
+
+  getPrescriptions() {
+   this.appointmentService.getAppointmentPrescriptionByPatientId(this.user?.id).subscribe(
+     x => {
+       this.prescriptions = x;
+      }
+   );
   }
 
 
   getInvoices() {
     this.appointmentService.getInvoicesByPatientEmail(this.authService.userValue.email).subscribe(x => {
       this.invoices = x.invoiceList;
-      console.log(this.invoices);
     });
   }
 

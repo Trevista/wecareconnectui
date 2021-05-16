@@ -1,0 +1,75 @@
+<div class="card">
+  <div class="card-header">
+    <form [formGroup]="prescriptionForm" (submit)="onSubmit()">
+      <div class="row">
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="control-label">Name:</label>
+            <input type="text" class="form-control" formControlName="name" />
+          </div>
+        </div>
+        <div class="col-sm-6">
+          <div class="form-group">
+            <label class="control-label">Drug Type:</label>
+            <ng-select2 width="100%" id="medicineSelect" formControlName="medicineType">
+              <option *ngFor="let medicine of medicineTypes" [value]="medicine.id">{{medicine.value}}</option>
+            </ng-select2>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label class="control-label">Quantity:</label>
+            <input type="number" class="form-control" formControlName="quantity" />
+          </div>
+        </div>
+        <div class="col-sm-9">
+          <div class="form-group">
+            <label class="control-label">Description:</label>
+            <textarea type="text" class="form-control" formControlName="description"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <button type="submit" class="btn btn-primary">Save</button>
+      </div>
+    </form>
+  </div>
+  <div class="card-body">
+    <table mat-table #table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Medicine: </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="quantity">
+        <th mat-header-cell *matHeaderCellDef> Quantity </th>
+        <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+      </ng-container>
+      <ng-container matColumnDef="medicineType">
+        <th mat-header-cell *matHeaderCellDef> Medicine Type </th>
+        <td mat-cell *matCellDef="let element"> {{element.medicineType}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="appointmentDate">
+        <th mat-header-cell *matHeaderCellDef> Appointment Date </th>
+        <td mat-cell *matCellDef="let element"> {{element.appointment.appointmentDate | date : 'medium'}} </td>
+      </ng-container>
+      <ng-container matColumnDef="view">
+        <th mat-header-cell *matHeaderCellDef> </th>
+        <td mat-cell *matCellDef="let element">
+          <a href="javascript:void(0);" (click)="deleteMedicine(element)"
+          class="btn btn-sm bg-danger-light">
+          <i class="fas fa-times"></i> Cancel
+        </a>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>e
+    </table>
+  </div>
+  <div class="card-footer text-muted">
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+  </div>
+</div>

@@ -96,19 +96,19 @@
                 </thead>
                 <tbody>
                   <tr *ngFor="let prescription of prescriptions">
-                    <td>14 Nov 2019</td>
-                    <td>Prescription 1</td>
+                    <td>{{prescription.appointment.appointmentDate | date: 'medium'}}</td>
+                    <td>{{prescription.name}}</td>
                     <td>
                       <h2 class="table-avatar">
                         <a [routerLink]="'/patients/doctor-profile'" class="avatar avatar-sm mr-2">
-                          <img class="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg"
+                          <img class="avatar-img rounded-circle" [src]="prescription.appointment.doctor.profile?.profilePic || 'assets/img/doctors/doctor-thumb-01.jpg'"
                             alt="User Image">
                         </a>
-                        <a [routerLink]="'/patients/doctor-profile'">Dr. Ruby Perrin <span>Dental</span></a>
+                        <a [routerLink]="'/patients/doctor-profile'">Dr. {{prescription.appointment.doctor.lastName}} {{prescription.appointment.doctor.firstName}}<span>Dental</span></a>
                       </h2>
                     </td>
                     <td class="text-right">
-                      <div class="table-action">
+                      <div class="table-action d-none">
                         <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
                           <i class="fas fa-print"></i> Print
                         </a>
