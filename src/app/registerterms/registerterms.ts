@@ -32,6 +32,10 @@ export class RegistertermsComponent implements OnInit {
   consultterms: boolean = false;
   bookpoliciesterms: boolean = false;
   onlineappointmentterms: boolean = false;
+  Categoryterms: boolean = false;;
+  JLMUSHPLUSEPROterms: boolean = false;;
+  WECAREURPULSEPulseterms: boolean = false;;
+  JLMUSHRUNandSUTterms: boolean = false;;
 ;
   informationterms: boolean = false;;
   diagnosticsterms: boolean = false;;
@@ -77,6 +81,22 @@ export class RegistertermsComponent implements OnInit {
     }
     else if (this.currentRoute == "onlineappointmentterms") {
       this.onlineappointmentterms = true;
+
+    }
+    else if (this.currentRoute == "WECAREURPULSEPulseterms") {
+      this.WECAREURPULSEPulseterms = true;
+
+    }
+    else if (this.currentRoute == "Categoryterms") {
+      this.Categoryterms = true;
+
+    }
+    else if (this.currentRoute == "JLMUSHPLUSEPROterms") {
+      this.JLMUSHPLUSEPROterms = true;
+
+    }
+    else if (this.currentRoute == "JLMUSHRUNandSUTterms") {
+      this.JLMUSHRUNandSUTterms = true;
 
     }
    
