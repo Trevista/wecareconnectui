@@ -162,6 +162,8 @@ getProfile() {
         $('#price_custom').checked = true;
         $('#pricing_select input[name="rating_option"]').value = 'custom_price';
       }
+    }, (error) => {
+      this.states = this.countries.states;
     });
   }
 
@@ -323,7 +325,7 @@ onSubmit(){
   }
 
 countryChange(event){
-  this.states =  this.countries.countries.find(x => x.countryCode === event).states;
+  this.states =  this.countries.countries.find(x => x.countryCode === event).states || this.countries.states;
   }
 
 onProfileSelect(event){
