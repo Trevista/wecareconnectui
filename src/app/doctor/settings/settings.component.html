@@ -35,35 +35,50 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>First Name <span class="text-danger">*</span></label>
-            <input type="text" formControlName="firstName" class="form-control">
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="f.firstName.errors ? 'is-invalid': ''">
+            <div class="invalid-feedback" *ngIf="f.firstName.errors">
+              Valid First Name should be Added!
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Last Name <span class="text-danger">*</span></label>
-            <input type="text" formControlName="lastName" class="form-control">
+            <input type="text" formControlName="lastName" class="form-control" [ngClass]="f.lastName.errors ? 'is-invalid': ''">
+            <div class="invalid-feedback" *ngIf="f.lastName.errors">
+              Valid Last Name should be Added!
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Phone Number</label>
-            <input type="text" formControlName="phoneNumber" class="form-control" maxlength="10">
+            <input type="text" formControlName="phoneNumber" class="form-control" maxlength="10" [ngClass]="f.phoneNumber.errors ? 'is-invalid': ''">
+            <div class="invalid-feedback" *ngIf="f.phoneNumber.errors">
+              {{f.phoneNumber.errors | json}}
+              Valid Phone Number should be Added!
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Gender</label>
-            <select class="form-control select" formControlName="gender">
-             
+            <select class="form-control select" formControlName="gender" [ngClass]="f.gender.errors ? 'is-invalid': ''">
               <option>Male</option>
               <option>Female</option>
             </select>
+            <div class="invalid-feedback" *ngIf="f.gender.errors">
+              Valid Gender should be Selected!
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group mb-0">
             <label>Date of Birth</label>
-            <input type="date" class="form-control" formControlName="dateOfBirth">
+            <input type="date" class="form-control" formControlName="dateOfBirth"  [ngClass]="f.dateOfBirth.errors ? 'is-invalid': ''">
+            <div class="invalid-feedback" *ngIf="f.dateOfBirth.errors">
+              Valid Gender should be Selected!
+            </div>
           </div>
         </div>
       </div>
@@ -77,7 +92,10 @@
       <h4 class="card-title">About Me</h4>
       <div class="form-group mb-0">
         <label>Biography</label>
-        <textarea class="form-control" formControlName="profileDescription" rows="5"></textarea>
+        <textarea class="form-control" formControlName="profileDescription" rows="5" [ngClass]="f.profileDescription.errors ? 'is-invalid': ''"></textarea>
+        <div class="invalid-feedback" *ngIf="f.profileDescription.errors">
+          Minimum of 5 Characters are required!
+        </div>
       </div>
     </div>
   </div>
@@ -91,13 +109,19 @@
         <div class="col-md-6">
           <div class="form-group">
             <label>Clinic Name</label>
-            <input type="text" class="form-control" formControlName="name">
+            <input type="text" class="form-control" formControlName="name" [ngClass]="f.clinicInfo.errors ? 'is-invalid': ''">
+            <div class="invalid-feedback" *ngIf="f.clinicInfo.errors">
+              Invalid Clinic Info
+            </div>
           </div>
         </div>
         <div class="col-md-6">
           <div class="form-group">
             <label>Clinic Address</label>
-            <input type="text" class="form-control" formControlName="address">
+            <input type="text" class="form-control" formControlName="address" [ngClass]="f.clinicInfo.errors ? 'is-invalid': ''">
+            <div class="invalid-feedback" *ngIf="f.clinicInfo.errors">
+              Invalid Clinic Info
+            </div>
           </div>
         </div>
         <div class="col-md-12">

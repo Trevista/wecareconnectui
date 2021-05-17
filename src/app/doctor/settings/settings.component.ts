@@ -47,7 +47,7 @@ export class SettingsComponent implements OnInit {
       email: [{value: this.auth.userValue.email, disabled: true} , [Validators.required]],
       firstName: [ this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
-      phoneNumber: ['', [Validators.required, Validators.pattern("[0-9]{0-10}")]],
+      phoneNumber: ['', [Validators.required]],
       gender: ['', [Validators.required]],
       dateOfBirth: ['', [Validators.required]],
       profileDescription: ['', [Validators.required, Validators.minLength(5)]],
@@ -55,7 +55,7 @@ export class SettingsComponent implements OnInit {
       contactInfo: this.getContactInfo(),
       services: ['', Validators.required],
       specializations: ['', Validators.required],
-      feePerVisit: [null, Validators.required],
+      feePerVisit: [0],
       educationBackground : this.fb.array([
         this.getEducationBg()
       ]),
@@ -79,6 +79,10 @@ export class SettingsComponent implements OnInit {
       multiple: true,
       closeOnSelect: false,
     };
+  }
+
+  get f(){
+    return this.profileForm.controls;
   }
 
 getSpecialities() {
@@ -301,9 +305,11 @@ priceChange(event){
 
 onSubmit(){
     console.log(this.profileForm.value);
+    console.log(this.profileForm);
     if (this.profileForm.valid){
       const profileValue = {
         ...this.profileForm.value,
+        feePerVisit: this.profileForm.get('feePerVisit').value || 0,
         services: this.profileForm.get('services').value.map(x => x.value).toString(),
         specializations: this.profileForm.get('specializations').value.map(x => ({ name: x, id: 0  }))
       };

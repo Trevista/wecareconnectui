@@ -35,27 +35,7 @@ export class SettingsComponent implements OnInit {
       gender: [null],
       dateOfBirth: ['', [Validators.required]],
       profileDescription: [null],
-      clinicInfo: this.getClinic(),
       contactInfo: this.getContactInfo(),
-      services: [null],
-      specializations: [null],
-      feePerVisit: [0],
-      educationBackground: this.fb.array([
-        this.getEducationBg()
-      ]),
-      experience: this.fb.array([
-        this.getExperience()
-      ]),
-      awards: this.fb.array([
-        this.getAwards()
-      ]),
-      memberShips: this.fb.array([
-        this.getMemberships()
-      ]),
-      registrations: this.fb.array([
-        this.getRegistrations()
-      ]),
-
     });
     this.getCountries();
   }
@@ -90,65 +70,18 @@ export class SettingsComponent implements OnInit {
     });
   }
 
-  getEducationBg(): FormGroup {
-    return this.fb.group({
-      id: 0,
-      degree: null,
-      institute: null,
-      completionYear: null
-    });
-  }
-
-  getExperience(): FormGroup {
-    return this.fb.group({
-      id: 0,
-      institutionName: null,
-      from: null,
-      to: null,
-      designation: null
-    });
-  }
-
-  getAwards(): FormGroup {
-    return this.fb.group({
-      id: 0,
-      name: null,
-      year: null
-    });
-  }
-
-  getRegistrations(): FormGroup {
-    return this.fb.group({
-      id: 0,
-      name: null,
-      year: null
-    });
-  }
-
-  getMemberships(): FormGroup {
-    return this.fb.group({
-      name: null
-    });
-  }
-
-  getClinic(): FormGroup {
-    return this.fb.group({
-      id: 0,
-      name: null,
-      address: null
-    });
-  }
   getProfile() {
     this.userService.getProfile(this.auth.userValue.id).subscribe(x => {
       if (x.id !== null) {
         this.profilePic = x.profilePic;
-        this.states =  this.countries.countries.find(a => a.countryCode === x.contactInfo.country).states;
-        console.log(this.states);
+        this.states =  this.countries.countries.find(a => a.countryCode === x.contactInfo.country).states || this.countries.states;
         this.patientprofileForm.patchValue({
           ...x,
           dateOfBirth: this.date.transform(x.dateOfBirth, 'yyyy-MM-dd'),
         });
       }
+    }, (error) => {
+      this.states =  this.countries.states;
     });
   }
 
