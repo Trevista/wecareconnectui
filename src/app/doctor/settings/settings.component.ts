@@ -173,8 +173,8 @@ getContactInfo(): FormGroup {
       address1: ['', [Validators.required]],
       address2: [''],
       city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      country: ['', [Validators.required]],
+      state: ['TG'],
+      country: ['IND'],
       zip: ['', [Validators.required]],
     });
   }

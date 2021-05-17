@@ -84,8 +84,8 @@ export class SettingsComponent implements OnInit {
       address1: ['', [Validators.required]],
       address2: [null],
       city: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      country: ['IND', [Validators.required]],
+      state: ['TG', ],
+      country: ['IND'],
       zip: ['', [Validators.required]],
     });
   }
