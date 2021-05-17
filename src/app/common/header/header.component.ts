@@ -79,7 +79,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.auth = true;
         this.doctormodule = true;
         this.patientmodule = false;
-       
+
         // this.isPatient = false;
       }
       if (res === 'logout') {
@@ -108,13 +108,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
      }));
 
 
-    this.doctorname = this.authentication.userValue.firstName + ' ' + this.authentication.userValue.lastName;
-    if (this.authentication.userValue.role == 'Doctor') {
+    this.doctorname = this.authentication.userValue?.firstName + ' ' + this.authentication.userValue?.lastName;
+    if (this.authentication.userValue?.role == 'Doctor') {
       this.doctormodule = true;
       this.patientmodule = false;
 
     }
-    else if (this.authentication.userValue.role == 'User') {
+    else if (this.authentication.userValue?.role == 'User') {
       this.doctormodule = false;
       this.patientmodule = true;
     }
@@ -160,49 +160,49 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   addStyle(val) {
-    if (val === 'home') {
+    if (val === 'home' && document.getElementById('home')) {
       if (document.getElementById('home').style.display === 'block') {
         document.getElementById('home').style.display = 'none';
       } else {
         document.getElementById('home').style.display = 'block';
       }
     }
-    if (val === 'doctor') {
+    if (val === 'doctor' && document.getElementById('doctor')) {
       if (document.getElementById('doctor').style.display === 'block') {
         document.getElementById('doctor').style.display = 'none';
       } else {
         document.getElementById('doctor').style.display = 'block';
       }
     }
-    if (val === 'patient') {
+    if (val === 'patient' && document.getElementById('patient')) {
       if (document.getElementById('patient').style.display === 'block') {
         document.getElementById('patient').style.display = 'none';
       } else {
         document.getElementById('patient').style.display = 'block';
       }
     }
-    if (val === 'pharmacy') {
+    if (val === 'pharmacy' && document.getElementById('pharmacy')) {
       if (document.getElementById('pharmacy').style.display === 'block') {
         document.getElementById('pharmacy').style.display = 'none';
       } else {
         document.getElementById('pharmacy').style.display = 'block';
       }
     }
-    if (val === 'pages') {
+    if (val === 'pages' && document.getElementById('pages')) {
       if (document.getElementById('pages').style.display === 'block') {
         document.getElementById('pages').style.display = 'none';
       } else {
         document.getElementById('pages').style.display = 'block';
       }
     }
-    if (val === 'blog') {
+    if (val === 'blog' && document.getElementById('blog')) {
       if (document.getElementById('blog').style.display === 'block') {
         document.getElementById('blog').style.display = 'none';
       } else {
         document.getElementById('blog').style.display = 'block';
       }
     }
-    if (val === 'admin') {
+    if (val === 'admin' && document.getElementById('admin')) {
       if (document.getElementById('admin').style.display === 'block') {
         document.getElementById('admin').style.display = 'none';
       } else {
