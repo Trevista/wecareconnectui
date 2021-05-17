@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: `http://praveenkumars219-001-site12.etempurl.com/`
+  apiLocalUrl: `http://praveenkumars219-001-site12.etempurl.com/`,
+  apiUrl: `https://wecarebaseapi.azurewebsites.net/`
 };

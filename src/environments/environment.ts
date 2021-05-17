@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: `https://localhost:44385/`
+  apiUrl: `http://praveenkumars219-001-site12.etempurl.com/`
 };
 
 /*

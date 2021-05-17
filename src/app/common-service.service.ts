@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SpecialitiesResponse } from './models/specialitiesresponse';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -57,10 +58,12 @@ export class CommonServiceService {
   ];
 
   messages: '';
-  SERVER_URL: string = 'http://praveenkumars219-001-site12.etempurl.com/api/';
+  SERVER_URL: string;
   message: BehaviorSubject<String>;
   constructor(public http: HttpClient) {
     this.message = new BehaviorSubject(this.messages);
+    this.SERVER_URL = environment.apiUrl + `api/`;
+    console.log(this.SERVER_URL);
   }
 
   nextmessage(data) {

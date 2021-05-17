@@ -154,7 +154,7 @@
                           <td>
                             <h2 class="table-avatar">
                               <a class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle"
-                                  [src]="appointment?.patientImageUrl" alt="User Image"></a>
+                                  [src]="appointment?.patientImageUrl || 'assets/img/patients/patient.jpg'" alt="User Image"></a>
                               <a>{{appointment?.patientName}}</a>
                             </h2>
                           </td>
@@ -267,6 +267,12 @@
       </div>
       <div class="modal-footer" style="margin-top:25px">
         <button *ngIf="selectedAppointment.appointmentStatus === 1" type="button" class="btn btn-primary" (click)="Accept('accept')">Accept</button>
+        <a [href]="selectedAppointment?.whereByLink" target="_blank" class="btn btn-sm bg-info-light">
+          <i class="fas fa-video"></i> Video
+        </a>
+        <a [href]="selectedAppointment?.whereByLink + '?video=off'" target="_blank"  class="btn btn-sm bg-info-light">
+          <i class="fas fa-microphone"></i> Voice
+        </a>
         <!-- <button type="button" class="btn btn-default" (click)="postpone()">Postpone</button> -->
       </div>
     </div>
