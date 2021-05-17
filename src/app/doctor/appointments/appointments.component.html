@@ -43,7 +43,7 @@
     <div class="modal-body text-center">
       Are you sure want to accept this patient?
       <div style="margin-top:25px">
-        <button type="button" class="btn btn-default" id="btn-yes" (mouseover)="btnColor()" (click)="confirm('accept')" >Yes</button>
+        <button type="button" class="btn btn-default" id="btn-yes" (mouseover)="btnColor()" (click)="Accept('accept')" >Yes</button>
         <button type="button" class="btn btn-primary" id="btn-no" (mouseover)="btnColorNo()" (click)="modalRef.hide()" >No</button>
       </div>
     </div>
@@ -59,7 +59,7 @@
     <div class="modal-body text-center">
       Are you sure want to cancel this patient?
       <div style="margin-top:25px">
-        <button type="button" class="btn btn-default" id="btn-yes" (mouseover)="btnColor()" (click)="modalRef.hide()" >Yes</button>
+        <button type="button" class="btn btn-default" id="btn-yes" (mouseover)="btnColor()" (click)="confirm('cancel')" >Yes</button>
         <button type="button" class="btn btn-primary" id="btn-no" (mouseover)="btnColorNo()" (click)="modalRef.hide()" >No</button>
      </div>
     </div>
@@ -100,7 +100,7 @@
         </a>
       </div>
       <div class="modal-footer" style="margin-top:25px">
-        <button *ngIf="selectedAppointment.appointmentStatus === 1" type="button" class="btn btn-primary" (click)="confirm('accept')">Accept</button>
+        <button *ngIf="selectedAppointment.appointmentStatus === 1" type="button" class="btn btn-primary" (click)="Accept('accept')">Accept</button>
         <!-- <button type="button" class="btn btn-default" (click)="postpone()">Postpone</button> -->
       </div>
     </div>

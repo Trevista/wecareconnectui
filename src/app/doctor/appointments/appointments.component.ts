@@ -5,6 +5,7 @@ import {CommonServiceService  } from './../../common-service.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import * as moment from 'moment';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-appointments',
@@ -21,7 +22,8 @@ export class AppointmentsComponent implements OnInit {
   selectedAppointment;
   constructor(public commonService: CommonServiceService,
               private modalService: BsModalService, private auth: AuthenticationService,
-              private appointmentService: AppointmentService) { }
+              private appointmentService: AppointmentService,
+              private toaster: ToastrService) { }
 
   ngOnInit(): void {
     // this.patients = [{ name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }, { name: "John", date: " 14 Nov 2019, 10.00 AM", address: "Hyderabad", email: "john@wecare.com", phone: "999999999" }]
@@ -43,23 +45,26 @@ export class AppointmentsComponent implements OnInit {
     return moment(appointment.appointmentDate) >= moment(today) && appointment.status === 1;
   }
 
-  confirm(value) {
-    delete this.appointmentId.patients;
-    const data = {
-      ...this.appointmentId
-    };
-    console.log(data);
-    data.appointmentStatus = 'accept';
-    this.commonService.updateAppointment(data, data.id)
-      .subscribe(res => {
-        console.log(res);
-        this.modalRef.hide();
-        this.appointments = this.appointments.filter(a => a.id != data.id);
-        this.getPatients();
-        this.getAppointments();
-      });
+  Accept(value) {
+    this.appointmentService.updateAppointmentStatus(this.selectedAppointment.id, 2, null)
+    .subscribe(x => {
+      this.toaster.success('', 'Updated successfully!');
+      this.modalRef.hide();
+      this.getAppointments();
+      this.getPatients();
+    });
+}
 
-  }
+confirm(value) {
+  this.appointmentService.updateAppointmentStatus(this.selectedAppointment.id, 3, null)
+  .subscribe(x => {
+    this.toaster.success('', 'Cancelled successfully!');
+    this.modalRef.hide();
+    this.getAppointments();
+    this.getPatients();
+  });
+}
+
 
   btnColor() {
     document.getElementById('btn-yes').style.backgroundColor = '#09e5ab';
@@ -100,7 +105,6 @@ export class AppointmentsComponent implements OnInit {
     this.appointmentService.getAppointmentsByDoctorId(this.auth.userValue.id)
       .subscribe(res => {
         this.appointments = res.patientAppointments;
-        console.log(res);
       });
   }
 
