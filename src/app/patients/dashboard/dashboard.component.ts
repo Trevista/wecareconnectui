@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import {CommonServiceService  } from './../../common-service.service';
@@ -14,6 +15,7 @@ export class DashboardComponent implements OnInit {
   invoices = [];
   prescriptions = [];
   medicalRecords = [];
+  today = new Date();
 
   constructor(public commonService: CommonServiceService,
               public appointmentService: AppointmentService, public authService: AuthenticationService) { }
@@ -70,6 +72,7 @@ export class DashboardComponent implements OnInit {
     this.appointmentService.getAppointmentsByPatientEmail(this.user.email).subscribe(
       x => {
         this.appointments = x.appointments;
+        console.log(x.appointments);
       },
       error => {
 
@@ -83,4 +86,12 @@ export class DashboardComponent implements OnInit {
       this.patients = res;
     });
   }
+
+  getFutureEvent(appointment){
+    const today = new Date();
+    const now = moment(today);
+    const appointmentDate = moment(appointment?.appointmentDate);
+    return appointmentDate >= now;
+  }
+
 }

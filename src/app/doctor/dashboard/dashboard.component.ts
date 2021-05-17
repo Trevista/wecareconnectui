@@ -352,6 +352,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.appointmentService.getAppointmentsByDoctorId(this.authService.userValue.id)
     .subscribe(x => {
       this.appointments = x.patientAppointments;
+      console.log( this.appointments);
       this.appointmentsLength = this.appointments?.length;
       const date = new Date();
       const today = new Date(date.getFullYear(), date.getMonth(), date.getDate());
