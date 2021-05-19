@@ -57,6 +57,7 @@ export class SearchDoctorComponent implements OnInit {
       this.specialityList.forEach(element => {
         element.checked = false;
       });
+      
     })
   }
 
