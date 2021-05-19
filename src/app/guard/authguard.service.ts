@@ -24,10 +24,7 @@ export class AuthguardService implements CanActivate {
         console.log("Authenticated Role: " , serverRecord.role);
         return true;
       }
-      else if (serverRecord.role === 'User') {
-        console.log("Authenticated Role: ", serverRecord.role);
-        return true;
-      }
+      
       this.toastr.warning("Permission Denied! You Are not a Doctor.");
       console.log("Un-Authenticated. You are Not Doctor");
       return false;

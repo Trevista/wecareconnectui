@@ -47,11 +47,11 @@
                 </a>
             </div>
             <ul class="main-nav">
-                <li [ngClass]="{'active' : base === 'home' || base === 'home-slider-one'}"
+                <li [class.active]="base === 'home' || base === 'home-one' || base === 'home-two' || base === 'home-slider-one' || base === 'home-slider-two' "
                     (click)="addStyle('home')" class="has-submenu" style="cursor: pointer;">
                     <a href="javascript:void(0);" [routerLink]="'home'">Home <i class="fas fa-chevron-down"
                             hidden></i></a>
-                    <ul class="submenu d-none" id="home">
+                    <ul class="submenu" id="home" hidden>
                         <li [class.active]="base === 'home'"><a [routerLink]="'home'">Home</a></li>
                         <li [class.active]="base === 'home-one'"><a [routerLink]="'home-one'">Home1</a></li>
                         <li [class.active]="base === 'home-two'"><a [routerLink]="'home-two'">Home2</a></li>
@@ -61,24 +61,24 @@
                                 Slider2</a></li>
                     </ul>
                 </li>
-                <li [ngClass]="{'active' : base === 'doctor'}"
-                    (click)="addStyle('doctor')" class="has-submenu" style="cursor: pointer;" *ngIf="doctormodule">
-                    <a [routerLink]="auth === true ? 'doctor/dashboard' : 'login-page'">Doctors <!--<i class="fas fa-chevron-down"></i--></a>
-                    <ul class="submenu" id="doctor" *ngIf="auth === true">
+                <li [class.active]="base === 'doctor' || (base === 'patients' && page === 'patient-profile')"
+                    (click)="addStyle('doctor')" routerLinkActive="active" class="has-submenu" style="cursor: pointer;" *ngIf="doctormodule">
+                    <a href="javascript:void(0);">Doctors <!--<i class="fas fa-chevron-down"></i--></a>
+                    <ul class="submenu" id="doctor">
                         <li [class.active]="base === 'doctor' && page === 'dashboard'"><a
                                 [routerLink]="'doctor/dashboard'">Dashboard</a></li>
                         <li [class.active]="base === 'doctor' && page === 'appointment'"><a
                                 [routerLink]="'doctor/appointment'">Appointments</a></li>
                          <li [class.active]="base === 'doctor' && page === 'scheduletiming'"><a
-                                [routerLink]="'doctor/scheduletiming'">Schedule Timing</a></li>
+                                [routerLink]="'doctor/scheduletiming'">Schedule Timing</a></li> 
                         <li [class.active]="base === 'doctor' && page === 'patients'"><a
                                 [routerLink]="'doctor/patients'">Patients List</a></li>
-                        <!-- <li [class.active]="base === 'patients' && page === 'patient-profile'"><a
+                        <li [class.active]="base === 'patients' && page === 'patient-profile'"><a
                                 [routerLink]="'patients/patient-profile'">Patients Profile</a></li>
                         <li [class.active]="base === 'doctor' && page === 'message'"><a
                                 [routerLink]="'doctor/message'">Chat</a></li>
                         <li [class.active]="base === 'doctor' && page === 'invoice'"><a
-                                [routerLink]="'doctor/invoice'">Invoices</a></li> -->
+                                [routerLink]="'doctor/invoice'">Invoices</a></li>
                         <li [class.active]="base === 'doctor' && page === 'settings'"><a
                                 [routerLink]="'doctor/settings'">Profile Settings</a></li>
                         <li [class.active]="base === 'doctor' && page === 'reviews'"><a
@@ -86,33 +86,33 @@
                         <!--<li [class.active]="base === 'Register'"><a [routerLink]="'Register'">Doctor Register</a></li>-->
                     </ul>
                 </li>
-                <li class="has-submenu" [ngClass]="{'active' : base === 'patients'}"
-                    (click)="addStyle('patient')" *ngIf="patientmodule">
-                  <a  [routerLink]="auth === true ? 'patients/dashboard' : 'login-page'">Patients</a>
-                    <ul class="submenu" id="patient" *ngIf="auth === true">
-                        <li [class.active]="(base === 'map-grid') || (base === 'map-list')" class="has-submenu d-none">
+                <li [class.active]="(base === 'map-grid') || (base === 'map-list') " class="has-submenu"
+                    (click)="addStyle('patient')" routerLinkActive="active" *ngIf="patientmodule">
+                  <a href="javascript:void(0);" >Patients</a>
+                    <ul class="submenu" id="patient">
+                        <!--<li [class.active]="(base === 'map-grid') || (base === 'map-list')" class="has-submenu">
                             <a href="javascript:void(0);">Doctors</a>
                             <ul class="submenu">
                                 <li [class.active]="base === 'map-grid'"><a (click)="mapGrid()">Map Grid</a></li>
                                 <li [class.active]="base === 'map-list'"><a (click)="mapList()">Map List</a></li>
                             </ul>
-                        </li>
+                        </li>-->
                         <li [class.active]="base === 'patients' && page === 'search-doctor'"><a
                                 [routerLink]="'patients/search-doctor'">Search Doctor</a></li>
-                        <!-- <li [class.active]="base === 'patients' && page === 'doctor-profile'"><a
+                        <li [class.active]="base === 'patients' && page === 'doctor-profile'"><a
                                 [routerLink]="'patients/doctor-profile'">Doctor Profile</a></li>
                         <li [class.active]="base === 'patients' && page === 'booking'"><a
                                 [routerLink]="'patients/booking'">Booking</a></li>
                         <li [class.active]="base === 'patients' && page === 'checkout'"><a
                                 [routerLink]="'patients/checkout'">Checkout</a></li>
                         <li [class.active]="base === 'patients' && page === 'success'"><a
-                                [routerLink]="'patients/success'">Booking Success</a></li> -->
+                                [routerLink]="'patients/success'">Booking Success</a></li>
                         <li [class.active]="base === 'patients' && page === 'dashboard'"><a
                                 [routerLink]="'patients/dashboard'">Dashboard</a></li>
                         <li [class.active]="base === 'patients' && page === 'favourites'"><a
                                 [routerLink]="'patients/favourites'">Favourites</a></li>
-                        <!-- <li [class.active]="base === 'patients' && page === 'message'"><a
-                                [routerLink]="'patients/message'">Chat</a></li> -->
+                        <li [class.active]="base === 'patients' && page === 'message'"><a
+                                [routerLink]="'patients/message'">Chat</a></li>
                         <li [class.active]="base === 'patients' && page === 'settings'"><a
                                 [routerLink]="'patients/settings'">Profile Settings</a></li>
                         <li [class.active]="base === 'change-password'"><a [routerLink]="'change-password'">Change
@@ -214,7 +214,7 @@
                                 class="avatar-img rounded-circle">
                         </div>
                         <div class="user-text">
-                            <h6>{{doctorname}}</h6>
+                          <h6>{{doctorname}}</h6>
                             <!--<p class="text-muted mb-0" *ngIf="!isPatient">Doctor</p>
                             <p class="text-muted mb-0" *ngIf="isPatient">Patient</p>-->
                         </div>

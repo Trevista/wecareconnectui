@@ -51,7 +51,7 @@
 										<div class="clinic-details">
                                             <p class="doc-location" ><i class="fas fa-map-marker-alt"></i>{{Address?.city}}, {{Address?.state}} <!--Newyork, USA - <a href="javascript:void(0);">Get Directions</a>--></p>
 
-											<ul class="clinic-gallery">
+											<!--<ul class="clinic-gallery">
 												<li>
 													<a lightbox-group >
 														<img *ngFor="let image of images"
@@ -59,7 +59,7 @@
 														lightbox />
 													</a>
 												</li>
-											</ul>
+											</ul>-->
 										</div>
 										<div class="clinic-services d-none">
 											<span>Dental Fillings</span>
@@ -73,12 +73,12 @@
 											<li><i class="far fa-thumbs-up"></i> 99%</li>
 											<li><i class="far fa-comment"></i> 35 Feedback</li>
 											<li><i class="fas fa-map-marker-alt"></i>
-												<span *ngIf="!doctorDetails">Newyork,USA</span>
+												<!--<span *ngIf="!doctorDetails">Newyork,USA</span>-->
 												<span *ngIf="doctorDetails">{{doctorDetails.location}}</span>
 											</li>
 											<li><i class="far fa-money-bill-alt"></i>
 												<span *ngIf="!doctorDetails">$ {{doctorDetails.feePerVisit}}</span>
-                                                <span *ngIf="doctorDetails">{{doctorDetails.feePerVisit | currency: 'INR' }} per hour</span>
+                                                <span *ngIf="doctorDetails">{{doctorDetails.feePerVisit | currency: 'INR' }} per consultation</span>
 											 </li>
 										</ul>
 									</div>
@@ -320,8 +320,8 @@
 														<span class="d-inline-block average-rating">(4)</span>
 													</div>
 													<div class="clinic-details mb-0">
-														<h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> {{clinic.address}} <br><a href="javascript:void(0);">Get Directions</a></h5>
-														<ul class="clinic-gallery">
+														<h5 class="clinic-direction"> <i class="fas fa-map-marker-alt"></i> {{clinic.address}} </h5>
+														<!--<ul class="clinic-gallery">
 															<li>
 																<a lightbox-group >
 																	<img *ngFor="let image of images"
@@ -329,7 +329,7 @@
 																	lightbox />
 																</a>
 															</li>
-														</ul>
+														</ul>-->
 													</div>
 												</div>
 											</div>
@@ -432,10 +432,7 @@
 																	</div>
 																</div>
 																<p class="comment-content">
-																	Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-																	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-																	Ut enim ad minim veniam.
-																	Curabitur non nulla sit amet nisl tempus
+																	
 																</p>
 																<div class="comment-reply">
 																	<a class="comment-btn" href="javascript:void(0)">
@@ -477,10 +474,7 @@
 															</div>
 														</div>
 														<p class="comment-content">
-															Lorem ipsum dolor sit amet, consectetur adipisicing elit,
-															sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-															Ut enim ad minim veniam, quis nostrud exercitation.
-															Curabitur non nulla sit amet nisl tempus
+															
 														</p>
 														<div class="comment-reply">
 															<a class="comment-btn" href="javascript:void(0)">
@@ -516,7 +510,7 @@
 
 									<!-- Write Review -->
 									<div class="write-review">
-										<h4>Write a review for <strong>Dr. Darren Elder</strong></h4>
+										<h4>Write a review for <strong>Dr.{{doctorDetails.firstName}} {{doctorDetails.lastName}}</strong></h4>
 
 										<!-- Write Review Form -->
 										<form>
@@ -586,7 +580,7 @@
 												<div class="widget-content">
 													<div class="listing-hours">
 														<div class="listing-day current">
-															<div class="day">Today <span>5 Nov 2019</span></div>
+															<div class="day">Today <span>{{currentDate| date:'dd-MMM-yyyy'}}</span></div>
 															<div class="time-items">
 																<span class="open-status"><span class="badge bg-success-light">Open Now</span></span>
 																<span class="time">07:00 AM - 09:00 PM</span>

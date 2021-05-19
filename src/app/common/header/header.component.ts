@@ -73,14 +73,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.auth = true;
         this.patientmodule = true;
         this.doctormodule = false;
-        // this.isPatient = true;
+        this.isPatient = true;
       }
       if (res === 'DoctorLogin') {
         this.auth = true;
         this.doctormodule = true;
         this.patientmodule = false;
 
-        // this.isPatient = false;
+        this.isPatient = false;
       }
       if (res === 'logout') {
         this.auth = false;
@@ -108,7 +108,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
      }));
 
 
-    this.doctorname = this.authentication.userValue?.firstName + ' ' + this.authentication.userValue?.lastName;
+    this.doctorname = this.authentication.userValue ?.firstName + ' ' + this.authentication.userValue ?.lastName;
+    console.log(this.doctorname);
     if (this.authentication.userValue?.role == 'Doctor') {
       this.doctormodule = true;
       this.patientmodule = false;

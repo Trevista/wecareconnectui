@@ -21,6 +21,7 @@ export class DoctorProfileComponent implements OnInit {
   doctorDetails: any = [];
     Address: any;
     clinics: ClientData[] = [];
+    currentDate: Date;
   constructor(
     public commonService: CommonServiceService,
     private route: ActivatedRoute,
@@ -47,6 +48,7 @@ export class DoctorProfileComponent implements OnInit {
     this.id = this.route.snapshot.queryParams['id'];
     this.getDoctorsDetails();
     this.getReviews();
+    this.currentDate = new Date();
   }
 
   getAppointmentSlots(userId) {
