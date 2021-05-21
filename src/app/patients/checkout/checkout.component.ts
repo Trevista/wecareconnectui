@@ -33,6 +33,7 @@ export class CheckoutComponent implements OnInit {
   checkbox;
   couponCode;
   isPatient = false;
+    cuponcodevalidation: boolean=false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -118,9 +119,13 @@ export class CheckoutComponent implements OnInit {
 
   applyDiscount(){
     this.userService.getCouponByCode(this.couponCode).subscribe(x => {
+      console.log(this.couponCode);
+      console.log(x);
       this.discount = this.total * (x.discountPercent / 100);
       this.toastr.success('Coupon Applied', 'Success');
+      this.cuponcodevalidation = true;
     }, (error) => {
+      this.cuponcodevalidation = true;
       this.toastr.error('Invalid Coupon Code', 'Error');
     });
   }

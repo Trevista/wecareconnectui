@@ -84,6 +84,7 @@ export class BookingComponent implements OnInit {
     this.appointmentService.getAppointmentSlotsAvailableByDoctorId(this.doctorId, this.startDate, this.endDate)
                               .subscribe(x => {
                                 this.appointmentSlots = x.patientAppointments;
+                                console.log(this.appointmentSlots);
                                 this.dateRange = [];
                                 x.dateRanges.forEach(y => {
                                   this.dateRange.push({
@@ -105,7 +106,8 @@ export class BookingComponent implements OnInit {
     });
   }
 
-  get getCheckedAppintment(){
+  get getCheckedAppintment() {
+    
     return this.appointmentSlots.filter(x => x.checked)[0]?.appointmentDate;
   }
 

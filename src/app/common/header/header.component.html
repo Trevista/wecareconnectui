@@ -201,7 +201,8 @@
             </li>
             <!-- User Menu -->
             <li class="nav-item dropdown has-arrow logged-item" *ngIf="auth">
-                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown">
+            
+                <a href="javascript:void(0)" class="dropdown-toggle nav-link" data-toggle="dropdown" (click)="username()">
                     <span class="user-img">
                         <img class="rounded-circle" [src]="profile?.profilePic || 'assets/img/doctors/doctor-thumb-02.jpg'" width="31"
                             alt="User Image">

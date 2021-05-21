@@ -87,9 +87,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
         this.isPatient = false;
       }
     });
+    
   }
 
   ngOnInit(): void {
+    this.auth = false;
     console.log(this.authentication);
      this.onlineEvent = fromEvent(window, 'online');
      this.offlineEvent = fromEvent(window, 'offline');
@@ -108,8 +110,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
      }));
 
 
-    this.doctorname = this.authentication.userValue ?.firstName + ' ' + this.authentication.userValue ?.lastName;
-    console.log(this.doctorname);
+   
+    
     if (this.authentication.userValue?.role == 'Doctor') {
       this.doctormodule = true;
       this.patientmodule = false;
@@ -134,7 +136,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
 
   }
+  username() {
 
+    this.doctorname = this.authentication.userValue ?.firstName + ' ' + this.authentication.userValue ?.lastName;
+  }
   ngAfterViewInit() {
     this.cdr.detectChanges();
     this.loadDynmicallyScript('assets/js/script.js');

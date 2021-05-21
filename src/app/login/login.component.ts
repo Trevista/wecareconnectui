@@ -18,6 +18,7 @@ export class LoginComponent implements OnInit {
   patients: any = [];
   username = '';
   password = '';
+    doctorname: any;
   constructor(
     public router: Router,
     public commonService: CommonServiceService,
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    
     this.getpatients();
     this.getDoctors();
   }
@@ -59,9 +61,11 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/patients/dashboard']);
       }
     }, (error) => this.toastr.error('', 'Login failed!') && this.spinner.hide() && this.clearpassword());
-    
+    this.doctorname = this.authService.userValue ?.firstName + ' ' + this.authService.userValue ?.lastName;
     localStorage.setItem('auth', 'true');
     localStorage.setItem('patient', this.isPatient.toString());
+    localStorage.setItem('username', this.doctorname);
+
   }
   clearpassword() {
     this.password = '';

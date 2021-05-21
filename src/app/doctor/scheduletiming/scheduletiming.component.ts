@@ -58,8 +58,10 @@ export class ScheduletimingComponent implements OnInit {
       if (x.responseStatus === true){
         console.log(x);
         this.weekdaysappointmentSlots = x.appointmentSlots;
-        this.weekvalue = 1;
-        this.weekName = 'Monday';
+        //this.weekvalue = 1;
+        this.weekvalue = this.weekvalue == null ? 1 : this.weekvalue;
+        this.weekName = this.weekName == null ? 'Monday' : this.weekName;
+        //this.weekName = 'Monday';
         this.scheduletimingForm.setValue({
           startTime: '',
           endTime: '',
@@ -78,6 +80,7 @@ export class ScheduletimingComponent implements OnInit {
     console.log(event);
     this.weekvalue = event;
     this.weekName = this.weekDay.filter(x => x.id === parseInt(event, 10))[0].name;
+   
   }
 
   deleteSchedule(appointmentSlot: AppointmentSlot){
