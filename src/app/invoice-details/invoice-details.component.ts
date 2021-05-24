@@ -25,6 +25,7 @@ export class InvoiceDetailsComponent implements OnInit {
     }
 
     this.invoiceService.getInvoiceByAppointmentId(this.appointmentId).subscribe(x => {
+      console.log(x);
       if (x.responseStatus === true){
         this.appointment = x.invoiceList[0];
         this.doctor = this.appointment.doctor.profile;

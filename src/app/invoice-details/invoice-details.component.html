@@ -68,23 +68,76 @@
 
 								<!-- Invoice Item -->
 								<div class="invoice-item">
-									<div class="row">
-										<div class="col-md-12">
-											<div class="invoice-info">
-												<strong class="customer-text">Payment Method</strong>
-												<!-- <p class="invoice-details invoice-details-two">
-													Debit Card <br>
-													XXXXXXXXXXXX-2541 <br>
-													HDFC Bank<br>
-												</p> -->
-                        <p class="invoice-details invoice-details-two">
-													Coupon <br>
-													<!-- XXXXXXXXXXXX-2541 <br>
-													HDFC Bank<br> -->
-												</p>
-											</div>
-										</div>
-									</div>
+                  <div class="row">
+                    <div class="col-md-12" style="text-align:center;">
+                      <h3>PAYMENT RECEIPT</h3>
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Patient Name</p>
+
+                    </div>
+                    <div class="col-md-3">
+                      {{appointment?.patient?.firstName}}{{appointment?.patient?.lastName}}
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Patient UHID</p>
+
+                    </div>
+                    <div class="col-md-3">
+
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Contact No.</p>
+
+                    </div>
+                    <div class="col-md-3">
+                      {{appointment?.appointment?.phone}}
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Email ID</p>
+                      
+                    </div>
+                    <div class="col-md-3">
+                      {{appointment?.patient?.email}}
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Service Name</p>
+                      
+                    </div>
+                    <div class="col-md-3">
+                      Medical Consult
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Service Type</p>
+                      
+                    </div>
+                    <div class="col-md-3">
+                      Online
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Doctor Name</p>
+                     
+                    </div>
+                    <div class="col-md-3">
+                      Dr. {{appointment?.doctor?.lastName}} {{appointment?.doctor?.firstName}}
+                    </div>
+
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Date of Appointment</p>
+                     
+                    </div>
+                    <div class="col-md-3">
+                      {{appointment?.appointment?.appointmentDate|date:'medium'}}
+                    </div>
+                    <div class="col-md-3">
+                      <p style="font-weight:bold">Payment Method</p>
+                     
+                    </div>
+                    <div class="col-md-3">
+                      Coupon
+                    </div>
+                   
+                  </div>
 								</div>
 								<!-- /Invoice Item -->
 

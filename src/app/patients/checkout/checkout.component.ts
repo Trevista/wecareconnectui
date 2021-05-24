@@ -119,13 +119,14 @@ export class CheckoutComponent implements OnInit {
 
   applyDiscount(){
     this.userService.getCouponByCode(this.couponCode).subscribe(x => {
+      this.cuponcodevalidation = true;
       console.log(this.couponCode);
       console.log(x);
       this.discount = this.total * (x.discountPercent / 100);
       this.toastr.success('Coupon Applied', 'Success');
-      this.cuponcodevalidation = true;
+      
     }, (error) => {
-      this.cuponcodevalidation = true;
+      this.cuponcodevalidation = false;
       this.toastr.error('Invalid Coupon Code', 'Error');
     });
   }
