@@ -7,6 +7,7 @@ import { AppointmentService } from 'src/app/services/appointment.service';
 import { UserService } from 'src/app/services/user.service';
 import { CommonServiceService } from './../../common-service.service';
 import * as moment from 'moment';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-booking',
@@ -51,6 +52,7 @@ export class BookingComponent implements OnInit {
     public commonService: CommonServiceService,
     public appointmentService: AppointmentService,
     public userService: UserService,
+    public authService: AuthenticationService,
     private _datePipe: DatePipe
   ) {}
 
@@ -107,8 +109,7 @@ export class BookingComponent implements OnInit {
   }
 
   get getCheckedAppintment() {
-    
-    return this.appointmentSlots.filter(x => x.checked)[0]?.appointmentDate;
+    return this.appointmentSlots?.filter(x => x.checked)[0]?.appointmentDate;
   }
 
   selectDayToProceed(event, appointment){
@@ -122,14 +123,12 @@ export class BookingComponent implements OnInit {
   }
 
   patientDetails() {
-    let userId;
-    userId = localStorage.getItem('id');
-    if (!userId) {
-      userId = 1;
+  const  userId = this.authService.userValue
+    if (userId) {
+      this.commonService.getPatientDetails(Number(userId.id)).subscribe((res) => {
+        this.userDetails = res;
+      });
     }
-    this.commonService.getPatientDetails(Number(userId)).subscribe((res) => {
-      this.userDetails = res;
-    });
   }
 }
 
