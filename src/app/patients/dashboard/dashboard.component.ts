@@ -89,7 +89,7 @@ export class DashboardComponent implements OnInit {
 
   getFutureEvent(appointment){
     const today = new Date();
-    const now = moment(today);
+    const now = moment(today.setMinutes(today.getMinutes() - 12));
     const appointmentDate = moment(appointment?.appointmentDate);
     return appointmentDate >= now;
   }
