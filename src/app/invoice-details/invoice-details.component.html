@@ -47,8 +47,8 @@
 												<strong class="customer-text">Invoice From</strong>
 												<p class="invoice-details invoice-details-two">
 													Dr. {{appointment?.doctor?.lastName}} {{appointment?.doctor?.firstName}} <br>
-													{{patient?.contactInfo?.address1}},  {{patient?.contactInfo?.address2}}<br>
-													{{patient?.contactInfo?.city}}, {{patient?.contactInfo?.zip}}, {{patient?.contactInfo?.state}} <br>
+													{{appointment?.doctor?.profile?.contactInfo?.address1}},  {{appointment?.doctor?.profile?.contactInfo?.address2}}<br>
+													{{appointment?.doctor?.profile?.contactInfo?.city}}, {{appointment?.doctor?.profile?.contactInfo?.zip}}, {{appointment?.doctor?.profile?.contactInfo?.state}} <br>
 												</p>
 											</div>
 										</div>

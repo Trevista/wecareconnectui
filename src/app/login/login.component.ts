@@ -81,4 +81,8 @@ export class LoginComponent implements OnInit {
       this.patients = res;
     });
   }
+
+  otpLogin(){
+    this.router.navigate(['/otp-login']);
+  }
 }

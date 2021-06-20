@@ -1,0 +1,105 @@
+<!-- Breadcrumb -->
+<div class="breadcrumb-bar">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-md-12 col-12">
+                <nav aria-label="breadcrumb" class="page-breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Prescription View</li>
+                    </ol>
+                </nav>
+                <h2 class="breadcrumb-title">Prescription View</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Breadcrumb -->
+			<!-- Page Content -->
+			<div class="content">
+                <div class="watermarked">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 offset-lg-2">
+                                <div class="invoice-content A4">
+                                    <!-- prescription Item -->
+                                    <div class="invoice-item">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="invoice-logo">
+                                                    <img src="assets/img/logo.jpg" alt="logo">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="invoice-info">
+                                                    <strong class="customer-text  text-right">Doctor Name</strong>
+                                                    <p class="invoice-details invoice-details-two  text-right">
+                                                        Dr. {{prescription.appointment.doctor.lastName}} {{prescription.appointment.doctor.firstName}} <br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="invoice-item">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="invoice-info">
+                                                    <strong class="customer-text">Patient Name</strong>
+                                                    <p class="invoice-details invoice-details-two">
+                                                        Mr/Mrs. {{prescription.appointment.lastName}} {{prescription.appointment.firstName}} <br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /prescription Item -->
+    
+                                    <!-- prescription Item -->
+                                    <!-- /prescription Item -->
+    
+                                    <!-- prescription Item -->
+                                    <div class="invoice-item invoice-table-wrap">
+                                        <strong class="customer-text">Prescription</strong>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="table-responsive">
+                                                    <table class="invoice-table table table-bordered">
+                                                        <thead>
+                                                            <tr>
+                                                                <th class="text-center">Name</th>
+                                                                <th class="text-center">Quantity</th>
+                                                                <th class="text-center">Description</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td class="text-center">{{prescription?.name}}</td>
+                                                                <td class="text-right">{{prescription?.quantity}}</td>
+                                                                <td class="text-center">{{prescription?.description}}</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- /prescription Item -->
+    
+                                    <!-- prescription Information -->
+                                    <div class="prescription-footer">
+                                        <h4>JL MUSH MED TRIANGLE PRIVATE LIMITED </h4>
+                                        <p>Disclaimer: This prescription is based on the information provided by you in an online consultation and not on any physical verification. Visit a doctor in caase of emergency.</p>
+                                    </div>
+                                    <!-- /prescription Information -->
+    
+                                </div>
+                            </div>
+                        </div>
+    
+                    </div>
+                </div>
+				
+
+			</div>
+			<!-- /Page Content -->
+

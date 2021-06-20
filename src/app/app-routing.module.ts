@@ -169,6 +169,16 @@ const routes: Routes = [
         (m) => m.PharmacyAdminModule
       ),
   },
+  {
+    path: 'otp-login',
+    loadChildren: () =>
+      import('./otp-login/otp-login.module').then((m) => m.OtpLoginModule),
+  },
+  {
+    path: 'prescription-details',
+    loadChildren: () =>
+      import('./prescription-details/prescription-details.module').then((m) => m.PrescriptionDetailsModule),
+  }
 ];
 
 @NgModule({

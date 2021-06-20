@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -18,7 +19,9 @@ export class DashboardComponent implements OnInit {
   today = new Date();
 
   constructor(public commonService: CommonServiceService,
-              public appointmentService: AppointmentService, public authService: AuthenticationService) { }
+              public appointmentService: AppointmentService, 
+              public authService: AuthenticationService,
+              public router: Router) { }
 
   ngOnInit(): void {
     this.user = this.authService.userValue;
@@ -94,4 +97,8 @@ export class DashboardComponent implements OnInit {
     return appointmentDate >= now;
   }
 
+  prescriptionDetails(prescription:any){
+    this.appointmentService.prescription = prescription;
+    this.router.navigate(['/prescription-details']);
+  }
 }
