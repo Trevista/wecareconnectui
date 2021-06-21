@@ -57,6 +57,10 @@ export class AuthenticationService {
     return this.http.post<any>(environment.apiUrl + 'api/Accounts/change-password', changepasswordmodel);
   }
 
+  resetPassword(resetpasswordmodel){
+    return this.http.post<any>(environment.apiUrl + 'api/Accounts/reset-password', resetpasswordmodel);
+  }
+
   logout(){
     localStorage.removeItem('user');
     this.userSubject.next(null);

@@ -178,6 +178,11 @@ const routes: Routes = [
     path: 'prescription-details',
     loadChildren: () =>
       import('./prescription-details/prescription-details.module').then((m) => m.PrescriptionDetailsModule),
+  },
+  {
+    path: 'account/reset-password',
+    loadChildren: () =>
+      import('./reset-password/reset-password.module').then((m) => m.ResetPasswordModule),
   }
 ];
 
