@@ -117,7 +117,14 @@ export class BookingComponent implements OnInit {
     for (let i = 0, len = elements.length || 0; i < len; i = i + 1 || 0) {
       elements[i].classList.remove('selected');
     }
-    event.target.classList.add('selected');
+
+    if(event.target.tagName == "SPAN"){
+      event.target.parentNode.classList.add('selected');
+    }
+    else{
+      event.target.classList.add('selected');
+    }
+
     this.appointmentSlots.forEach(x => x.checked = false);
     appointment.checked = true;
   }

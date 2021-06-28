@@ -90,7 +90,7 @@ export class AppointmentService {
   }
 
   getAppointmentPrescriptionByPatientId(userId){
-    const options = userId ? { params: new HttpParams().set('id', '14')} : {};
+    const options = userId ? { params: new HttpParams().set('id', userId)} : {};
     return this.http.get<any>(environment.apiUrl + `api/AppointmentPrescriptions/GetByPatientId`, options);
   }
   

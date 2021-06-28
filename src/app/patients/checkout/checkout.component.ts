@@ -34,6 +34,7 @@ export class CheckoutComponent implements OnInit {
   couponCode;
   isPatient = false;
     cuponcodevalidation: boolean=false;
+    isConfirmed:boolean = false;
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -151,6 +152,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   booking() {
+    this.isConfirmed = true;
     const params = {
       appointment: this.appointmentForm.value,
       invoice: {
@@ -171,11 +173,13 @@ export class CheckoutComponent implements OnInit {
     };
 
     this.data = params;
+    
     this.appointmentService.createAppointment(params).subscribe(x => {
       this.toastr.success('', 'Appointment booked successfully!');
       this.data.appointment.appointmentId = x;
       this.router.navigate(['/patients/success']);
     }, (error) => {
+      this.isConfirmed = false;
       this.toastr.error('', 'Appointment booking failed!');
     });
   }
