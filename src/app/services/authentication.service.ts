@@ -61,6 +61,18 @@ export class AuthenticationService {
     return this.http.post<any>(environment.apiUrl + 'api/Accounts/reset-password', resetpasswordmodel);
   }
 
+  getOTP(phoneNumber){
+    return this.http.get<any>(environment.apiUrl + 'api/Accounts/SendOTP?phoneNumber=' + phoneNumber);
+  }
+
+  authOTPLogin(id, otp){
+    return this.http.get<any>(environment.apiUrl + 'api/Accounts/OtpAuthentication?id=' + id + '&otp=' + otp).pipe(map((userdata: any) => {
+      localStorage.setItem('user', JSON.stringify(userdata));
+      this.userSubject.next(userdata);
+      return userdata;
+    }));
+  }
+
   logout(){
     localStorage.removeItem('user');
     this.userSubject.next(null);

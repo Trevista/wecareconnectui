@@ -44,8 +44,21 @@ export class LoginComponent implements OnInit {
 
   login(name, password) {
     console.log("In Login...");
+    if(!isNaN(name)){
+      if(name.length != 10){
+        this.toastr.error('', 'Invalid Phone number.');
+        return;
+      }
+    }
+    else {
+      let emailRegexp:RegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+      if(!emailRegexp.test(name)){
+        this.toastr.error('', 'Invalid email.');
+        return;
+      }
+    }
     const params = {
-      email: name,
+      userName: name,
       password
     };
     this.spinner.show();
