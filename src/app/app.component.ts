@@ -2,8 +2,6 @@ import {
   Component,
   OnInit,
   ChangeDetectorRef,
-  ChangeDetectionStrategy,
-  AfterViewInit,
   ViewEncapsulation,
   AfterViewChecked,
 } from '@angular/core';
@@ -34,7 +32,8 @@ export class AppComponent implements OnInit, AfterViewChecked {
     private changeDetector: ChangeDetectorRef,
     public Router: Router,
     location: Location,
-    public commonServic: CommonServiceService
+    public commonServic: CommonServiceService,
+    private router: Router
   ) {
     Router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
@@ -86,6 +85,7 @@ export class AppComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     setTimeout(() => (this.loadFooter = true), 2000);
+    this.commonServic.setIdleTimeout();
   }
 
   ngAfterViewChecked() {

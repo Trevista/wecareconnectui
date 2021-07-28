@@ -5,12 +5,15 @@ import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { SpecialitiesResponse } from './models/specialitiesresponse';
 import { environment } from 'src/environments/environment';
+import { IdleTimeoutManager } from "idle-timer-manager";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CommonServiceService {
   public doc: any;
+  timer: any;
   public patients: any = [
     {
       patientName: 'Richard Wilson',
@@ -60,7 +63,7 @@ export class CommonServiceService {
   messages: '';
   SERVER_URL: string;
   message: BehaviorSubject<String>;
-  constructor(public http: HttpClient) {
+  constructor(public http: HttpClient, private router: Router) {
     this.message = new BehaviorSubject(this.messages);
     this.SERVER_URL = environment.apiUrl + `api/`;
     console.log(this.SERVER_URL);
@@ -273,6 +276,16 @@ export class CommonServiceService {
 
   getSpecialities(){
     return this.http.get<SpecialitiesResponse>(`${this.SERVER_URL + 'Profiles/GetSpecialities'}`);
+  }
+
+  setIdleTimeout(){
+    this.timer = new IdleTimeoutManager({
+      timeout: 1800, //expired after 30 mins
+      onExpired: () => {
+        localStorage.clear();
+        this.router.navigate(['/login-page']);
+      }
+    });
   }
 
 }

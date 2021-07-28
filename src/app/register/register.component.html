@@ -127,3 +127,21 @@
 <ngx-spinner bdColor="rgba(51, 51, 51, 0.8)" size="default" type="ball-spin-clockwise">
 	<p style="color: white">Please wait, &nbsp; Registration in progress . . .</p>
 </ngx-spinner>
+
+<ng-template #Viewtemplate>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left">Given Email or Phone number is already registered.</h2>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="patient-info">
+    <div class="list-group">
+      <p class="list-group-item list-group-item-action flex-column align-items-start">Please <a href="javascript(0)" [routerLink]="['/forgot-password']" (click)="modalRef.hide()" style="text-decoration: underline;">click here</a> to go forgot password.</p>
+    </div>
+    <div class="modal-footer" style="margin-top:25px">
+      <button type="button" class="btn btn-primary" (click)="modalRef.hide()">Close</button>
+      <!-- <button type="button" class="btn btn-default" (click)="postpone()">Postpone</button> -->
+    </div>
+  </div>
+</ng-template>

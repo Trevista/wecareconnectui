@@ -5,7 +5,7 @@ import { CommonServiceService } from '../common-service.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
-import { NgxSpinnerService } from "ngx-spinner";  
+import { NgxSpinnerService } from "ngx-spinner";
 
 @Component({
   selector: 'app-login',
@@ -13,12 +13,13 @@ import { NgxSpinnerService } from "ngx-spinner";
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  isPatient = false;
+  isPatient = true;
   doctors: any = [];
   patients: any = [];
   username = '';
   password = '';
     doctorname: any;
+
   constructor(
     public router: Router,
     public commonService: CommonServiceService,
@@ -44,21 +45,8 @@ export class LoginComponent implements OnInit {
 
   login(name, password) {
     console.log("In Login...");
-    if(!isNaN(name)){
-      if(name.length != 10){
-        this.toastr.error('', 'Invalid Phone number.');
-        return;
-      }
-    }
-    else {
-      let emailRegexp:RegExp = new RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-      if(!emailRegexp.test(name)){
-        this.toastr.error('', 'Invalid email.');
-        return;
-      }
-    }
     const params = {
-      userName: name,
+      email: name,
       password
     };
     this.spinner.show();
@@ -73,12 +61,14 @@ export class LoginComponent implements OnInit {
       else if (x.role === 'User'){
         this.router.navigate(['/patients/dashboard']);
       }
-    }, (error) => this.toastr.error('', 'Login failed!') && this.spinner.hide() && this.clearpassword());
+    }, (error) => {
+      console.log(error.error.message); 
+      this.toastr.error('', 'Login failed!') && this.spinner.hide() && this.clearpassword();});
     this.doctorname = this.authService.userValue ?.firstName + ' ' + this.authService.userValue ?.lastName;
     localStorage.setItem('auth', 'true');
     localStorage.setItem('patient', this.isPatient.toString());
     localStorage.setItem('username', this.doctorname);
-
+    this.commonService.setIdleTimeout();
   }
   clearpassword() {
     this.password = '';

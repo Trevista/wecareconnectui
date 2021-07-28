@@ -181,12 +181,24 @@
                                 Admin</a></li>
                     </ul>-->
                 <!--</li>-->
+                <!-- <li [class.active]="base === 'admin'"><a (click)="navigate('Admin')">Admin</a></li>
+                        <li [class.active]="base === 'pharmacy-admin'"><a (click)="navigate('Pharmacy Admin')">Pharmacy
+                                Admin</a></li> -->
                 <li class="login-link">
                     <a [routerLink]="'login-page'">Login / Signup</a>
                 </li>
             </ul>
         </div>
         <ul class="nav header-navbar-rht">
+            <!-- <li class="nav-item contact-item">
+                <div class="header-contact-img">
+                    <i class="fa fa-ambulance"></i>
+                </div>
+                <div class="header-contact-detail">
+                    <p class="contact-header">Emergency Call</p>
+                    <p class="contact-info-header">+91 94400 52680</p>
+                </div>
+            </li> -->
             <li class="nav-item contact-item">
                 <div class="header-contact-img">
                     <i class="fa fa-mobile-alt"></i>

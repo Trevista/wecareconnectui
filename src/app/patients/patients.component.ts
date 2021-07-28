@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Event, NavigationStart, Router } from '@angular/router';
 
@@ -15,7 +16,8 @@ export class PatientsComponent implements OnInit {
   patientSidebar: boolean = false;
   constructor(
     private router: Router,
-    public commonService: CommonServiceService
+    public commonService: CommonServiceService,
+    private location: Location
   ) {
     if (
       router.url === '/patients/dashboard' ||
@@ -49,5 +51,9 @@ export class PatientsComponent implements OnInit {
         this.page = this.splitVal[2].split('?')[0];
       }
     });
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

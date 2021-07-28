@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { CommonServiceService } from '../common-service.service';
@@ -10,7 +10,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgxSpinnerService } from "ngx-spinner";  
 
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { window } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -26,6 +25,8 @@ export class RegisterComponent implements OnInit {
   patients: any = [];
   reg_type = 'Patient Register';
   doc_patient = 'Are you a Doctor?';
+  @ViewChild('Viewtemplate', { read: TemplateRef }) showPopUp:TemplateRef<any>;
+
   constructor(
     private toastr: ToastrService,
     public commonService: CommonServiceService,
@@ -92,6 +93,11 @@ export class RegisterComponent implements OnInit {
         this.spinner.hide();
         this.toastr.success('', 'Register successfully!');
         this.router.navigate(['/login-page']);
+      },
+      (error)=> {
+        if(error.error?.message == "Account with this email or phone number was already registered."){
+          this.modalRef = this.modalService.show(this.showPopUp, {class: 'modal-md modal-dialog-centered'});
+        } 
       });
     }
   }

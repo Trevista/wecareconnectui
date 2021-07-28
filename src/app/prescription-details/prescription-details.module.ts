@@ -14,6 +14,7 @@ import { PrescriptionDetailsRoutingModule } from './prescription-details-routing
     FormsModule,
     PrescriptionDetailsRoutingModule,
     NgxSpinnerModule
-  ]
+  ],
+  exports:[PrescriptionDetailsComponent]
 })
 export class PrescriptionDetailsModule { }

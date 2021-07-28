@@ -163,6 +163,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     todayAppointments: any = [];
     currentDate: Date;
     patientAppointments: any;
+  userName: string;
 
   handleDateClick(arg) {
     alert('date click! ' + arg.dateStr);
@@ -225,6 +226,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     this.getAppointments();
     this.getPatients();
+    this.userName = localStorage.getItem('username');
     //this.getTotalpatientcount();
     //this.patientAppointments = [{ 'patients': { 'name': 'prasanth', 'key': '12345' }, 'appointment_time': '', 'type': 'New Patient', 'amount': '200'}]
   }
@@ -373,6 +375,10 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     this.modalRef.hide();
   }
 
+  openLink(url: string){
+    this.cancel();
+    window.open(url, "_blank")
+  }
   // calendarPlugins = [dayGridPlugin];
 
 

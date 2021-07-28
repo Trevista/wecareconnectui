@@ -15,6 +15,8 @@ export class PrescriptionDetailsComponent implements OnInit {
   isVideo:boolean;
   today:any;
   patient:any;
+  isPrintOption: boolean = false;
+  prescriptionNotes: any;
 
   constructor(public appointmentService: AppointmentService
     , private route: ActivatedRoute
@@ -22,6 +24,9 @@ export class PrescriptionDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.prescription = this.appoinmentService.prescription;
+    this.appointmentService.getAppointmentNotes(this.prescription.appointmentId).subscribe(data => {
+      this.prescriptionNotes = data;
+    });
   }
 
 }

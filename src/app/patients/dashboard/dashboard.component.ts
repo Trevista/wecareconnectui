@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { PrescriptionDetailsComponent } from 'src/app/prescription-details/prescription-details.component';
 import { AppointmentService } from 'src/app/services/appointment.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import {CommonServiceService  } from './../../common-service.service';
+declare var $:any;
+
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -17,6 +20,7 @@ export class DashboardComponent implements OnInit {
   prescriptions = [];
   medicalRecords = [];
   today = new Date();
+  @ViewChild(PrescriptionDetailsComponent) prescriptionDetailsComponent: PrescriptionDetailsComponent;
 
   constructor(public commonService: CommonServiceService,
               public appointmentService: AppointmentService, 
@@ -100,5 +104,11 @@ export class DashboardComponent implements OnInit {
   prescriptionDetails(prescription:any){
     this.appointmentService.prescription = prescription;
     this.router.navigate(['/prescription-details']);
+  }
+
+  printPrescriptionDetails(prescription){
+    this.prescriptionDetailsComponent.prescription = prescription;
+    this.prescriptionDetailsComponent.isPrintOption = true;
+    $("#print_patient_prescription").printThis({debug: true, importCSS: true });
   }
 }

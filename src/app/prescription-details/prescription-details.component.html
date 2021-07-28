@@ -18,7 +18,7 @@
 			<!-- Page Content -->
 			<div class="content">
                 <div class="watermarked">
-                    <div class="container-fluid">
+                    <div class="container-fluid" id="print_patient_prescription">
                         <div class="row">
                             <div class="col-lg-8 offset-lg-2">
                                 <div class="invoice-content A4">
@@ -30,11 +30,23 @@
                                                     <img src="assets/img/logo.jpg" alt="logo">
                                                 </div>
                                             </div>
-                                            <div class="col-md-6">
+                                            <div class="col-md-6" *ngIf="!isPrintOption">
                                                 <div class="invoice-info">
                                                     <strong class="customer-text  text-right">Doctor Name</strong>
                                                     <p class="invoice-details invoice-details-two  text-right">
-                                                        Dr. {{prescription.appointment.doctor.lastName}} {{prescription.appointment.doctor.firstName}} <br>
+                                                        Dr. {{prescription?.appointment.doctor.lastName}} {{prescription?.appointment.doctor.firstName}} <br>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="invoice-item"  *ngIf="isPrintOption">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="invoice-info">
+                                                    <strong class="customer-text">Doctor Name</strong>
+                                                    <p class="invoice-details invoice-details-two">
+                                                        Dr. {{prescription?.appointment.doctor.lastName}} {{prescription?.appointment.doctor.firstName}} <br>
                                                     </p>
                                                 </div>
                                             </div>
@@ -46,18 +58,21 @@
                                                 <div class="invoice-info">
                                                     <strong class="customer-text">Patient Name</strong>
                                                     <p class="invoice-details invoice-details-two">
-                                                        Mr/Mrs. {{prescription.appointment.lastName}} {{prescription.appointment.firstName}} <br>
+                                                        Mr/Mrs. {{prescription?.appointment.lastName}} {{prescription?.appointment.firstName}} <br>
                                                     </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- /prescription Item -->
-    
-                                    <!-- prescription Item -->
-                                    <!-- /prescription Item -->
-    
-                                    <!-- prescription Item -->
+                                    <!-- /prescription Notes and instrunctions -->
+                                    <div class="invoice-item invoice-table-wrap">
+                                        <strong class="customer-text">Prescription Notes:</strong>
+                                        <p class="invoice-details invoice-details-two">{{prescriptionNotes.notes}}</p>
+                                        <strong class="customer-text">Prescription Instructions:</strong>
+                                        <p class="invoice-details invoice-details-two">{{prescriptionNotes.instructions}}</p>
+                                    </div>
+                                    <!-- prescription Notes and instrunctions -->
+                                    <br>
                                     <div class="invoice-item invoice-table-wrap">
                                         <strong class="customer-text">Prescription</strong>
                                         <div class="row">
@@ -82,6 +97,15 @@
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div *ngIf="isPrintOption">
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
+                                        <br>
                                     </div>
                                     <!-- /prescription Item -->
     

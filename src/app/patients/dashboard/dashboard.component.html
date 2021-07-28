@@ -118,7 +118,7 @@
                         <a (click)="prescriptionDetails(prescription)" class="btn btn-sm bg-info-light">
                           <i class="far fa-eye"></i> View
                         </a>
-                        <a href="javascript:void(0);" class="btn btn-sm bg-primary-light">
+                        <a (click)="printPrescriptionDetails(prescription)" class="btn btn-sm bg-primary-light">
                           <i class="fas fa-print"></i> Print
                         </a>
                       </div>
@@ -236,4 +236,8 @@
     <!-- Tab Content -->
 
   </div>
+</div>
+
+<div style="display: none;">
+  <app-prescription-details></app-prescription-details>
 </div>
