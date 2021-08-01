@@ -68,16 +68,17 @@ export class LoginComponent implements OnInit {
       this.toastr.success('', 'Login success!');
       const roleMessage = x.role + 'Login';
       this.commonService.nextmessage(roleMessage);
+      this.doctorname = this.authService.userValue ?.firstName + ' ' + this.authService.userValue ?.lastName;
+      localStorage.setItem('auth', 'true');
+      localStorage.setItem('username', this.doctorname);
       if (x.role === 'Doctor'){
+        localStorage.setItem('patient', "false");
         this.router.navigate(['/doctor/dashboard']);
       }
       else if (x.role === 'User'){
+        localStorage.setItem('patient', "true");
         this.router.navigate(['/patients/dashboard']);
       }
-      this.doctorname = this.authService.userValue ?.firstName + ' ' + this.authService.userValue ?.lastName;
-      localStorage.setItem('auth', 'true');
-      localStorage.setItem('patient', this.isPatient.toString());
-      localStorage.setItem('username', this.doctorname);
     }, (error) => {
       console.log(error.error.message); 
       this.toastr.error('', 'Login failed!') && this.spinner.hide() && this.clearpassword();});
