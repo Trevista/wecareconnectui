@@ -24,9 +24,11 @@ export class PrescriptionDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.prescription = this.appoinmentService.prescription;
-    this.appointmentService.getAppointmentNotes(this.prescription.appointmentId).subscribe(data => {
-      this.prescriptionNotes = data;
-    });
+    if(this.prescription){
+      this.appointmentService.getAppointmentNotes(this.prescription.appointmentId).subscribe(data => {
+        this.prescriptionNotes = data;
+      });
+    }
   }
 
 }
