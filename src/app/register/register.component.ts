@@ -95,6 +95,7 @@ export class RegisterComponent implements OnInit {
         this.router.navigate(['/login-page']);
       },
       (error)=> {
+        this.spinner.hide();
         if(error.error?.message == "Account with this email or phone number was already registered."){
           this.modalRef = this.modalService.show(this.showPopUp, {class: 'modal-md modal-dialog-centered'});
         } 

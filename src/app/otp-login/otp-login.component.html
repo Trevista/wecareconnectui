@@ -31,7 +31,7 @@
 							<div class="login-header">
 								<h3>OTP Verification 
                                     <label *ngIf="timeLeft != 0" class="bg-success-light">{{timeLeft}} sec</label> 
-                                    <label style="color: #002060;cursor: pointer;" *ngIf="timeLeft == 0" (click)="resendOTP()">Resend OTP</label>
+                                    <label style="color: blue;cursor: pointer;" *ngIf="timeLeft == 0" (click)="resendOTP()">Resend OTP</label>
                                 </h3>
 							</div>
 							<form>

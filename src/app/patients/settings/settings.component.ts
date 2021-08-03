@@ -6,6 +6,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { FileloaderService } from 'src/app/services/fileloader.service';
 import { CountriesResponse, State } from 'src/app/models/countriesresponse';
+import { Select2OptionData } from 'ng-select2';
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -21,6 +22,8 @@ export class SettingsComponent implements OnInit {
   profilePic: any = 'assets/img/doctors/doctor-thumb-02.jpg';
   countries: CountriesResponse;
   states: State[];
+  statesData: Array<Select2OptionData>;
+  formSubmitted: boolean;
 
   ngOnInit(): void {
     this.patientprofileForm = this.fb.group({
@@ -55,7 +58,7 @@ export class SettingsComponent implements OnInit {
   }
 
   get f(){
-    return this.patientprofileForm.controls;
+    return this.patientprofileForm;
   }
 
   getContactInfo(): FormGroup {
@@ -75,11 +78,13 @@ export class SettingsComponent implements OnInit {
       if (x.id !== null) {
         this.profilePic = x.profilePic;
         this.states =  this.countries.countries.find(a => a.countryCode === x.contactInfo.country).states || this.countries.states;
+        this.statesData = this.states.map(s => <Select2OptionData> {id: s.stateCode, text: s.stateName});
         this.patientprofileForm.patchValue({
           ...x,
           dateOfBirth: this.date.transform(x.dateOfBirth, 'yyyy-MM-dd'),
         });
       }
+      console.log(this.f);
     }, (error) => {
       this.states =  this.countries.states;
     });
@@ -101,6 +106,7 @@ export class SettingsComponent implements OnInit {
 
   onSubmit() {
     console.log(this.patientprofileForm.value);
+    this.formSubmitted = true;
     if (this.patientprofileForm.valid) {
       const profileValue = {
         ...this.patientprofileForm.value
