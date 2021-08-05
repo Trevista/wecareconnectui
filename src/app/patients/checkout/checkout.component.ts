@@ -47,6 +47,7 @@ export class CheckoutComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.doctorDetails = this.userService.doctor;
     this.doctorId = this.route.snapshot.queryParams.id;
     this.appointmentDate = this.route.snapshot.queryParams.date;
     this.appointmentForm = this.formBuilder.group({

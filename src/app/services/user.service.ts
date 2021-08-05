@@ -9,7 +9,7 @@ import { Profile } from '../models/profile';
   providedIn: 'root'
 })
 export class UserService {
-
+  private _doctor: any;
   constructor(private http: HttpClient) { }
 
   getProfiles(){
@@ -55,4 +55,11 @@ export class UserService {
     return this.http.get<any>(environment.apiUrl + `api/Profiles/GetSpecialities`);
   }
 
+  get doctor(): any {
+    return this._doctor;
+  }
+
+  set doctor(doctor){
+    this._doctor = doctor;
+  }
 }

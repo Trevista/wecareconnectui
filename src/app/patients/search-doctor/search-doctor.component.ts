@@ -112,9 +112,10 @@ export class SearchDoctorComponent implements OnInit {
     this.filter.speciality = filtered.map(x => x.name);
   }
 
-  bookAppointment(id) {
+  bookAppointment(doctor) {
     // if((localStorage.getItem('auth') === 'true') && (localStorage.getItem('patient') === 'true')) {
-    this.router.navigateByUrl('/patients/booking?id=' + id);
+    this.userService.doctor = doctor;
+    this.router.navigateByUrl('/patients/booking?id=' + doctor.id);
     // } else {
     //   this.router.navigate(['/']);
     // }

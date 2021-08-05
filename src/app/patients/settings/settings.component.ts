@@ -55,6 +55,7 @@ export class SettingsComponent implements OnInit {
 
   countryChange(event){
     this.states =  this.countries.countries.find(x => x.countryCode === event).states;
+    this.statesData = this.states.map(s => <Select2OptionData> {id: s.stateCode, text: s.stateName});
   }
 
   get f(){
@@ -87,6 +88,7 @@ export class SettingsComponent implements OnInit {
       console.log(this.f);
     }, (error) => {
       this.states =  this.countries.states;
+      this.statesData = this.states.map(s => <Select2OptionData> {id: s.stateCode, text: s.stateName});
     });
   }
 

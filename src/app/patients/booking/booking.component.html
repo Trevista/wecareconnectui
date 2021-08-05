@@ -126,7 +126,7 @@
 
 	        <!-- Submit Section -->
 	        <div class="submit-section proceed-btn text-right">
-	          <button [routerLink]="'/patients/checkout'" [disabled]="!getCheckedAppintment"  [queryParams]="{id: doctorDetails?.userId, date: getCheckedAppintment}"
+	          <button [routerLink]="'/patients/checkout'" [disabled]="!getCheckedAppintment"  [queryParams]="{id: doctorId, date: getCheckedAppintment}"
 	            class="btn btn-primary submit-btn">Proceed to Pay</button>
 	        </div>
 	        <!-- /Submit Section -->
