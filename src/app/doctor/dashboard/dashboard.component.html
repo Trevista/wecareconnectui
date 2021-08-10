@@ -241,16 +241,22 @@
     <div class="patient-info">
       <div class="list-group">
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Patient Name</h5>
+          <div class="row">
+            <div class="col-6">
+              <h5 class="mb-1">Patient Name</h5>
+              <p class="mb-1">{{selectedAppointment.patientName}}</p>
+            </div>
+            <div class="col-6">
+              <h5 class="mb-1">Age</h5>
+              <p class="mb-1">{{selectedAppointment.age}} - {{selectedAppointment.gender}}</p>
+            </div>
           </div>
-          <p class="mb-1">{{selectedAppointment.patientName}}</p>
         </a>
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
           <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1">Age</h5>
+            <h5 class="mb-1">Health conditions</h5>
           </div>
-          <p class="mb-1">{{selectedAppointment.age}} - {{selectedAppointment.gender}}</p>
+          <p class="mb-1">{{selectedAppointment.healthconditions}}</p>
         </a>
         <a href="#" class="list-group-item list-group-item-action flex-column align-items-start disabled">
           <div class="d-flex w-100 justify-content-between">

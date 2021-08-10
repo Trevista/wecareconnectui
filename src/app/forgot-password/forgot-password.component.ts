@@ -14,6 +14,10 @@ import Swal from 'sweetalert2';
 export class ForgotPasswordComponent implements OnInit {
 
   email = '';
+  phoneNumber:string;
+  otp: string;
+  id: string;
+  hasOTP: boolean = false;
 
   constructor(private authService: AuthenticationService,
               private spinner: NgxSpinnerService,
@@ -60,5 +64,14 @@ export class ForgotPasswordComponent implements OnInit {
       this.router.navigate(['/login-page']);
     }, (error) => this.toastr.error('Error Occured', 'Please try after sometime!') && this.spinner.hide());
     }
+}
+
+forgotPasswordPhoneNumber(){
+  this.spinner.show();
+  this.authService.getOTPWithNewNumber(this.phoneNumber).subscribe(data => {
+    this.spinner.hide();
+    this.id = data;
+    this.hasOTP = true;
+  }, (error) => {this.spinner.hide();})
 }
 }

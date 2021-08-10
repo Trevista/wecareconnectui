@@ -13,6 +13,10 @@ export class ResetPasswordComponent implements OnInit {
 
   public resetpasswordForm: FormGroup;
   token: string;
+  OTP:string;
+  Id: number;
+  isOTPEnabled: boolean;
+
   constructor(public auth: AuthenticationService,
     private formBuilder: FormBuilder, private toastr: ToastrService,
     private router: Router,
@@ -21,11 +25,24 @@ export class ResetPasswordComponent implements OnInit {
   ngOnInit(): void {
     if (this.route.snapshot.queryParams.token) {
       this.token = this.route.snapshot.queryParams.token;
+      this.Id = this.route.snapshot.queryParams.id;
+      this.isOTPEnabled = !(this.Id == null);
     }
-    this.resetpasswordForm = this.formBuilder.group({
-      password : ['', Validators.required],
-      confirmPassword : ['', Validators.required],
-      });
+    if(this.isOTPEnabled){
+      this.resetpasswordForm = this.formBuilder.group({
+        password : ['', Validators.required],
+        confirmPassword : ['', Validators.required],
+        OTP:['', Validators.required],
+        Id:[this.Id]
+        });
+    }
+    else {
+      this.resetpasswordForm = this.formBuilder.group({
+        password : ['', Validators.required],
+        confirmPassword : ['', Validators.required],
+        });
+    }
+    
   }
 
   onSubmit () {
@@ -38,15 +55,29 @@ export class ResetPasswordComponent implements OnInit {
         return;
       }
       
-      this.auth.resetPassword(resetPassword).subscribe(x => {
-        this.toastr.success('', x.message);
-        this.router.navigate(['/login-page']);
-      }, error => {
-        if(error.error.message)
-          this.toastr.error('', error.error.message);
-        else
-          this.toastr.error('', 'Unable to reset Password');
-      });
+      if(this.isOTPEnabled){
+        this.auth.resetPasswordWithPhone(resetPassword).subscribe(x => {
+          this.toastr.success('', x.message);
+          this.router.navigate(['/login-page']);
+        }, error => {
+          if(error.error.message)
+            this.toastr.error('', error.error.message);
+          else
+            this.toastr.error('', 'Unable to reset Password');
+        });
+      }
+      else {
+        this.auth.resetPassword(resetPassword).subscribe(x => {
+          this.toastr.success('', x.message);
+          this.router.navigate(['/login-page']);
+        }, error => {
+          if(error.error.message)
+            this.toastr.error('', error.error.message);
+          else
+            this.toastr.error('', 'Unable to reset Password');
+        });
+      }
+      
     }
   }
 

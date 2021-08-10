@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { FileloaderService } from 'src/app/services/fileloader.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { CountriesResponse } from 'src/app/models/countriesresponse';
+import { Select2OptionData } from 'ng-select2';
+import { Options } from 'select2';
 declare var $: any;
 
 @Component({
@@ -35,6 +37,8 @@ export class SettingsComponent implements OnInit {
   states = [];
   profileSpecializations;
   public selectOptions;
+  languages:Array<Select2OptionData> = []; 
+  options: Options;
 
   ngOnInit(): void {
     // Pricing Options Show
@@ -71,6 +75,7 @@ export class SettingsComponent implements OnInit {
       registrations : this.fb.array([
         this.getRegistrations()
       ]),
+      language: ['', Validators.required]
     });
 
     this.getSpecialities();
@@ -79,6 +84,18 @@ export class SettingsComponent implements OnInit {
       multiple: true,
       closeOnSelect: false,
     };
+    this.getLanguages();
+    this.options = {
+      width: '400',
+      multiple: true,
+      tags: false
+    }
+  }
+  
+  getLanguages() {
+    this.userService.getLanguages().subscribe(data => {
+      this.languages = data.map(language => <Select2OptionData> {id: language, text: language})
+    })
   }
 
   get f(){

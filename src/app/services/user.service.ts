@@ -55,6 +55,18 @@ export class UserService {
     return this.http.get<any>(environment.apiUrl + `api/Profiles/GetSpecialities`);
   }
 
+  getLanguages(){
+    return this.http.get<any>(environment.apiUrl + `api/Profiles/GetLanguages`);
+  }
+
+  getCommonDiseases(){
+    return this.http.get<any>(environment.apiUrl + `api/Profiles/GetCommonDiseases`);
+  }
+
+  getCorporateCompanies(){
+    return this.http.get<any>(environment.apiUrl + `api/Profiles/GetCorporateCompanies`);
+  }
+
   get doctor(): any {
     return this._doctor;
   }

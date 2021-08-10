@@ -25,7 +25,10 @@ export class RegisterComponent implements OnInit {
   patients: any = [];
   reg_type = 'Patient Register';
   doc_patient = 'Are you a Doctor?';
+  hasOTP:boolean = false;
   @ViewChild('Viewtemplate', { read: TemplateRef }) showPopUp:TemplateRef<any>;
+  id: number;
+  OTP: string;
 
   constructor(
     private toastr: ToastrService,
@@ -48,6 +51,8 @@ export class RegisterComponent implements OnInit {
       role : [3, Validators.required],
       acceptTerms : [true, Validators.required],
       phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
+      OtpId : [''],
+      OTP : [''],
       });
     this.getpatients();
     this.getDoctors();
@@ -88,6 +93,8 @@ export class RegisterComponent implements OnInit {
     else {
       this.spinner.show();
       console.log("Reg form is valid , trasnfering data to service layer..." , this.registrationForm.value)
+      this.registrationForm.controls.OtpId.setValue(this.id);
+      this.registrationForm.controls.OTP.setValue(this.OTP);
       let result = this.authService.register(this.registrationForm.value).subscribe((res) => {
         console.log("Account Result: ", result);
         this.spinner.hide();
@@ -113,5 +120,14 @@ export class RegisterComponent implements OnInit {
     this.commonService.getpatients().subscribe((res) => {
       this.patients = res;
     });
+  }
+
+  getOTP(){
+    this.spinner.show();
+    this.authService.getOTPWithNewNumber(this.registrationForm.controls.phoneNumber.value).subscribe(data => {
+      this.spinner.hide();
+      this.hasOTP = true;
+      this.id = data;
+    },(error) => {this.spinner.hide();})
   }
 }
