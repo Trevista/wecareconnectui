@@ -5,7 +5,7 @@
             <div class="col-md-12 col-12">
                 <nav aria-label="breadcrumb" class="page-breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a [routerLink]="''">Home</a></li>
+                        <li class="breadcrumb-item"><a [routerLink]="'/patients/dashboard'">Dashboard</a></li>
                         <li class="breadcrumb-item active" aria-current="page">Prescription View</li>
                     </ol>
                 </nav>
@@ -21,7 +21,7 @@
                     <div class="container-fluid" id="print_patient_prescription">
                         <div class="row">
                             <div class="col-lg-8 offset-lg-2">
-                                <div class="invoice-content A4">
+                                <div class="invoice-content">
                                     <!-- prescription Item -->
                                     <div class="invoice-item">
                                         <div class="row">
@@ -87,7 +87,7 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
+                                                            <tr *ngFor="let prescription of prescriptions">
                                                                 <td class="text-center">{{prescription?.name}}</td>
                                                                 <td class="text-right">{{prescription?.quantity}}</td>
                                                                 <td class="text-center">{{prescription?.description}}</td>

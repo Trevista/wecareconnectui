@@ -10,7 +10,7 @@ export class AppointmentService {
   constructor(private http: HttpClient) { }
 
   appointmentData: any;
-  private prescriptionData: any;
+  private prescriptionData: any[] = [];
 
   getAppointmentSlotsAvailableByDoctorId(id, startDate, endDate){
     const options = id ? { params: new HttpParams().set('id', id).set('startDate', startDate).set('endDate',endDate)} : {};
@@ -94,11 +94,11 @@ export class AppointmentService {
     return this.http.get<any>(environment.apiUrl + `api/AppointmentPrescriptions/GetByPatientId`, options);
   }
   
-  set prescription(prescription:any) {
+  set prescriptions(prescription:any[]) {
       this.prescriptionData = prescription;
   }
 
-  get prescription(): any {
+  get prescriptions(): any[] {
     return this.prescriptionData;
   }
 }

@@ -9,6 +9,7 @@ import { AppointmentService } from '../services/appointment.service';
 })
 export class PrescriptionDetailsComponent implements OnInit {
 
+  prescriptions: any[] = [];
   prescription: any;
   appointmentId:number;
   appointment: any;
@@ -23,8 +24,9 @@ export class PrescriptionDetailsComponent implements OnInit {
     , private appoinmentService: AppointmentService) { }
 
   ngOnInit(): void {
-    this.prescription = this.appoinmentService.prescription;
-    if(this.prescription){
+    this.prescriptions = this.appoinmentService.prescriptions;
+    if(this.prescriptions && this.prescriptions.length > 0){
+      this.prescription = this.prescriptions[0];
       this.appointmentService.getAppointmentNotes(this.prescription.appointmentId).subscribe(data => {
         this.prescriptionNotes = data;
       });

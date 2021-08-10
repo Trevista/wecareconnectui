@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   user;
   invoices = [];
   prescriptions = [];
+  prescriptionsByAppoinmentId = [];
   medicalRecords = [];
   today = new Date();
   @ViewChild(PrescriptionDetailsComponent) prescriptionDetailsComponent: PrescriptionDetailsComponent;
@@ -40,6 +41,13 @@ export class DashboardComponent implements OnInit {
    this.appointmentService.getAppointmentPrescriptionByPatientId(this.user?.id).subscribe(
      x => {
        this.prescriptions = x;
+       let appoinmentIds:any[] = [];
+       this.prescriptions.forEach(p => {
+         if(appoinmentIds.indexOf(p.appointmentId) == -1){
+          appoinmentIds.push(p.appointmentId);
+          this.prescriptionsByAppoinmentId.push(p);
+         }
+       })
       }
    );
   }
@@ -102,12 +110,12 @@ export class DashboardComponent implements OnInit {
   }
 
   prescriptionDetails(prescription:any){
-    this.appointmentService.prescription = prescription;
+    this.appointmentService.prescriptions = this.prescriptions.filter(p => prescription.appointmentId == p.appointmentId);
     this.router.navigate(['/prescription-details']);
   }
 
   printPrescriptionDetails(prescription){
-    this.prescriptionDetailsComponent.prescription = prescription;
+    this.prescriptionDetailsComponent.prescriptions = this.prescriptions.filter(p => prescription.appointmentId == p.appointmentId);
     this.prescriptionDetailsComponent.isPrintOption = true;
     $("#print_patient_prescription").printThis({debug: true, importCSS: true });
   }
