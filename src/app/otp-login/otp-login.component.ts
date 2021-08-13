@@ -17,6 +17,7 @@ export class OtpLoginComponent implements OnInit, OnDestroy {
   timeLeft: number;
   otp: string;
   id: string;
+  isAggreedConditions:boolean = false;
 
   constructor(private spinner: NgxSpinnerService
     , private authService: AuthenticationService

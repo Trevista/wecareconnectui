@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { LoginRoutingModule } from './login-routing.module';
 import { LoginComponent } from './login.component';
 import { NgxSpinnerModule } from "ngx-spinner";
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -13,7 +13,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     CommonModule,
     FormsModule,
     LoginRoutingModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatCheckboxModule
   ]
 })
 export class LoginModule { }
