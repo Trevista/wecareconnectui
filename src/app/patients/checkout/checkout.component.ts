@@ -35,6 +35,7 @@ export class CheckoutComponent implements OnInit {
   isPatient = false;
     cuponcodevalidation: boolean=false;
     isConfirmed:boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -183,5 +184,13 @@ export class CheckoutComponent implements OnInit {
       this.isConfirmed = false;
       this.toastr.error('', 'Appointment booking failed!');
     });
+  }
+
+  attachment(e){
+
+  }
+
+  onNewAttachment(){
+    
   }
 }

@@ -56,6 +56,7 @@ export interface AwardsEntityOrRegistrationsEntity {
   id: number;
   name: string;
   year: string;
+  attachment: string;
 }
 
 export interface Membership {

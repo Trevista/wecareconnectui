@@ -14,10 +14,6 @@ import Swal from 'sweetalert2';
 export class ForgotPasswordComponent implements OnInit {
 
   email = '';
-  phoneNumber:string;
-  otp: string;
-  id: string;
-  hasOTP: boolean = false;
 
   constructor(private authService: AuthenticationService,
               private spinner: NgxSpinnerService,
@@ -38,10 +34,14 @@ export class ForgotPasswordComponent implements OnInit {
     console.log("PARAMS: ", params);
     console.log("IN Forgot password..");
     if(this.email == null || this.email == ''){
-      this.toastr.error("Please provide registered Email");
+      this.toastr.error("Please provide registered Email or Phone number.");
       return false;
     }
     else{
+      if(!isNaN(email)){
+        this.forgotPasswordPhoneNumber(email);
+        return;
+      }
     this.spinner.show();
     let result = this.authService.forgotpassword(params).subscribe((res) => {
       console.log("Forgot password status: " , result);
@@ -66,12 +66,11 @@ export class ForgotPasswordComponent implements OnInit {
     }
 }
 
-forgotPasswordPhoneNumber(){
+forgotPasswordPhoneNumber(phoneNumber){
   this.spinner.show();
-  this.authService.getOTPWithNewNumber(this.phoneNumber).subscribe(data => {
+  this.authService.getOTPWithNewNumber(phoneNumber).subscribe(data => {
     this.spinner.hide();
-    this.id = data;
-    this.hasOTP = true;
+    this.router.navigate(['/account/reset-password'], { queryParams: {id: data}});
   }, (error) => {this.spinner.hide();})
 }
 }

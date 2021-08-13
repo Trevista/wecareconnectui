@@ -7,6 +7,8 @@ import { UserService } from 'src/app/services/user.service';
 import { FileloaderService } from 'src/app/services/fileloader.service';
 import { CountriesResponse, State } from 'src/app/models/countriesresponse';
 import { Select2OptionData } from 'ng-select2';
+import { Options } from 'select2';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.component.html',
@@ -24,6 +26,9 @@ export class SettingsComponent implements OnInit {
   states: State[];
   statesData: Array<Select2OptionData>;
   formSubmitted: boolean;
+  CommonDiseases: Array<Select2OptionData> = []; 
+  options: Options;
+  CorporateCustomers: Array<Select2OptionData> = []; 
 
   ngOnInit(): void {
     this.patientprofileForm = this.fb.group({
@@ -39,8 +44,20 @@ export class SettingsComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       profileDescription: [null],
       contactInfo: this.getContactInfo(),
+      isCorporate: ['true', [Validators.required]],
+      CommonDiseases: ['', [Validators.required]],
+      OtherDiseases:['', [Validators.required]],
+      anySurgeryIn6Months: ['false', [Validators.required]],
+      surgeryDetails: ['', [Validators.required]],
     });
     this.getCountries();
+    this.getCommonDiseases();
+    this.getCorporateCustomers();
+    this.options = {
+      width: '400',
+      multiple: true,
+      tags: false
+    }
   }
 
   getCountries(){
@@ -128,5 +145,21 @@ export class SettingsComponent implements OnInit {
       this.toastr.error(this.patientprofileForm.errors.toString(), 'Please Provide required details');
     }
 
+  }
+
+  getCommonDiseases() {
+    let diseases:any[] = ["Sugar", "Diabates", "thyroid"];
+    this.CommonDiseases = diseases.map(disease => <Select2OptionData> {id: disease, text: disease})
+    // this.userService.getCommonDiseases().subscribe(data => {
+    //   this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease, text: disease})
+    // })
+  }
+
+  getCorporateCustomers() {
+    let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
+    this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
+    // this.userService.getCorporateCompanies().subscribe(data => {
+    //   this.CommonDiseases = data.map(company => <Select2OptionData> {id: company, text: company});
+    // })
   }
 }

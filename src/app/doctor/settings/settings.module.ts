@@ -7,10 +7,11 @@ import { SettingsComponent } from './settings.component';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { AngularTagsInputModule } from '@iomechs/angular-tags-input';
 import { NgSelect2Module } from 'ng-select2';
-
+import { GetNameFromUrlPipe } from 'src/app/pipes/get-name-from-url.pipe';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
-  declarations: [SettingsComponent],
+  declarations: [SettingsComponent, GetNameFromUrlPipe],
   imports: [
     CommonModule,
     SettingsRoutingModule,
@@ -18,8 +19,8 @@ import { NgSelect2Module } from 'ng-select2';
     AngularTagsInputModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelect2Module
-  ],
+    NgSelect2Module,
+    MatRadioModule  ],
   providers: [DatePipe]
 })
 export class SettingsModule { }

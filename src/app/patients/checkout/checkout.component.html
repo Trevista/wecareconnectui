@@ -63,8 +63,28 @@
 													</div>
 												</div>
 											</div>
+											<div class="row">
+												<div class="col-6">
+													<div class="form-group">
+														<label>Attachments</label>
+														<div class="upload-img">
+															<div class="change-attachment-btn">
+															  <span><i class="fa fa-upload"></i>Upload</span>
+															  <input type="file" class="upload" (change)="attachment($event)">
+															</div>
+														  </div>
+														  <!-- <a href="{{item.value.attachment}}" target="_blank"><strong>{{item.value.attachment | getNameFromUrl}}</strong></a> -->
+													</div>
+												</div>
+												<div class="col-6">
+													<div class="form-group">
+														
+													</div>
+												</div>
+											</div>
 											<div class="exist-customer" *ngIf="!this.userValue">Existing Customer? <a [routerLink]="'/login'">Click here to login</a></div>
 										</div>
+										
 										<!-- /Personal Information -->
 
 										<div class="payment-widget">

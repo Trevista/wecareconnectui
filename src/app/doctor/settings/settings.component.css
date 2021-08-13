@@ -13,6 +13,15 @@
     border-radius: .25rem;
     padding-bottom: 10px;
 }
+
 .an-tag .angular-tag-input__input {
     padding: 0 !important;
+}
+
+.nopadding{
+    padding: 0px !important;
+}
+
+.pl-15{
+    padding: 0px 15px 0px 0px !important;
 }

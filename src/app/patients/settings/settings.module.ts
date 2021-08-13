@@ -6,6 +6,7 @@ import { SettingsComponent } from './settings.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelect2Module } from 'ng-select2';
 import { StatePipe } from 'src/app/pipes/states/state.pipe';
+import {MatRadioModule} from '@angular/material/radio';
 
 @NgModule({
   declarations: [SettingsComponent, StatePipe],
@@ -13,7 +14,8 @@ import { StatePipe } from 'src/app/pipes/states/state.pipe';
     CommonModule,
     SettingsRoutingModule, FormsModule,
     ReactiveFormsModule,
-    NgSelect2Module
+    NgSelect2Module,
+    MatRadioModule
   ],
   providers: [DatePipe]
 })

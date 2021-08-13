@@ -39,6 +39,7 @@ export class SettingsComponent implements OnInit {
   public selectOptions;
   languages:Array<Select2OptionData> = []; 
   options: Options;
+  CorporateCustomers: Array<Select2OptionData> = []; 
 
   ngOnInit(): void {
     // Pricing Options Show
@@ -75,7 +76,8 @@ export class SettingsComponent implements OnInit {
       registrations : this.fb.array([
         this.getRegistrations()
       ]),
-      language: ['', Validators.required]
+      language: ['', Validators.required],
+      isCorporate: ['true', Validators.required]
     });
 
     this.getSpecialities();
@@ -85,6 +87,7 @@ export class SettingsComponent implements OnInit {
       closeOnSelect: false,
     };
     this.getLanguages();
+    this.getCorporateCustomers();
     this.options = {
       width: '400',
       multiple: true,
@@ -93,9 +96,11 @@ export class SettingsComponent implements OnInit {
   }
   
   getLanguages() {
-    this.userService.getLanguages().subscribe(data => {
-      this.languages = data.map(language => <Select2OptionData> {id: language, text: language})
-    })
+    let langs:any[] = ["English", "Telugu", "Hindi"];
+    this.languages = langs.map(language => <Select2OptionData> {id: language, text: language})
+    // this.userService.getLanguages().subscribe(data => {
+    //   this.languages = data.map(language => <Select2OptionData> {id: language, text: language})
+    // })
   }
 
   get f(){
@@ -137,6 +142,7 @@ getProfile() {
 
         for (let i = 1; i < x.registrations.length; i++) {
           const register = <FormArray>this.profileForm.get('registrations');
+          x.registrations[i].attachment = "";
           const reg = x.registrations[i];
           register.controls.push(
             this.fb.group({
@@ -231,7 +237,8 @@ getRegistrations(): FormGroup{
     return this.fb.group({
       id: 0,
       name: '',
-      year: ''
+      year: '',
+      attachment: ''
     });
   }
 
@@ -365,4 +372,22 @@ onProfileSelect(event){
       });
   }
 
+  onRegistrationAttachmentSelect(event, item: any){
+    let fileToUpload: File = event.target.files[0];
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
+    this.fileService.uploadFile(formData, this.auth.userValue.id)
+      .subscribe(e => {
+        const path = e.filePath.split('?');
+        item.value.Attachment = path[0] + `?raw=1`;
+      });
+  }
+
+  getCorporateCustomers() {
+    let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
+    this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
+    // this.userService.getCorporateCompanies().subscribe(data => {
+    //   this.CommonDiseases = data.map(company => <Select2OptionData> {id: company, text: company});
+    // })
+  }
 }

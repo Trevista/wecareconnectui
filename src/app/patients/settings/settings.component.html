@@ -3,6 +3,8 @@
 
 				<!-- Profile Settings Form -->
         <form [formGroup]="patientprofileForm" (submit)="onSubmit()">
+          <div class="card">
+            <div class="card-body">
           <div class="row form-row">
             <div class="col-12 col-md-12">
               <div class="form-group">
@@ -49,21 +51,6 @@
                 </div>
               </div>
             </div>
-            <!--<div class="col-12 col-md-6">
-              <div class="form-group">
-                <label>Blood Group</label>
-                <select class="form-control select" formControlName="bloodGroup">
-                  <option>A-</option>
-                  <option>A+</option>
-                  <option>B-</option>
-                  <option>B+</option>
-                  <option>AB-</option>
-                  <option>AB+</option>
-                  <option>O-</option>
-                  <option>O+</option>
-                </select>
-              </div>
-            </div>-->
             <div class="col-12 col-md-6">
               <div class="form-group">
                 <label>Email ID</label>
@@ -127,12 +114,88 @@
                 </div>
               </div>
             </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label>Common Diseases</label>
+                <div class="add-more">
+                  <ng-select2 width="10%" id="CommonDiseases" formControlName="CommonDiseases" [data]="CommonDiseases" [options]="options"></ng-select2>
+                </div>
+              </div>
+              <!-- <div class="row">
+                <div class="col-12 col-md-3">
+                  
+                </div>
+                <div class="col-12 col-md-6">
+                  <div class="form-group">
+                    <label>Other Diseases</label>
+                    <div class="add-more">
+                      <input type="text" [ngClass]="'form-control' " formControlName="otherDiseases">
+                    </div>
+                  </div>
+                </div>
+              </div> -->
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group">
+                <label>Other Diseases</label>
+                <div class="add-more">
+                  <input type="text" [ngClass]="'form-control' " formControlName="otherDiseases">
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="row">
+                <div class="col-6">
+                  <div class="form-group">
+                    <label>Are you undergone any surgery in past 6Months
+                    </label>
+                    <div class="form-check">
+                      <mat-radio-group formControlName="anySurgeryIn6Months">
+                        <mat-radio-button value="true">Yes </mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button  value="false">No</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-6" *ngIf="patientprofileForm.value.anySurgeryIn6Months == 'true'">
+                  <div class="form-group">
+                    <label>Surgery Details
+                    </label>
+                    <input type="text" [ngClass]="'form-control'" formControlName="surgeryDetails">
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-
-          <div class="submit-section">
+        </div>
+      </div>
+          <div class="card">
+            <div class="card-body">
+              <div class="col-12 col-md-6">
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-check">
+                      <mat-radio-group formControlName="isCorporate">
+                        <mat-radio-button value="true">Individual </mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button  value="false">Corporate</mat-radio-button>
+                      </mat-radio-group>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6" *ngIf="patientprofileForm.value.isCorporate == 'false'">
+                    <label>Corporate Customer</label>
+                    <div class="add-more">
+                      <ng-select2 width="100%" id="CorporateCustomer" formControlName="CorporateCustomer" [data]="CorporateCustomers"></ng-select2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="submit-section mt-5">
             <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
           </div>
-        </form>
+        
+      </form>
 				<!-- /Profile Settings Form -->
 
 			</div>

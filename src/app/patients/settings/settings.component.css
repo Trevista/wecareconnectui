@@ -9,3 +9,11 @@
     background-color: #09e5ab !important;
     border: 1px solid #09e5ab !important;
 }
+
+.nopadding{
+    padding: 0px !important;
+}
+
+.pl-15{
+    padding: 0px 15px 0px 0px !important;
+}

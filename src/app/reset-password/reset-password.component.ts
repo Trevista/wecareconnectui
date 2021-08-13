@@ -23,7 +23,7 @@ export class ResetPasswordComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    if (this.route.snapshot.queryParams.token) {
+    if (this.route.snapshot.queryParams.token ||  this.route.snapshot.queryParams.id) {
       this.token = this.route.snapshot.queryParams.token;
       this.Id = this.route.snapshot.queryParams.id;
       this.isOTPEnabled = !(this.Id == null);
