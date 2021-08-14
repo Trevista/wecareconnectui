@@ -45,7 +45,7 @@ export class OtpLoginComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
-    this.timeLeft = 90;
+    this.timeLeft = 120;
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;

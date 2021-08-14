@@ -28,8 +28,10 @@ export class RegisterComponent implements OnInit {
   hasOTP:boolean = false;
   @ViewChild('Viewtemplate', { read: TemplateRef }) showPopUp:TemplateRef<any>;
   id: number;
-  OTP: string;
+  OTP: number;
   isAggreedConditions:boolean = false;
+  interval:any;
+  timeLeft: number;
 
   constructor(
     private toastr: ToastrService,
@@ -46,14 +48,14 @@ export class RegisterComponent implements OnInit {
       title : [''],
       firstName : ['', Validators.required],
       lastName : ['', Validators.required],
-      email : ['', Validators.required],
+      email : [''],
       password : ['', Validators.required],
       confirmPassword : ['', Validators.required],
       role : [3, Validators.required],
       acceptTerms : [true, Validators.required],
       phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
-      OtpId : [''],
-      OTP : [''],
+      otpId : [''],
+      otp : [''],
       });
     this.getpatients();
     this.getDoctors();
@@ -94,8 +96,8 @@ export class RegisterComponent implements OnInit {
     else {
       this.spinner.show();
       console.log("Reg form is valid , trasnfering data to service layer..." , this.registrationForm.value)
-      this.registrationForm.controls.OtpId.setValue(this.id);
-      this.registrationForm.controls.OTP.setValue(this.OTP);
+      this.registrationForm.controls.otpId.setValue(this.id);
+      this.registrationForm.controls.otp.setValue(this.OTP);
       let result = this.authService.register(this.registrationForm.value).subscribe((res) => {
         console.log("Account Result: ", result);
         this.spinner.hide();
@@ -104,9 +106,12 @@ export class RegisterComponent implements OnInit {
       },
       (error)=> {
         this.spinner.hide();
-        if(error.error?.message == "Account with this email or phone number was already registered."){
+        if(error.error?.message.indexOf("Account already") > -1 ){
           this.modalRef = this.modalService.show(this.showPopUp, {class: 'modal-md modal-dialog-centered'});
         } 
+        else{
+          this.toastr.error('', error.error?.message);
+        }
       });
     }
   }
@@ -129,6 +134,19 @@ export class RegisterComponent implements OnInit {
       this.spinner.hide();
       this.hasOTP = true;
       this.id = data;
+      this.startTimer();
     },(error) => {this.spinner.hide();})
+  }
+
+  startTimer() {
+    this.timeLeft = 120;
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.hasOTP = false;
+        clearInterval(this.interval);
+      }
+    },1000);
   }
 }

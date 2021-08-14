@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthenticationService } from '../services/authentication.service';
+import { Location } from '@angular/common'
 
 @Component({
   selector: 'app-reset-password',
@@ -13,28 +14,31 @@ export class ResetPasswordComponent implements OnInit {
 
   public resetpasswordForm: FormGroup;
   token: string;
-  OTP:string;
+  OTP:number;
   Id: number;
   isOTPEnabled: boolean;
+  interval:any;
+  timeLeft: number;
 
   constructor(public auth: AuthenticationService,
     private formBuilder: FormBuilder, private toastr: ToastrService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute, private location: Location) { }
 
   ngOnInit(): void {
     if (this.route.snapshot.queryParams.token ||  this.route.snapshot.queryParams.id) {
       this.token = this.route.snapshot.queryParams.token;
-      this.Id = this.route.snapshot.queryParams.id;
-      this.isOTPEnabled = !(this.Id == null);
+      this.Id = +this.route.snapshot.queryParams.id;
+      this.isOTPEnabled = !(this.Id == null || isNaN(this.Id));
     }
     if(this.isOTPEnabled){
       this.resetpasswordForm = this.formBuilder.group({
         password : ['', Validators.required],
         confirmPassword : ['', Validators.required],
-        OTP:['', Validators.required],
-        Id:[this.Id]
+        otp:['', Validators.required],
+        id:[this.Id]
         });
+        this.startTimer();
     }
     else {
       this.resetpasswordForm = this.formBuilder.group({
@@ -79,6 +83,18 @@ export class ResetPasswordComponent implements OnInit {
       }
       
     }
+  }
+
+  startTimer() {
+    this.timeLeft = 120;
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else {
+        this.location.back();
+        clearInterval(this.interval);
+      }
+    },1000);
   }
 
 }

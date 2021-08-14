@@ -62,7 +62,7 @@ export class AuthenticationService {
   }
 
   resetPasswordWithPhone(resetpasswordmodel){
-    return this.http.post<any>(environment.apiUrl + 'api/Accounts/resetPasswordWithPhone', resetpasswordmodel);
+    return this.http.post<any>(environment.apiUrl + 'api/Accounts/reset-password-WithPhone', resetpasswordmodel);
   }
 
   getOTP(phoneNumber){
@@ -70,7 +70,7 @@ export class AuthenticationService {
   }
 
   getOTPWithNewNumber(phoneNumber){
-    return this.http.get<any>(environment.apiUrl + 'api/Accounts/GetOTPWithNewNumber?phoneNumber=' + phoneNumber);
+    return this.http.get<any>(environment.apiUrl + 'api/Accounts/SendOTPToVerifyPhone?phoneNumber=' + phoneNumber);
   }
 
   authOTPLogin(id, otp){

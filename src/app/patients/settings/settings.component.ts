@@ -34,7 +34,7 @@ export class SettingsComponent implements OnInit {
       email: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
       firstName: [{value: this.auth.userValue.firstName, disabled: true}, [Validators.required]],
       lastName: [{value: this.auth.userValue.lastName,disabled: true}, [Validators.required]],
-      phoneNumber: [{value:'', disabled: true}, [Validators.required]],
+      phoneNumber: ['', [Validators.required]],
       gender: [null],
       dateOfBirth: ['', [Validators.required]],
       profileDescription: [null],
