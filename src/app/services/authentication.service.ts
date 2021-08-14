@@ -61,8 +61,16 @@ export class AuthenticationService {
     return this.http.post<any>(environment.apiUrl + 'api/Accounts/reset-password', resetpasswordmodel);
   }
 
+  resetPasswordWithPhone(resetpasswordmodel){
+    return this.http.post<any>(environment.apiUrl + 'api/Accounts/resetPasswordWithPhone', resetpasswordmodel);
+  }
+
   getOTP(phoneNumber){
     return this.http.get<any>(environment.apiUrl + 'api/Accounts/SendOTP?phoneNumber=' + phoneNumber);
+  }
+
+  getOTPWithNewNumber(phoneNumber){
+    return this.http.get<any>(environment.apiUrl + 'api/Accounts/GetOTPWithNewNumber?phoneNumber=' + phoneNumber);
   }
 
   authOTPLogin(id, otp){

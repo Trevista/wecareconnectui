@@ -10,6 +10,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 
+import {MatCheckboxModule} from '@angular/material/checkbox';
+
 @NgModule({
   declarations: [RegisterComponent],
   imports: [
@@ -17,7 +19,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
     FormsModule,
     ReactiveFormsModule,
     RegisterRoutingModule,
-    NgxSpinnerModule, ModalModule.forRoot(), PdfViewerModule
+    NgxSpinnerModule, ModalModule.forRoot(), PdfViewerModule, MatCheckboxModule
   ]
 })
 export class RegisterModule { }

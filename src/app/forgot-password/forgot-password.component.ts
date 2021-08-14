@@ -34,10 +34,14 @@ export class ForgotPasswordComponent implements OnInit {
     console.log("PARAMS: ", params);
     console.log("IN Forgot password..");
     if(this.email == null || this.email == ''){
-      this.toastr.error("Please provide registered Email");
+      this.toastr.error("Please provide registered Email or Phone number.");
       return false;
     }
     else{
+      if(!isNaN(email)){
+        this.forgotPasswordPhoneNumber(email);
+        return;
+      }
     this.spinner.show();
     let result = this.authService.forgotpassword(params).subscribe((res) => {
       console.log("Forgot password status: " , result);
@@ -60,5 +64,13 @@ export class ForgotPasswordComponent implements OnInit {
       this.router.navigate(['/login-page']);
     }, (error) => this.toastr.error('Error Occured', 'Please try after sometime!') && this.spinner.hide());
     }
+}
+
+forgotPasswordPhoneNumber(phoneNumber){
+  this.spinner.show();
+  this.authService.getOTPWithNewNumber(phoneNumber).subscribe(data => {
+    this.spinner.hide();
+    this.router.navigate(['/account/reset-password'], { queryParams: {id: data}});
+  }, (error) => {this.spinner.hide();})
 }
 }
