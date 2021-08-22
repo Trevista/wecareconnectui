@@ -65,7 +65,8 @@
                 <div class="text-right">
                   <a class="forgot-link" [routerLink]="'/login-page'">Already have an account?</a>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg login-btn" [disabled]="registrationForm.invalid" (click)="getOTP()">Get OTP</button>
+                <mat-checkbox formControlName="acceptTerms" >By signing up, I agree to <a href="/terms/terms" target="_blank" style="color: orange;">Terms and Conditions</a></mat-checkbox>
+                <button class="btn btn-primary btn-block btn-lg login-btn" type="submit" (click)="signup()" [disabled]="!registrationForm.get('acceptTerms').value">SignUp</button>
                 <div class="login-or" hidden>registrationForm.phoneNumber
                   <span class="or-line"></span>
                   <span class="span-or">or</span>
@@ -95,7 +96,6 @@
                        [(ngModel)]="OTP">
                 <label class="focus-label">OTP<span class="required">*</span></label>
               </div>
-              <mat-checkbox name="agreeconditions" [(ngModel)]="isAggreedConditions" >By signing up, I agree to <a href="/terms/terms" target="_blank" style="color: orange;">Terms and Conditions</a></mat-checkbox>
               <button class="btn btn-primary btn-block btn-lg login-btn" (click)="signup()" [disabled]="!isAggreedConditions">SignUp</button>
 
 						</div>

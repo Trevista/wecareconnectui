@@ -52,10 +52,8 @@ export class RegisterComponent implements OnInit {
       password : ['', Validators.required],
       confirmPassword : ['', Validators.required],
       role : [3, Validators.required],
-      acceptTerms : [true, Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
-      otpId : [''],
-      otp : [''],
+      acceptTerms : [false, Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.maxLength(10)]]
       });
     this.getpatients();
     this.getDoctors();
@@ -90,30 +88,23 @@ export class RegisterComponent implements OnInit {
 
   signup() {
     console.log("Clicked signup form...");
-    if (this.registrationForm.invalid) {
-      this.toastr.error('', 'Please enter mandatory field!');
-    }
-    else {
-      this.spinner.show();
-      console.log("Reg form is valid , trasnfering data to service layer..." , this.registrationForm.value)
-      this.registrationForm.controls.otpId.setValue(this.id);
-      this.registrationForm.controls.otp.setValue(this.OTP);
-      let result = this.authService.register(this.registrationForm.value).subscribe((res) => {
-        console.log("Account Result: ", result);
-        this.spinner.hide();
-        this.toastr.success('', 'Register successfully!');
-        this.router.navigate(['/login-page']);
-      },
-      (error)=> {
-        this.spinner.hide();
-        if(error.error?.message.indexOf("Account already") > -1 ){
-          this.modalRef = this.modalService.show(this.showPopUp, {class: 'modal-md modal-dialog-centered'});
-        } 
-        else{
-          this.toastr.error('', error.error?.message);
-        }
-      });
-    }
+    this.spinner.show();
+    console.log("Reg form is valid , trasnfering data to service layer..." , this.registrationForm.value)
+    let result = this.authService.register(this.registrationForm.value).subscribe((res) => {
+      console.log("Account Result: ", result);
+      this.spinner.hide();
+      this.toastr.success('', 'Register successfully!');
+      this.router.navigate(['/login-page']);
+    },
+    (error)=> {
+      this.spinner.hide();
+      if(error.error?.message.indexOf("Account already") > -1 ){
+        this.modalRef = this.modalService.show(this.showPopUp, {class: 'modal-md modal-dialog-centered'});
+      } 
+      else{
+        this.toastr.error('', error.error?.message);
+      }
+    });
   }
 
   getDoctors() {
