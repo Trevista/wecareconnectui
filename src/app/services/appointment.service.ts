@@ -31,6 +31,11 @@ export class AppointmentService {
     return this.http.get<any>(environment.apiUrl + `api/Appointments/GetByPatientEmail`, options);
   }
 
+  getAppointmentsByPatientId(userId){
+    const options = userId ? { params: new HttpParams().set('id', userId)} : {};
+    return this.http.get<any>(environment.apiUrl + `api/Appointments/GetByPatientId`, options);
+  }
+
   getAppointmentsByDoctorId(doctorId) {
     const options = doctorId ? { params: new HttpParams().set('id', doctorId)} : {};
     return this.http.get<any>(environment.apiUrl + `api/Appointments/GetByDoctorId`, options);
@@ -61,6 +66,11 @@ export class AppointmentService {
   getInvoicesByPatientEmail(email){
     const options = email ? { params: new HttpParams().set('email', email)} : {};
     return this.http.get<any>(environment.apiUrl + `api/Invoices/GetInvoicesByPatientEmail`, options);
+  }
+
+  getInvoicesByPatientId(patientId){
+    const options = patientId ? { params: new HttpParams().set('patientId', patientId)} : {};
+    return this.http.get<any>(environment.apiUrl + `api/Invoices/GetInvoicesByPatientId`, options);
   }
 
   addAppointmentNote(appointment){
