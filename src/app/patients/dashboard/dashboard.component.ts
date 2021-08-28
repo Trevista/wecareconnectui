@@ -54,7 +54,7 @@ export class DashboardComponent implements OnInit {
 
 
   getInvoices() {
-    this.appointmentService.getInvoicesByPatientEmail(this.authService.userValue.email).subscribe(x => {
+    this.appointmentService.getInvoicesByPatientId(this.user?.id).subscribe(x => {
       this.invoices = x.invoiceList;
     });
   }
@@ -84,7 +84,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getAppointments() {
-    this.appointmentService.getAppointmentsByPatientEmail(this.user.email).subscribe(
+    this.appointmentService.getAppointmentsByPatientId(this.user?.id).subscribe(
       x => {
         this.appointments = x.appointments;
         console.log(x.appointments);

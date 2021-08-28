@@ -68,7 +68,7 @@ export class ForgotPasswordComponent implements OnInit {
 
 forgotPasswordPhoneNumber(phoneNumber){
   this.spinner.show();
-  this.authService.getOTPWithNewNumber(phoneNumber).subscribe(data => {
+  this.authService.getOTP(phoneNumber).subscribe(data => {
     this.spinner.hide();
     this.router.navigate(['/account/reset-password'], { queryParams: {id: data}});
   }, (error) => {this.spinner.hide();})

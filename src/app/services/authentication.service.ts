@@ -70,7 +70,7 @@ export class AuthenticationService {
   }
 
   getOTPWithNewNumber(phoneNumber){
-    return this.http.get<any>(environment.apiUrl + 'api/Accounts/ValidatePhonenumberWithOTP ?phoneNumber=' + phoneNumber);
+    return this.http.get<any>(environment.apiUrl + 'api/Accounts/SendOTPToVerifyPhone?phoneNumber=' + phoneNumber);
   }
 
   authOTPLogin(id, otp){

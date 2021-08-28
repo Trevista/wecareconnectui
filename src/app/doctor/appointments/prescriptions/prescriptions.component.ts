@@ -31,7 +31,7 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
   editdisplayedColumns = ['name', 'quantity', 'medicineType', 'description', 'addRow']
   previewdisplayedColumns = ['name', 'quantity', 'medicineType', 'description']
   medicineTypes: Array<Select2OptionData> = [
-    {id: 'Select Madicine', text: 'Select Madicine'},
+    {id: 'Select Madicine', text: 'Select Madicine', disabled: true},
    {id: 'Liquid Solution', text: 'Liquid Solution'},
    {id: 'Tablet', text: 'Tablet'},
    {id: 'Capsule', text: 'Capsule'},
@@ -62,7 +62,8 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
+    if(this.dataSource)
+        this.dataSource.paginator = this.paginator;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -86,7 +87,7 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
     this.prescriptionForm.controls.appointmentId.patchValue(this.appointmentId);
     if (this.prescriptionForm.controls.id.value === 0){
       this.appointmentService.addAppointmentPrescriptions(this.prescriptionForm.value).subscribe(
-        x =>{ this.toaster.success('Prescription Updated Succesfully');
+        x =>{ this.toaster.success('Prescription Created Succesfully');
               this.loadPrescription(this.id)},
         (error) => this.toaster.error('Unable to add Prescription')
       );
@@ -113,14 +114,22 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
   preview(){
     this.modalRef = this.modalService.show(this.showPopUp, {class: 'modal-md modal-dialog-centered'});
     this.prescriptions = this.prescriptions.filter(p => !(p.name == "" || p.name == undefined));
-    this.prescriptions[this.prescriptions.length-1].isAdded = false;
-    this.editDataSource = new MatTableDataSource(this.prescriptions); 
+    if(this.prescriptions && this.prescriptions.length > 0){
+      this.prescriptions[this.prescriptions.length-1].isAdded = false;
+      this.editDataSource = new MatTableDataSource(this.prescriptions); 
+    }
+    else{
+      this.prescriptions = [];
+      this.prescriptions.push(JSON.parse(JSON.stringify(this.prescription)));
+      this.editDataSource = new MatTableDataSource(this.prescriptions);
+    }
   }
 
   generate(){
-    this.editDataSource = new MatTableDataSource([JSON.parse(JSON.stringify(this.prescription))]);  
-    this.prescriptions = this.prescriptions.filter(p => !(p.name == "" || p.name == undefined));
-    this.prescriptions.forEach(p => {
+    let prescriptions:any[] = JSON.parse(JSON.stringify(this.prescriptions.filter(p => !(p.name == "" || p.name == undefined))));
+    this.prescriptions = [JSON.parse(JSON.stringify(this.prescription))];
+    this.editDataSource = new MatTableDataSource(this.prescriptions);  
+    prescriptions.forEach(p => {
       p.appointmentId = this.appointmentId;
       p.id = 0;
       this.appointmentService.addAppointmentPrescriptions(p).subscribe(

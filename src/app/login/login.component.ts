@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   username = '';
   password = '';
     doctorname: any;
+    isAggreedConditions:boolean = false;
 
   constructor(
     public router: Router,

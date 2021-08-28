@@ -17,6 +17,7 @@ export class OtpLoginComponent implements OnInit, OnDestroy {
   timeLeft: number;
   otp: string;
   id: string;
+  isAggreedConditions:boolean = false;
 
   constructor(private spinner: NgxSpinnerService
     , private authService: AuthenticationService
@@ -44,7 +45,7 @@ export class OtpLoginComponent implements OnInit, OnDestroy {
   }
 
   startTimer() {
-    this.timeLeft = 90;
+    this.timeLeft = 120;
     this.interval = setInterval(() => {
       if(this.timeLeft > 0) {
         this.timeLeft--;

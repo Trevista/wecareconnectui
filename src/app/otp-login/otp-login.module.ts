@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { OtpLoginComponent } from './otp-login.component';
 import { OtpLoginRoutingModule } from './otp-login-routing.module';
-
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [OtpLoginComponent],
@@ -13,7 +13,8 @@ import { OtpLoginRoutingModule } from './otp-login-routing.module';
     CommonModule,
     FormsModule,
     OtpLoginRoutingModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatCheckboxModule
   ]
 })
 export class OtpLoginModule { }

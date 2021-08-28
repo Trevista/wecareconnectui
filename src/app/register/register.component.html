@@ -33,7 +33,7 @@
                 <div class="form-group form-focus">
                   <input type="email" name="email" class="form-control floating"
                          formControlName="email">
-                  <label class="focus-label">Email<span class="required">*</span></label>
+                  <label class="focus-label">Email</label>
                 </div>
 
                 <div class="form-group form-focus">
@@ -61,20 +61,12 @@
                     <span class="checkmark"></span> I'm Patient
                   </label>
                 </div>-->
-                <div>
-                  <span class="checkmark"></span> 
- By signing up, I agree to <a  style="cursor:pointer;color: #14bef0;" href="/terms/terms" target="_blank">
-  terms and Conditions <span class="required">*</span>
-</a>
-
-                  <!--<span class="checkmark" (click)="openModal(template)"></span> Agree the Terms and Conditions-->
-
-                </div>
 
                 <div class="text-right">
                   <a class="forgot-link" [routerLink]="'/login-page'">Already have an account?</a>
                 </div>
-                <button class="btn btn-primary btn-block btn-lg login-btn" [disabled]="registrationForm.invalid" (click)="getOTP()">Get OTP</button>
+                <mat-checkbox formControlName="acceptTerms" >By signing up, I agree to <a href="/terms/terms" target="_blank" style="color: orange;">Terms and Conditions</a></mat-checkbox>
+                <button class="btn btn-primary btn-block btn-lg login-btn" type="submit" (click)="signup()" [disabled]="!registrationForm.get('acceptTerms').value">SignUp</button>
                 <div class="login-or" hidden>registrationForm.phoneNumber
                   <span class="or-line"></span>
                   <span class="span-or">or</span>
@@ -97,14 +89,14 @@
 						</div>
             <div class="col-md-12 col-lg-6 login-right" *ngIf="hasOTP">
 							<div class="login-header">
-								<h3>{{reg_type}}</h3>
+								<h3>{{reg_type}}&nbsp;&nbsp;<label *ngIf="timeLeft != 0" class="bg-success-light">{{timeLeft}} sec</label></h3>
 							</div>
               <div class="form-group form-focus">
-                <input type="text" name="otp" class="form-control floating"
+                <input type="number" name="otp" class="form-control floating"
                        [(ngModel)]="OTP">
                 <label class="focus-label">OTP<span class="required">*</span></label>
               </div>
-              <button class="btn btn-primary btn-block btn-lg login-btn" (click)="signup()">SignUp</button>
+              <button class="btn btn-primary btn-block btn-lg login-btn" (click)="signup()" [disabled]="!isAggreedConditions">SignUp</button>
 
 						</div>
 					</div>
