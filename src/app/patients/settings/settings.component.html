@@ -139,7 +139,7 @@
               <div class="form-group">
                 <label>Other Diseases</label>
                 <div class="add-more">
-                  <input type="text" [ngClass]="'form-control' " formControlName="otherDiseases">
+                  <textarea [ngClass]="'form-control' " formControlName="OtherDiseases"></textarea>
                 </div>
               </div>
             </div>
@@ -176,12 +176,12 @@
                   <div class="col-12 col-md-6">
                     <div class="form-check">
                       <mat-radio-group formControlName="isCorporate">
-                        <mat-radio-button value="true">Individual </mat-radio-button>&nbsp;&nbsp;
-                        <mat-radio-button  value="false">Corporate</mat-radio-button>
+                        <mat-radio-button [value]="false">Individual </mat-radio-button>&nbsp;&nbsp;
+                        <mat-radio-button  [value]="true">Corporate</mat-radio-button>
                       </mat-radio-group>
                     </div>
                   </div>
-                  <div class="col-12 col-md-6" *ngIf="patientprofileForm.value.isCorporate == 'false'">
+                  <div class="col-12 col-md-6" *ngIf="patientprofileForm.value.isCorporate">
                     <label>Corporate Customer</label>
                     <div class="add-more">
                       <ng-select2 width="100%" id="CorporateCustomer" formControlName="CorporateCustomer" [data]="CorporateCustomers"></ng-select2>

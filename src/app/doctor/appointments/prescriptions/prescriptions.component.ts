@@ -41,12 +41,13 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
    {id: 'Implants', text: 'Implants'}
   ];
 
-  displayedColumns = ['name', 'quantity', 'medicineType', 'description', 'appointmentDate'];
+  displayedColumns = ['name', 'quantity', 'medicineType', 'description', 'appointmentDate', 'delete'];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
   @ViewChild('Viewtemplate', { read: TemplateRef }) showPopUp:TemplateRef<any>;
   modalRef: BsModalRef;
+  selectedPrescription: any;
 
   ngOnInit(): void {
     this.prescriptionForm = this.fb.group({
@@ -80,7 +81,15 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
   }
 
   deleteMedicine(item){
-
+    this.appointmentService.deleteAppointmentPrescriptionById(item.id).subscribe(data => {
+      this.loadPrescription(this.id);
+      this.modalRef.hide();
+      this.toaster.success('', 'Prescription deleted successfully!');
+    },
+    (error)=> {
+      this.modalRef.hide();
+      this.toaster.success('', 'Not able to delete prescription. Please contact administrator.');
+    })
   }
 
   onSubmit(){
@@ -137,6 +146,13 @@ export class PrescriptionsComponent implements OnInit, OnChanges, AfterViewInit 
               this.loadPrescription(this.id)},
         (error) => this.toaster.error('Unable to add Prescription')
       );
-    });  
+    }); 
+     
+  }
+
+  openModal(template: TemplateRef<any>, prescription) {
+    this.appointmentId = prescription;
+    this.selectedPrescription = prescription;
+    this.modalRef = this.modalService.show(template, {class: 'modal-md modal-dialog-centered'});
   }
 }

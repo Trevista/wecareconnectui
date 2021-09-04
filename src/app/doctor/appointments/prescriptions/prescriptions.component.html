@@ -63,14 +63,12 @@
       <ng-container matColumnDef="appointmentDate">
         <th mat-header-cell *matHeaderCellDef> Appointment Date </th>
         <td mat-cell *matCellDef="let element"> {{element.appointment.appointmentDate | date : 'medium'}} </td>
+        <td  class="text-center"></td>
       </ng-container>
-      <ng-container matColumnDef="view">
+      <ng-container matColumnDef="delete">
         <th mat-header-cell *matHeaderCellDef> </th>
         <td mat-cell *matCellDef="let element">
-          <a href="javascript:void(0);" (click)="deleteMedicine(element)"
-          class="btn btn-sm bg-danger-light">
-          <i class="fas fa-times"></i> Cancel
-        </a>
+          <i title='delete' class="fas fa-trash" (click)="openModal(DeleteTemplate, element)" style="color: red;cursor: pointer;"></i>
         </td>
       </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -121,4 +119,20 @@
   <!-- <button type="button" class="btn btn-default" (click)="postpone()">Postpone</button> -->
   </div>
 </div>
+</ng-template>
+
+<ng-template #DeleteTemplate>
+  <div class="modal-header">
+    <h2 class="modal-title pull-left text-danger">Delete Prescription</h2>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="patient-info">
+    <p class="align-items-start">Are you sure want delete prescription?</p>
+    <div class="modal-footer" style="margin-top:25px">
+      <button type="button" class="btn btn-default" (click)="modalRef.hide()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="deleteMedicine(selectedPrescription)">Yes</button>
+    </div>
+  </div>
 </ng-template>

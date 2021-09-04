@@ -103,6 +103,10 @@ export class AppointmentService {
     const options = userId ? { params: new HttpParams().set('id', userId)} : {};
     return this.http.get<any>(environment.apiUrl + `api/AppointmentPrescriptions/GetByPatientId`, options);
   }
+
+  deleteAppointmentPrescriptionById(id){
+    return this.http.delete<any>(environment.apiUrl + `api/AppointmentPrescriptions/${id}`);
+  }
   
   set prescriptions(prescription:any[]) {
       this.prescriptionData = prescription;

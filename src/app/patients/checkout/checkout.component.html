@@ -78,7 +78,7 @@
 												</div>
 												<div class="col-6">
 													<div class="form-group">
-														
+														<p *ngFor="let attachment of attachments; let i = index" style="color: #ee910e;">{{attachment.fileName}} <i title='delete' class="fas fa-trash" (click)="deleteAttachment(i)" style="color: red;cursor: pointer;"></i></p>
 													</div>
 												</div>
 											</div>

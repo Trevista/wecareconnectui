@@ -44,11 +44,11 @@ export class SettingsComponent implements OnInit {
       dateOfBirth: ['', [Validators.required]],
       profileDescription: [null],
       contactInfo: this.getContactInfo(),
-      isCorporate: ['true', [Validators.required]],
-      CommonDiseases: ['', [Validators.required]],
-      OtherDiseases:['', [Validators.required]],
-      anySurgeryIn6Months: ['false', [Validators.required]],
-      surgeryDetails: ['', [Validators.required]],
+      isCorporate: [true],
+      CommonDiseases: [''],
+      OtherDiseases:[''],
+      anySurgeryIn6Months: ['false'],
+      surgeryDetails: [''],
     });
     this.getCountries();
     this.getCommonDiseases();
@@ -148,18 +148,18 @@ export class SettingsComponent implements OnInit {
   }
 
   getCommonDiseases() {
-    let diseases:any[] = ["Sugar", "Diabates", "thyroid"];
-    this.CommonDiseases = diseases.map(disease => <Select2OptionData> {id: disease, text: disease})
-    // this.userService.getCommonDiseases().subscribe(data => {
-    //   this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease, text: disease})
-    // })
+    // let diseases:any[] = ["Sugar", "Diabates", "thyroid"];
+    // this.CommonDiseases = diseases.map(disease => <Select2OptionData> {id: disease, text: disease})
+    this.userService.getCommonDiseases().subscribe(data => {
+      this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease, text: disease})
+    })
   }
 
   getCorporateCustomers() {
-    let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
-    this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
-    // this.userService.getCorporateCompanies().subscribe(data => {
-    //   this.CommonDiseases = data.map(company => <Select2OptionData> {id: company, text: company});
-    // })
+    // let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
+    // this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
+    this.userService.getCorporateCompanies().subscribe(data => {
+      this.CommonDiseases = data.map(company => <Select2OptionData> {id: company, text: company});
+    })
   }
 }

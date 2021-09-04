@@ -8,6 +8,7 @@ import { UserService } from 'src/app/services/user.service';
 import { CommonServiceService } from './../../common-service.service';
 import { Appointment } from 'src/app/models/appointment';
 import { AppointmentService } from 'src/app/services/appointment.service';
+import { FileloaderService } from 'src/app/services/fileloader.service';
 
 @Component({
   selector: 'app-checkout',
@@ -35,7 +36,7 @@ export class CheckoutComponent implements OnInit {
   isPatient = false;
     cuponcodevalidation: boolean=false;
     isConfirmed:boolean = false;
-
+  attachments:any[] = [];
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -44,7 +45,8 @@ export class CheckoutComponent implements OnInit {
     public userService: UserService,
     private toastr: ToastrService,
     private formBuilder: FormBuilder,
-    public appointmentService: AppointmentService
+    public appointmentService: AppointmentService,
+    private fileService: FileloaderService,
   ) {}
 
   ngOnInit(): void {
@@ -186,11 +188,21 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  attachment(e){
+  attachment(event){
+    let fileToUpload: File = event.target.files[0];
+    console.log(fileToUpload.name);
+    const formData = new FormData();
+    formData.append('file', fileToUpload, fileToUpload.name);
 
+    this.fileService.uploadFile(formData, this.auth.userValue.id)
+      .subscribe(e => {
+        let path: string = e.filePath.split('?')[0];
+        let attachment = {filePath: path, fileName: path.split('/').pop()}
+        this.attachments.push(attachment);
+      });
   }
 
-  onNewAttachment(){
-    
+  deleteAttachment(index: number){
+    this.attachments.splice(index, 1);
   }
 }

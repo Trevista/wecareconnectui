@@ -428,16 +428,22 @@
         *ngFor="let item of profileForm.get('registrations')['controls']; let i = index;">
         <div class="registrations-info" [formGroupName]="i">
           <div class="row form-row reg-cont">
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
               <div class="form-group">
                 <label>Registrations</label>
                 <input type="text" class="form-control" formControlName="name">
               </div>
             </div>
-            <div class="col-12 col-md-3">
+            <div class="col-12 col-md-2">
               <div class="form-group">
                 <label>Year</label>
                 <input type="text" class="form-control" formControlName="year">
+              </div>
+            </div>
+            <div class="col-12 col-md-2">
+              <div class="form-group">
+                <label>Qualification</label>
+                <input type="text" class="form-control" formControlName="qualification">
               </div>
             </div>
             <div class="col-12 col-md-4">
@@ -488,12 +494,12 @@
             <div class="col-12 col-md-6 mt-5 nopadding">
               <div class="form-check">
                 <mat-radio-group formControlName="isCorporate">
-                  <mat-radio-button value="true">Individual </mat-radio-button>&nbsp;&nbsp;
-                  <mat-radio-button  value="false">Corporate</mat-radio-button>
+                  <mat-radio-button [value]="false">Individual </mat-radio-button>&nbsp;&nbsp;
+                  <mat-radio-button  [value]="true">Corporate</mat-radio-button>
                 </mat-radio-group>
               </div>
             </div>
-            <div class="col-12 col-md-6 mt-3 pl-15" *ngIf="profileForm.value.isCorporate == 'false'">
+            <div class="col-12 col-md-6 mt-3 pl-15" *ngIf="profileForm.value.isCorporate">
               <label>Corporate Customer</label>
               <div class="add-more">
                 <ng-select2 width="100%" id="CorporateCustomer" formControlName="CorporateCustomer" [data]="CorporateCustomers"></ng-select2>

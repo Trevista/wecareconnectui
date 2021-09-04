@@ -76,8 +76,8 @@ export class SettingsComponent implements OnInit {
       registrations : this.fb.array([
         this.getRegistrations()
       ]),
-      language: ['', Validators.required],
-      isCorporate: ['true', Validators.required]
+      language: [''],
+      isCorporate: [true]
     });
 
     this.getSpecialities();
@@ -96,11 +96,11 @@ export class SettingsComponent implements OnInit {
   }
   
   getLanguages() {
-    let langs:any[] = ["English", "Telugu", "Hindi"];
-    this.languages = langs.map(language => <Select2OptionData> {id: language, text: language})
-    // this.userService.getLanguages().subscribe(data => {
-    //   this.languages = data.map(language => <Select2OptionData> {id: language, text: language})
-    // })
+    // let langs:any[] = ["English", "Telugu", "Hindi"];
+    // this.languages = langs.map(language => <Select2OptionData> {id: language, text: language})
+    this.userService.getLanguages().subscribe(data => {
+      this.languages = data.map(language => <Select2OptionData> {id: language, text: language})
+    })
   }
 
   get f(){
@@ -379,15 +379,15 @@ onProfileSelect(event){
     this.fileService.uploadFile(formData, this.auth.userValue.id)
       .subscribe(e => {
         const path = e.filePath.split('?');
-        item.value.Attachment = path[0] + `?raw=1`;
+        item.value.attachment = path[0] + `?raw=1`;
       });
   }
 
   getCorporateCustomers() {
-    let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
-    this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
-    // this.userService.getCorporateCompanies().subscribe(data => {
-    //   this.CommonDiseases = data.map(company => <Select2OptionData> {id: company, text: company});
-    // })
+    // let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
+    // this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
+    this.userService.getCorporateCompanies().subscribe(data => {
+      this.CorporateCustomers = data.map(company => <Select2OptionData> {id: company, text: company});
+    })
   }
 }
