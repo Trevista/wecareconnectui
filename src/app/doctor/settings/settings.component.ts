@@ -238,7 +238,8 @@ getRegistrations(): FormGroup{
       id: 0,
       name: '',
       year: '',
-      attachment: ''
+      attachment: '',
+      qualification:''
     });
   }
 
