@@ -173,6 +173,7 @@ export class CheckoutComponent implements OnInit {
         appoinmentId: 0,
 
       },
+      Reports:this.formReports(),
       doctor: this.doctorDetails
     };
 
@@ -204,5 +205,13 @@ export class CheckoutComponent implements OnInit {
 
   deleteAttachment(index: number){
     this.attachments.splice(index, 1);
+  }
+
+  formReports():any[]{
+    let reports: any[] = [];
+    this.attachments.forEach(a => {
+      reports.push({attachment: a.filePath});
+    })
+    return reports;
   }
 }

@@ -61,7 +61,8 @@
                                 Slider2</a></li>
                     </ul>
                 </li>
-                <li [class.active]="base === 'doctor' || (base === 'patients' && page === 'patient-profile')"
+                <ng-container *ngIf="auth">
+                    <li [class.active]="base === 'doctor' || (base === 'patients' && page === 'patient-profile')"
                     (click)="addStyle('doctor')" routerLinkActive="active" class="has-submenu" style="cursor: pointer;" *ngIf="doctormodule">
                     <a href="javascript:void(0);">Doctors <!--<i class="fas fa-chevron-down"></i--></a>
                     <ul class="submenu" id="doctor">
@@ -119,6 +120,7 @@
                                 Password</a></li>
                     </ul>
                 </li>
+                </ng-container>
                 <!--<li [class.active]="base === 'pharmacy'" class="has-submenu" (click)="addStyle('pharmacy')">
                     <a href="javascript:void(0)">Pharmacy <i class="fas fa-chevron-down"></i></a>-->
                     <!--<ul class="submenu" id="pharmacy">

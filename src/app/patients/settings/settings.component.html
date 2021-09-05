@@ -25,7 +25,7 @@
             <div class="col-12 col-md-6">
               <div class="form-group">
                 <label>First Name</label>
-                <input type="text" [ngClass]="(f.get('firstName').invalid && (f.get('firstName').touched || f.get('firstName').dirty || formSubmitted) && f.get('firstName').errors?.required)? 'form-control is-invalid' : 'form-control' "  formControlName="firstName">
+                <input type="text" [ngClass]="(f.get('firstName').invalid && (f.get('firstName').touched || f.get('firstName').dirty || formSubmitted) && f.get('firstName').errors?.required)? 'form-control is-invalid' : 'form-control' "  formControlName="firstName" readonly>
                 <div class="text-danger" *ngIf="f.get('firstName').invalid && (f.get('firstName').touched || f.get('firstName').dirty || formSubmitted) && f.get('firstName').errors?.required">
                   First Name required
                 </div>
@@ -34,7 +34,7 @@
             <div class="col-12 col-md-6">
               <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" [ngClass]="(f.get('lastName').invalid && (f.get('lastName').touched || f.get('lastName').dirty || formSubmitted) && f.get('lastName').errors?.required)? 'form-control is-invalid' : 'form-control' " formControlName="lastName">
+                <input type="text" [ngClass]="(f.get('lastName').invalid && (f.get('lastName').touched || f.get('lastName').dirty || formSubmitted) && f.get('lastName').errors?.required)? 'form-control is-invalid' : 'form-control' " formControlName="lastName" readonly>
                 <div class="text-danger" *ngIf="f.get('lastName').invalid && (f.get('lastName').touched || f.get('lastName').dirty || formSubmitted) && f.get('lastName').errors?.required">
                   Last Name required
                 </div>
@@ -139,7 +139,7 @@
               <div class="form-group">
                 <label>Other Diseases</label>
                 <div class="add-more">
-                  <textarea [ngClass]="'form-control' " formControlName="OtherDiseases"></textarea>
+                  <input type="text" [ngClass]="'form-control' " formControlName="OtherDiseases">
                 </div>
               </div>
             </div>
