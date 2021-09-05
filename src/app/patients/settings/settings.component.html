@@ -25,7 +25,7 @@
             <div class="col-12 col-md-6">
               <div class="form-group">
                 <label>First Name</label>
-                <input type="text" [ngClass]="(f.get('firstName').invalid && (f.get('firstName').touched || f.get('firstName').dirty || formSubmitted) && f.get('firstName').errors?.required)? 'form-control is-invalid' : 'form-control' "  formControlName="firstName" readonly>
+                <input type="text" [ngClass]="(f.get('firstName').invalid && (f.get('firstName').touched || f.get('firstName').dirty || formSubmitted) && f.get('firstName').errors?.required)? 'form-control is-invalid' : 'form-control' "  formControlName="firstName">
                 <div class="text-danger" *ngIf="f.get('firstName').invalid && (f.get('firstName').touched || f.get('firstName').dirty || formSubmitted) && f.get('firstName').errors?.required">
                   First Name required
                 </div>
@@ -34,7 +34,7 @@
             <div class="col-12 col-md-6">
               <div class="form-group">
                 <label>Last Name</label>
-                <input type="text" [ngClass]="(f.get('lastName').invalid && (f.get('lastName').touched || f.get('lastName').dirty || formSubmitted) && f.get('lastName').errors?.required)? 'form-control is-invalid' : 'form-control' " formControlName="lastName" readonly>
+                <input type="text" [ngClass]="(f.get('lastName').invalid && (f.get('lastName').touched || f.get('lastName').dirty || formSubmitted) && f.get('lastName').errors?.required)? 'form-control is-invalid' : 'form-control' " formControlName="lastName">
                 <div class="text-danger" *ngIf="f.get('lastName').invalid && (f.get('lastName').touched || f.get('lastName').dirty || formSubmitted) && f.get('lastName').errors?.required">
                   Last Name required
                 </div>
@@ -184,7 +184,7 @@
                   <div class="col-12 col-md-6" *ngIf="patientprofileForm.value.isCorporate">
                     <label>Corporate Customer</label>
                     <div class="add-more">
-                      <ng-select2 width="100%" id="CorporateCustomer" formControlName="CorporateCustomer" [data]="CorporateCustomers"></ng-select2>
+                      <ng-select2 width="100%" id="CorporateCustomer" formControlName="corporateCompany" [data]="CorporateCustomers"></ng-select2>
                     </div>
                   </div>
                 </div>

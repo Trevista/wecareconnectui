@@ -77,7 +77,8 @@ export class SettingsComponent implements OnInit {
         this.getRegistrations()
       ]),
       language: [''],
-      isCorporate: [true]
+      isCorporate: [true],
+      corporateCompany:['']
     });
 
     this.getSpecialities();
@@ -388,7 +389,7 @@ onProfileSelect(event){
     // let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
     // this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
     this.userService.getCorporateCompanies().subscribe(data => {
-      this.CorporateCustomers = data.map(company => <Select2OptionData> {id: company, text: company});
+      this.CorporateCustomers = data.map(company => <Select2OptionData> {id: company.id, text: company.companyName});
     })
   }
 }

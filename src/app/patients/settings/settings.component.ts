@@ -37,8 +37,8 @@ export class SettingsComponent implements OnInit {
       userName: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
       userId: [this.auth.userValue.id, [Validators.required]],
       email: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
-      firstName: [{value: this.auth.userValue.firstName}, [Validators.required]],
-      lastName: [{value: this.auth.userValue.lastName}, [Validators.required]],
+      firstName: [this.auth.userValue.firstName, [Validators.required]],
+      lastName: [this.auth.userValue.lastName, [Validators.required]],
       phoneNumber: ['', [Validators.required]],
       gender: [null],
       dateOfBirth: ['', [Validators.required]],
@@ -49,6 +49,7 @@ export class SettingsComponent implements OnInit {
       OtherDiseases:[''],
       anySurgeryIn6Months: ['false'],
       surgeryDetails: [''],
+      corporateCompany:['']
     });
     this.getCountries();
     this.getCommonDiseases();
@@ -151,7 +152,7 @@ export class SettingsComponent implements OnInit {
     // let diseases:any[] = ["Sugar", "Diabates", "thyroid"];
     // this.CommonDiseases = diseases.map(disease => <Select2OptionData> {id: disease, text: disease})
     this.userService.getCommonDiseases().subscribe(data => {
-      this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease, text: disease})
+      this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease.id, text: disease.diseaseName})
     })
   }
 
@@ -159,7 +160,7 @@ export class SettingsComponent implements OnInit {
     // let companyNames:any[] = ["Appolo", "Yashoda", "Orange Hospital"];
     // this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
     this.userService.getCorporateCompanies().subscribe(data => {
-      this.CommonDiseases = data.map(company => <Select2OptionData> {id: company, text: company});
+      this.CorporateCustomers = data.map(company => <Select2OptionData> {id: company.id, text: company.companyName});
     })
   }
 }
