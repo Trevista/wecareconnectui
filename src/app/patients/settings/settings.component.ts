@@ -15,6 +15,7 @@ import { Options } from 'select2';
   styleUrls: ['./settings.component.css']
 })
 export class SettingsComponent implements OnInit {
+  [x: string]: any;
 
   constructor(private fb: FormBuilder,
               private auth: AuthenticationService, private toastr: ToastrService,
@@ -39,18 +40,20 @@ export class SettingsComponent implements OnInit {
       email: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
       firstName: [this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
-      phoneNumber: ['', [Validators.required]],
+      phoneNumber: [this.auth.userValue.phoneNumber, [Validators.required]],
       gender: [null],
       dateOfBirth: ['', [Validators.required]],
       profileDescription: [null],
       contactInfo: this.getContactInfo(),
       isCorporate: [true],
-      CommonDiseases: [''],
+      commonDiseases: [''],
       OtherDiseases:[''],
       anySurgeryIn6Months: ['false'],
       surgeryDetails: [''],
-      corporateCompany:['']
+      corporateCompany:[''],
+      languagesKnown:['']
     });
+    this.getLanguages();
     this.getCountries();
     this.getCommonDiseases();
     this.getCorporateCustomers();
@@ -101,6 +104,8 @@ export class SettingsComponent implements OnInit {
         this.patientprofileForm.patchValue({
           ...x,
           dateOfBirth: this.date.transform(x.dateOfBirth, 'yyyy-MM-dd'),
+          languagesKnown: x.languagesKnown? x.languagesKnown.split(',') : [],
+          commonDiseases: x.commonDiseases? x.commonDiseases.split(',') : []
         });
       }
       console.log(this.f);
@@ -128,9 +133,13 @@ export class SettingsComponent implements OnInit {
     console.log(this.patientprofileForm.value);
     this.formSubmitted = true;
     if (this.patientprofileForm.valid) {
-      const profileValue = {
+      let profileValue:any = {
         ...this.patientprofileForm.value
       };
+      
+      profileValue.languagesKnown = profileValue.languagesKnown.join();
+      profileValue.commonDiseases = profileValue.commonDiseases.join();
+
       if (profileValue.id > 0) {
         this.userService.updateProfile(profileValue).subscribe(x => {
           this.toastr.success('', 'Profile Updated Succesfully');
@@ -152,7 +161,7 @@ export class SettingsComponent implements OnInit {
     // let diseases:any[] = ["Sugar", "Diabates", "thyroid"];
     // this.CommonDiseases = diseases.map(disease => <Select2OptionData> {id: disease, text: disease})
     this.userService.getCommonDiseases().subscribe(data => {
-      this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease.id, text: disease.diseaseName})
+      this.CommonDiseases = data.map(disease => <Select2OptionData> {id: disease.disease, text: disease.disease})
     })
   }
 
@@ -161,6 +170,14 @@ export class SettingsComponent implements OnInit {
     // this.CorporateCustomers = companyNames.map(company => <Select2OptionData> {id: company, text: company})
     this.userService.getCorporateCompanies().subscribe(data => {
       this.CorporateCustomers = data.map(company => <Select2OptionData> {id: company.id, text: company.companyName});
+    })
+  }
+
+  getLanguages() {
+    // let langs:any[] = ["English", "Telugu", "Hindi"];
+    // this.languages = langs.map(language => <Select2OptionData> {id: language, text: language})
+    this.userService.getLanguages().subscribe(data => {
+      this.languages = data.map(language => <Select2OptionData> {id: language.language, text: language.language})
     })
   }
 }

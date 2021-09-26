@@ -78,7 +78,8 @@ export class SettingsComponent implements OnInit {
       ]),
       language: [''],
       isCorporate: [true],
-      corporateCompany:['']
+      corporateCompany:[''],
+      languagesKnown:['']
     });
 
     this.getSpecialities();
@@ -100,7 +101,7 @@ export class SettingsComponent implements OnInit {
     // let langs:any[] = ["English", "Telugu", "Hindi"];
     // this.languages = langs.map(language => <Select2OptionData> {id: language, text: language})
     this.userService.getLanguages().subscribe(data => {
-      this.languages = data.map(language => <Select2OptionData> {id: language, text: language})
+      this.languages = data.map(language => <Select2OptionData> {id: language.language, text: language.language})
     })
   }
 
@@ -136,7 +137,8 @@ getProfile() {
             id : a,
             value: a
           })),
-          specializations: x.specializations.map(z => z.name)
+          specializations: x.specializations.map(z => z.name),
+          languagesKnown: x.languagesKnown? x.languagesKnown.split(',') : [],
         });
 
         this.profilePic = x.profilePic;
@@ -333,12 +335,13 @@ onSubmit(){
     console.log(this.profileForm.value);
     console.log(this.profileForm);
     if (this.profileForm.valid){
-      const profileValue = {
+      let profileValue:any = {
         ...this.profileForm.value,
         feePerVisit: this.profileForm.get('feePerVisit').value || 0,
         services: this.profileForm.get('services').value.map(x => x.value).toString(),
         specializations: this.profileForm.get('specializations').value.map(x => ({ name: x, id: 0  }))
       };
+      profileValue.languagesKnown = profileValue.languagesKnown.join();
       if (profileValue.id > 0){
         this.userService.updateProfile(profileValue).subscribe(x => {
           this.toastr.success('', 'Profile Updated Succesfully');

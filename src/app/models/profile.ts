@@ -21,6 +21,8 @@ export interface Profile {
   phoneNumber: string;
   gender: string;
   dateOfBirth?: Date | null;
+  languagesKnown:string;
+  commonDiseases:string;
 }
 
 export interface ClinicInfo {
