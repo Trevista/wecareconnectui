@@ -341,7 +341,7 @@ onSubmit(){
         services: this.profileForm.get('services').value.map(x => x.value).toString(),
         specializations: this.profileForm.get('specializations').value.map(x => ({ name: x, id: 0  }))
       };
-      profileValue.languagesKnown = profileValue.languagesKnown.join();
+      profileValue.languagesKnown = profileValue.languagesKnown? profileValue.languagesKnown.join() : '';
       if (profileValue.id > 0){
         this.userService.updateProfile(profileValue).subscribe(x => {
           this.toastr.success('', 'Profile Updated Succesfully');

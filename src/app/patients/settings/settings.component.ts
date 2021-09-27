@@ -8,6 +8,7 @@ import { FileloaderService } from 'src/app/services/fileloader.service';
 import { CountriesResponse, State } from 'src/app/models/countriesresponse';
 import { Select2OptionData } from 'ng-select2';
 import { Options } from 'select2';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-settings',
@@ -19,7 +20,8 @@ export class SettingsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private auth: AuthenticationService, private toastr: ToastrService,
-              private userService: UserService, private date: DatePipe, private fileService: FileloaderService) { }
+              private userService: UserService, private date: DatePipe, private fileService: FileloaderService,
+              private spinner: NgxSpinnerService) { }
   patientprofileForm: FormGroup;
   files: File[] = [];
   profilePic: any = 'assets/img/doctors/doctor-thumb-02.jpg';
@@ -37,15 +39,15 @@ export class SettingsComponent implements OnInit {
       profilePic: [''],
       userName: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
       userId: [this.auth.userValue.id, [Validators.required]],
-      email: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
+      email: [this.auth.userValue.email, [Validators.required]],
       firstName: [this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
-      phoneNumber: [this.auth.userValue.phoneNumber, [Validators.required]],
+      phoneNumber: [{value: this.auth.userValue.phoneNumber, disabled: true}, [Validators.required]],
       gender: [null],
       dateOfBirth: ['', [Validators.required]],
       profileDescription: [null],
       contactInfo: this.getContactInfo(),
-      isCorporate: [true],
+      isCorporate: [false],
       commonDiseases: [''],
       OtherDiseases:[''],
       anySurgeryIn6Months: ['false'],
@@ -133,21 +135,29 @@ export class SettingsComponent implements OnInit {
     console.log(this.patientprofileForm.value);
     this.formSubmitted = true;
     if (this.patientprofileForm.valid) {
+      this.spinner.show();
       let profileValue:any = {
         ...this.patientprofileForm.value
       };
       
-      profileValue.languagesKnown = profileValue.languagesKnown.join();
-      profileValue.commonDiseases = profileValue.commonDiseases.join();
+      profileValue.languagesKnown = profileValue.languagesKnown? profileValue.languagesKnown.join() : '';
+      profileValue.commonDiseases = profileValue.commonDiseases? profileValue.commonDiseases.join() : '';
 
       if (profileValue.id > 0) {
         this.userService.updateProfile(profileValue).subscribe(x => {
+          this.spinner.hide();
           this.toastr.success('', 'Profile Updated Succesfully');
-        }, (error) => this.toastr.error(error.title, 'Error Occured while updating Profile'));
+        }, (error) =>{
+          this.toastr.error(error.title, 'Error Occured while updating Profile');
+          this.spinner.hide();
+        });
       } else {
         this.userService.saveProfile(profileValue).subscribe(x => {
+          this.spinner.hide();
           this.toastr.success('', 'Profile Updated Succesfully');
-        }, (error) => console.log(error));
+        }, (error) =>{
+          this.spinner.hide();
+        });
       }
 
     }

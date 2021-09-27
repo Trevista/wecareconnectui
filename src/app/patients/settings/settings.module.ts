@@ -7,6 +7,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgSelect2Module } from 'ng-select2';
 import { StatePipe } from 'src/app/pipes/states/state.pipe';
 import {MatRadioModule} from '@angular/material/radio';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [SettingsComponent, StatePipe],
@@ -15,7 +16,8 @@ import {MatRadioModule} from '@angular/material/radio';
     SettingsRoutingModule, FormsModule,
     ReactiveFormsModule,
     NgSelect2Module,
-    MatRadioModule
+    MatRadioModule,
+    NgxSpinnerModule
   ],
   providers: [DatePipe]
 })

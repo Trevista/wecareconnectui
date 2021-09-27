@@ -53,7 +53,8 @@ export class RegisterComponent implements OnInit {
       confirmPassword : ['', Validators.required],
       role : [3, Validators.required],
       acceptTerms : [false, Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.maxLength(10)]]
+      phoneNumber: ['', [Validators.required, Validators.maxLength(10)]],
+      ReferralCode:['']
       });
     this.getpatients();
     this.getDoctors();

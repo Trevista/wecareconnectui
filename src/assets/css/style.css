@@ -8399,3 +8399,9 @@ ul.benifits-col li i{
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+
+
+.required {
+	color : red;
+	padding-left: 3px;
+}
