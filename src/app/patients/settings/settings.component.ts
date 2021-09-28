@@ -39,7 +39,7 @@ export class SettingsComponent implements OnInit {
       profilePic: [''],
       userName: [{ value: this.auth.userValue.email, disabled: true }, [Validators.required]],
       userId: [this.auth.userValue.id, [Validators.required]],
-      email: [this.auth.userValue.email, [Validators.required]],
+      email: [this.auth.userValue.email],
       firstName: [this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
       phoneNumber: [{value: this.auth.userValue.phoneNumber, disabled: true}, [Validators.required]],
@@ -53,7 +53,7 @@ export class SettingsComponent implements OnInit {
       anySurgeryIn6Months: ['false'],
       surgeryDetails: [''],
       corporateCompany:[''],
-      languagesKnown:['']
+      languagesKnown:['', [Validators.required]]
     });
     this.getLanguages();
     this.getCountries();

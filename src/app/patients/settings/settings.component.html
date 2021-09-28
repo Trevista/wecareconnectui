@@ -58,11 +58,11 @@
             </div>
             <div class="col-12 col-md-6">
               <div class="form-group">
-                <label>Email ID<span class="required">*</span></label>
+                <label>Email ID</label>
                 <input type="email" [ngClass]="(f.get('email').invalid && (f.get('email').touched || f.get('email').dirty || formSubmitted) && f.get('email').errors?.required)? 'form-control is-invalid' : 'form-control' " formControlName="email">
-                <div class="text-danger" *ngIf="f.get('email').invalid && (f.get('email').touched || f.get('email').dirty || formSubmitted) && f.get('email').errors?.required">
+                <!-- <div class="text-danger" *ngIf="f.get('email').invalid && (f.get('email').touched || f.get('email').dirty || formSubmitted) && f.get('email').errors?.required">
                   Email ID required
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="col-12 col-md-6">
@@ -204,9 +204,12 @@
               <div class="col-12 col-md-6">
                 <div class="row">
                   <div class="col-12 col-md-6">
-                    <h4 class="card-title">Known Languages</h4>
+                    <h4 class="card-title">Known Languages<span class="required">*</span></h4>
                     <div class="add-more">
                       <ng-select2 width="100%" id="language" formControlName="languagesKnown" [data]="languages" [options]="options"></ng-select2>
+                      <div class="text-danger" *ngIf="formSubmitted && f.get('languagesKnown').errors?.required">
+                        Known Language Required
+                      </div>
                     </div>
                   </div>
                 </div>
