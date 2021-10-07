@@ -32,9 +32,10 @@
                                             </div>
                                             <div class="col-md-6" *ngIf="!isPrintOption">
                                                 <div class="invoice-info">
-                                                    <strong class="customer-text  text-right">Doctor Name</strong>
+                                                    <strong class="customer-text  text-right">Dr. {{prescription?.appointment.doctor.lastName}} {{prescription?.appointment.doctor.firstName}}</strong>
                                                     <p class="invoice-details invoice-details-two  text-right">
-                                                        Dr. {{prescription?.appointment.doctor.lastName}} {{prescription?.appointment.doctor.firstName}} <br>
+                                                        Designation:  {{prescription?.appointment.doctor.profile.educationBackground ? prescription?.appointment.doctor.profile.educationBackground : []  | pluck:"degree"}}
+                                                        <br>
                                                         Registration No: {{prescription?.appointment.doctor.profile.registrations ? prescription?.appointment.doctor.profile.registrations[0].name : ''}}
                                                     </p>
                                                 </div>
@@ -44,10 +45,12 @@
                                     <div class="invoice-item"  *ngIf="isPrintOption">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <div class="invoice-info">
-                                                    <strong class="customer-text">Doctor Name</strong>
+                                                <div class="invoice-info text-right">
+                                                    <strong class="customer-text">Dr. {{prescription?.appointment.doctor.lastName}} {{prescription?.appointment.doctor.firstName}}</strong>
                                                     <p class="invoice-details invoice-details-two">
-                                                        Dr. {{prescription?.appointment.doctor.lastName}} {{prescription?.appointment.doctor.firstName}} <br>
+                                                        Designation:  {{prescription?.appointment.doctor.profile.educationBackground ? prescription?.appointment.doctor.profile.educationBackground: []  | pluck:"degree" }}
+                                                        <br>
+                                                        Registration No: {{prescription?.appointment.doctor.profile.registrations ? prescription?.appointment.doctor.profile.registrations[0].name : ''}}
                                                     </p>
                                                 </div>
                                             </div>
@@ -57,25 +60,24 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="invoice-info">
-                                                    <strong class="customer-text">Patient Name</strong>
-                                                    <p class="invoice-details invoice-details-two">
-                                                        Mr/Mrs. {{prescription?.appointment.lastName}} {{prescription?.appointment.firstName}} <br>
-                                                    </p>
+                                                    <strong class="customer-text">Mr/Mrs. {{prescription?.appointment.lastName}} {{prescription?.appointment.firstName}}</strong><br>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                     <!-- /prescription Notes and instrunctions -->
                                     <div class="invoice-item invoice-table-wrap">
-                                        <strong class="customer-text">Prescription Notes:</strong>
+                                        <br><strong class="customer-text">PROVISIONAL DIAGNOSIS:</strong><br><br>
+                                        <strong class="customer-text">NOTES:</strong>  
                                         <p class="invoice-details invoice-details-two">{{prescriptionNotes?.notes}}</p>
-                                        <strong class="customer-text">Prescription Instructions:</strong>
+                                        <br><strong class="customer-text">DIAGNOSTIC TESTS:</strong><br><br>
+                                        <strong class="customer-text">INSTRUCTIONS:</strong>
                                         <p class="invoice-details invoice-details-two">{{prescriptionNotes?.instructions}}</p>
                                     </div>
                                     <!-- prescription Notes and instrunctions -->
                                     <br>
                                     <div class="invoice-item invoice-table-wrap">
-                                        <strong class="customer-text">Prescription</strong>
+                                        <strong class="customer-text">MEDICINES</strong>
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="table-responsive">
@@ -113,7 +115,7 @@
                                     <!-- prescription Information -->
                                     <div class="prescription-footer">
                                         <h4>JL MUSH MED TRIANGLE PRIVATE LIMITED </h4>
-                                        <p class="text-muted mb-0">Disclaimer: This prescription is based on the information provided by you in an online consultation and not on any physical verification. Visit a doctor in case of emergency. This prescription is valid in india only.</p>
+                                        <p class="text-muted mb-0">DISCLAIMER: THIS PRESCRIPTION IS BASED ON THE INFORMATION PROVIDED BY YOU IN AN ONLINE CONSULTATION AND NOT ON ANY PHYSICAL VERIFICATION. VISIT DOCTOR IN CASE OF EMERGENCY. THIS PRESCRIPTION IS VALID IN INDIA ONLY.</p>
                                     </div>
                                     <!-- /prescription Information -->
     
