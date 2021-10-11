@@ -46,6 +46,7 @@ export class SettingsComponent implements OnInit, AfterViewChecked {
   context;
   isDrawing = false;
   img;
+  loading:boolean = false;
   
   ngOnInit(): void {
     // Pricing Options Show
@@ -443,9 +444,10 @@ onProfileSelect(event){
   }
 
   save() {
-    this.img = this.sigPadElement.toDataURL("image/png");
+    this.loading = true;
+    let img = this.sigPadElement.toDataURL("image/png");
     // Split the base64 string in data and contentType
-    var block = this.img.split(";");
+    var block = img.split(";");
     // Get the content type of the image
     var contentType = block[0].split(":")[1];// In this case "image/gif"
     // get the real base64 content of the file
@@ -466,6 +468,7 @@ onProfileSelect(event){
         const path = e.filePath.split('?');
         this.img =  path[0] + `?raw=1`;
         this.profileForm.get('signatureAttachUrl').patchValue(this.img);
+        this.loading = false;
       });
   }
 
