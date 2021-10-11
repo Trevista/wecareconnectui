@@ -117,6 +117,7 @@ export class DashboardComponent implements OnInit {
   printPrescriptionDetails(prescription){
     this.prescriptionDetailsComponent.prescriptions = this.prescriptions.filter(p => prescription.appointmentId == p.appointmentId);
     this.prescriptionDetailsComponent.isPrintOption = true;
+    this.prescriptionDetailsComponent.getPrescriptionDetails();
     $("#print_patient_prescription").printThis({debug: true, importCSS: true });
   }
 }

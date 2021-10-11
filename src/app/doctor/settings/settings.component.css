@@ -25,3 +25,11 @@
 .pl-15{
     padding: 0px 15px 0px 0px !important;
 }
+
+canvas {
+    border: 1px solid #000;
+  }
+  
+span {
+width: 300px;
+}

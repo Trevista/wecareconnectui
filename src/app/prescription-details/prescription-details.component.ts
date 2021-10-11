@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppointmentService } from '../services/appointment.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-prescription-details',
@@ -18,10 +19,12 @@ export class PrescriptionDetailsComponent implements OnInit {
   patient:any;
   isPrintOption: boolean = false;
   prescriptionNotes: any;
+  sign:any;
 
   constructor(public appointmentService: AppointmentService
     , private route: ActivatedRoute
-    , private appoinmentService: AppointmentService) { }
+    , private appoinmentService: AppointmentService
+    , private userService: UserService) { }
 
   ngOnInit(): void {
     this.prescriptions = this.appoinmentService.prescriptions;
@@ -31,9 +34,13 @@ export class PrescriptionDetailsComponent implements OnInit {
   getPrescriptionDetails(){
     if(this.prescriptions && this.prescriptions.length > 0){
       this.prescription = this.prescriptions[0];
-      this.appointmentService.getAppointmentNotes(this.prescription.appointmentId).subscribe(data => {
-        this.prescriptionNotes = data;
+      this.userService.getProfile(this.prescription.appointment.doctorId).subscribe(x => {
+        this.sign = x.signatureAttachUrl;
+        this.appointmentService.getAppointmentNotes(this.prescription.appointmentId).subscribe(data => {
+          this.prescriptionNotes = data;
+        });
       });
+      
     }
   }
 

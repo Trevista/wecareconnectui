@@ -99,7 +99,8 @@
 											<div class="doc-info-cont">
 												<h4 class="doc-name"><a [routerLink]="'/patients/doctor-profile'" [queryParams]="{id: doctor.id}">{{doctor.doctorName}}</a></h4>
 												<p class="doc-speciality">{{doctor.education}}</p>
-												<p class="doc-speciality">Registration No: {{doctor.registrations ? doctor.registrations[0].name : ""}}</p>
+												<p class="doc-speciality">Registration No: {{doctor.registrations ? doctor.registrations : ""}}</p>
+												<p class="doc-speciality">Known Languages: {{doctor.languagesKnown ? doctor.languagesKnown : ""}}</p>
 												<h5 class="doc-department"><img [src]="doctor.speciality_profile || 'assets/img/doctors/doctor-thumb-02.jpg'" class="img-fluid" alt="Specialities">{{doctor.specalization}}</h5>
 												<div class="rating">
 													<i class="fas fa-star filled"></i>

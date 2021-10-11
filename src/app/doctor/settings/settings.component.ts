@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewChecked, ChangeDetectorRef, Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { ToastrService } from 'ngx-toastr';
@@ -16,12 +16,13 @@ declare var $: any;
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
 })
-export class SettingsComponent implements OnInit {
+export class SettingsComponent implements OnInit, AfterViewChecked {
 
   constructor(private fb: FormBuilder,
               private auth: AuthenticationService, private toastr: ToastrService,
               private userService: UserService, private date: DatePipe,
-              private fileService: FileloaderService, private domsanitizer: DomSanitizer) {}
+              private fileService: FileloaderService, private domsanitizer: DomSanitizer,
+              private changeDetector: ChangeDetectorRef) {}
 
   profileForm: FormGroup;
   educations: FormArray;
@@ -40,7 +41,12 @@ export class SettingsComponent implements OnInit {
   languages:Array<Select2OptionData> = []; 
   options: Options;
   CorporateCustomers: Array<Select2OptionData> = []; 
-
+  @ViewChild('sigPad') sigPad;
+  sigPadElement;
+  context;
+  isDrawing = false;
+  img;
+  
   ngOnInit(): void {
     // Pricing Options Show
 
@@ -79,7 +85,8 @@ export class SettingsComponent implements OnInit {
       language: [''],
       isCorporate: [true],
       corporateCompany:[''],
-      languagesKnown:['']
+      languagesKnown:[''],
+      SignatureAttachUrl:['']
     });
 
     this.getSpecialities();
@@ -95,6 +102,13 @@ export class SettingsComponent implements OnInit {
       multiple: true,
       tags: false
     }
+  }
+
+  ngAfterViewChecked() {
+    this.sigPadElement = this.sigPad.nativeElement;
+    this.context = this.sigPadElement.getContext('2d');
+    this.context.strokeStyle = '#3742fa';
+    this.changeDetector.detectChanges();
   }
   
   getLanguages() {
@@ -142,6 +156,7 @@ getProfile() {
         });
 
         this.profilePic = x.profilePic;
+        this.img = x.signatureAttachUrl;
 
         for (let i = 1; i < x.registrations.length; i++) {
           const register = <FormArray>this.profileForm.get('registrations');
@@ -394,5 +409,92 @@ onProfileSelect(event){
     this.userService.getCorporateCompanies().subscribe(data => {
       this.CorporateCustomers = data.map(company => <Select2OptionData> {id: company.id, text: company.companyName});
     })
+  }
+
+  @HostListener('document:mouseup', ['$event'])
+  onMouseUp(e) {
+    this.isDrawing = false;
+  }
+
+  onMouseDown(e) {
+    this.isDrawing = true;
+    const coords = this.relativeCoords(e);
+    this.context.moveTo(coords.x, coords.y);
+  }
+
+  onMouseMove(e) {
+    if (this.isDrawing) {
+      const coords = this.relativeCoords(e);
+      this.context.lineTo(coords.x, coords.y);
+      this.context.stroke();
+    }
+  }
+
+  private relativeCoords(event) {
+    const bounds = event.target.getBoundingClientRect();
+    const x = event.clientX - bounds.left;
+    const y = event.clientY - bounds.top;
+    return { x: x, y: y };
+  }
+
+  clear() {
+    this.context.clearRect(0, 0, this.sigPadElement.width, this.sigPadElement.height);
+    this.context.beginPath();
+  }
+
+  save() {
+    this.img = this.sigPadElement.toDataURL("image/png");
+    // Split the base64 string in data and contentType
+    var block = this.img.split(";");
+    // Get the content type of the image
+    var contentType = block[0].split(":")[1];// In this case "image/gif"
+    // get the real base64 content of the file
+    var realData = block[1].split(",")[1];// In this case "R0lGODlhPQBEAPeoAJosM...."
+
+    // Convert it to a blob to upload
+    var blob = this.b64toBlob(realData, contentType);
+    
+    this.saveSign(blob, "sign.png");
+  }
+
+  saveSign(blob: any, fileName) {
+    const formData = new FormData();
+    formData.append('file', blob, fileName);
+
+    const filepath = this.fileService.uploadFile(formData, this.auth.userValue.id)
+      .subscribe(e => {
+        const path = e.filePath.split('?');
+        this.img =  path[0] + `?raw=1`;
+        this.profileForm.get('SignatureAttachUrl').patchValue(this.img);
+      });
+  }
+
+  b64toBlob(b64Data, contentType) {
+    contentType = contentType || '';
+    var sliceSize = 512;
+
+    var byteCharacters = atob(b64Data);
+    var byteArrays = [];
+
+    for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+        var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+        var byteNumbers = new Array(slice.length);
+        for (var i = 0; i < slice.length; i++) {
+            byteNumbers[i] = slice.charCodeAt(i);
+        }
+
+        var byteArray = new Uint8Array(byteNumbers);
+
+        byteArrays.push(byteArray);
+    }
+
+    var blob = new Blob(byteArrays, {type: contentType});
+    return blob;
+  }
+
+  uploadSign(event){
+    let fileToUpload: File = event.target.files[0];
+    this.saveSign(fileToUpload, fileToUpload.name);
   }
 }

@@ -513,6 +513,38 @@
   </div>
   <!-- /Registrations -->
 
+  <div class="card">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-12 col-md-6">
+          <h4 class="card-title">Signature</h4>
+          <!-- <div class="upload-img">
+            <div class="change-attachment-btn">
+              <span><i class="fa fa-upload"></i> Upload</span>
+              <input type="file" class="upload" (change)="uploadSign($event)">
+            </div>
+          </div>
+          <br>
+          <h5>(OR)</h5> -->
+          <label>Sign Pad</label>
+          <div class="add-more">
+            <canvas #sigPad width="300" height="150" (mousedown)="onMouseDown($event)"
+  (mousemove)="onMouseMove($event)"></canvas>
+  <br/>
+  <button type="button" class="btn btn-light" (click)="clear()">clear</button>
+  <button type="button" class="btn btn-success" (click)="save()" style="margin-left: 10px;">Save</button>
+          </div>
+        </div>
+        <div class="col-12 col-md-6">
+          <div class="add-more">
+            <img style="max-width: 300px;margin-top: 100px;" [src]="img">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
   <div class="submit-section submit-btn-bottom">
     <button type="submit" class="btn btn-primary submit-btn">Save Changes</button>
   </div>

@@ -23,6 +23,7 @@ export interface Profile {
   dateOfBirth?: Date | null;
   languagesKnown:string;
   commonDiseases:string;
+  signatureAttachUrl: string;
 }
 
 export interface ClinicInfo {
