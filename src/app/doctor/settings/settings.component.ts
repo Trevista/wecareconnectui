@@ -86,7 +86,7 @@ export class SettingsComponent implements OnInit, AfterViewChecked {
       isCorporate: [true],
       corporateCompany:[''],
       languagesKnown:[''],
-      SignatureAttachUrl:['']
+      signatureAttachUrl:['']
     });
 
     this.getSpecialities();
@@ -465,7 +465,7 @@ onProfileSelect(event){
       .subscribe(e => {
         const path = e.filePath.split('?');
         this.img =  path[0] + `?raw=1`;
-        this.profileForm.get('SignatureAttachUrl').patchValue(this.img);
+        this.profileForm.get('signatureAttachUrl').patchValue(this.img);
       });
   }
 
