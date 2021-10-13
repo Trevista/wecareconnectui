@@ -497,6 +497,7 @@ onProfileSelect(event){
   }
 
   uploadSign(event){
+    this.loading = true;
     let fileToUpload: File = event.target.files[0];
     this.saveSign(fileToUpload, fileToUpload.name);
   }
