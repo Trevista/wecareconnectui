@@ -1,0 +1,25 @@
+body{
+    background-color: rgb(192, 193, 194);
+    
+    
+}
+
+h2{
+    background-color: navy;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    justify-content: center;
+}
+.paper{
+    background-color: white;
+    width: 70%;
+    border-radius: 10px;
+    border: 1px solid rgb(26, 24, 24);
+    padding: 30px;
+    margin: 0 auto;
+    border: none;
+}
+mark{
+    border-radius: 5px;
+}
