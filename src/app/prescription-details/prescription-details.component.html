@@ -106,6 +106,7 @@
                                             <div class="col-md-6"></div>
                                             <div class="col-md-6">
                                                 <div class="invoice-info text-right">
+                                                    <p *ngIf="!sign">Loading...</p>
                                                     <img [src]="sign" style="max-width: 150px;"><br>
                                                     <strong class="customer-text">SIGN OF DOCTOR</strong>
                                                 </div>
