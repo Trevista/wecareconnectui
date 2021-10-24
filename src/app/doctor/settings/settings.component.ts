@@ -16,7 +16,7 @@ declare var $: any;
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.css'],
 })
-export class SettingsComponent implements OnInit, AfterViewChecked {
+export class SettingsComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private auth: AuthenticationService, private toastr: ToastrService,
@@ -54,9 +54,9 @@ export class SettingsComponent implements OnInit, AfterViewChecked {
     this.profileForm = this.fb.group({
       id: [0, Validators.required],
       profilePic: [''],
-      userName: [{value: this.auth.userValue.email, disabled: true}, [Validators.required]],
+      userName: [{value: this.auth.userValue.email, disabled: false}],
       userId: [this.auth.userValue.id, [Validators.required]],
-      email: [{value: this.auth.userValue.email, disabled: true} , [Validators.required]],
+      email: [{value: this.auth.userValue.email, disabled: false} ],
       firstName: [ this.auth.userValue.firstName, [Validators.required]],
       lastName: [this.auth.userValue.lastName, [Validators.required]],
       phoneNumber: ['', [Validators.required]],
@@ -65,8 +65,8 @@ export class SettingsComponent implements OnInit, AfterViewChecked {
       profileDescription: ['', [Validators.required, Validators.minLength(5)]],
       clinicInfo: this.getClinic(),
       contactInfo: this.getContactInfo(),
-      services: ['', Validators.required],
-      specializations: ['', Validators.required],
+      services: [''],
+      specializations: [''],
       feePerVisit: [0],
       educationBackground : this.fb.array([
         this.getEducationBg()
@@ -106,10 +106,10 @@ export class SettingsComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.sigPadElement = this.sigPad.nativeElement;
-    this.context = this.sigPadElement.getContext('2d');
-    this.context.strokeStyle = '#3742fa';
-    this.changeDetector.detectChanges();
+    // this.sigPadElement = this.sigPad.nativeElement;
+    // this.context = this.sigPadElement.getContext('2d');
+    // this.context.strokeStyle = '#3742fa';
+    // this.changeDetector.detectChanges();
   }
   
   getLanguages() {
@@ -348,7 +348,6 @@ priceChange(event){
   }
 
 onSubmit(){
-    console.log(this.profileForm.value);
     console.log(this.profileForm);
     if (this.profileForm.valid){
       let profileValue:any = {
